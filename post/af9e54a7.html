@@ -1,0 +1,343 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>关于海康威视部分版本漏洞 | w0xking</title><meta name="author" content="0xking"><meta name="copyright" content="0xking"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="海康威视poc">
+<meta property="og:type" content="article">
+<meta property="og:title" content="关于海康威视部分版本漏洞">
+<meta property="og:url" content="https://skyking.us.kg/post/af9e54a7.html">
+<meta property="og:site_name" content="w0xking">
+<meta property="og:description" content="海康威视poc">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://w0xking.github.io/picx-images-hosting/%E6%88%98%E5%8F%8C-(14).70a4mqp9oi.jpg">
+<meta property="article:published_time" content="2024-09-20T02:31:27.000Z">
+<meta property="article:modified_time" content="2024-09-20T02:31:27.000Z">
+<meta property="article:author" content="0xking">
+<meta property="article:tag" content="漏洞">
+<meta property="article:tag" content="poc">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://w0xking.github.io/picx-images-hosting/%E6%88%98%E5%8F%8C-(14).70a4mqp9oi.jpg"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="https://skyking.us.kg/post/af9e54a7.html"><link rel="preconnect" href="//cdnjs.cloudflare.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.33/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":20,"languages":{"author":"作者: 0xking","link":"链接: ","source":"来源: w0xking","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdnjs.cloudflare.com/ajax/libs/egjs-infinitegrid/4.11.1/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '关于海康威视部分版本漏洞',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-09-20 10:31:27'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/aplayer.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="/css/bg.css"><link rel="stylesheet" href="/css/ipdw.css"><link rel="stylesheet" href="https://ai.tianli0.top/static/public/tianli_gpt.min.css"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Zfour/Butterfly-double-row-display@1.00/cardlistpost.min.css"/>
+<style>#recent-posts > .recent-post-item >.recent-post-info > .article-meta-wrap > .tags:before {content:"\A";
+  white-space: pre;}#recent-posts > .recent-post-item >.recent-post-info > .article-meta-wrap > .tags > .article-meta__separator{display:none}</style>
+<link rel="stylesheet" href="/css/clock.min.css" /><link rel="stylesheet" href="/css/swiper.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/css/swiperstyle.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><script>window.paceOptions = {
+  restartOnPushState: false
+}
+
+document.addEventListener('pjax:send', () => {
+  Pace.restart()
+})
+</script><link rel="stylesheet" href="/css/flash.css"/><script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js"></script><div id="web_bg"> </div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/02%20(1).png" onerror="onerror=null;src='/img/catloading.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">24</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 更多</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 追番</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-user"></i><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/comments/"><i class="fa-fw fas fa-envelope"></i><span> 留言板</span></a></li><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li><li><a class="site-page child" href="/license/"><i class="fa-fw fas fa-user-shield"></i><span> 声明</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://w0xking.github.io/picx-images-hosting/战双-(14).70a4mqp9oi.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="w0xking"><span class="site-name">w0xking</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><!-- span=' '+_p('search.title') 注释，取消搜索按钮文字--></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 更多</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 追番</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-user"></i><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/comments/"><i class="fa-fw fas fa-envelope"></i><span> 留言板</span></a></li><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li><li><a class="site-page child" href="/license/"><i class="fa-fw fas fa-user-shield"></i><span> 声明</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">关于海康威视部分版本漏洞</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-09-20T02:31:27.000Z" title="发表于 2024-09-20 10:31:27">2024-09-20</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-09-20T02:31:27.000Z" title="更新于 2024-09-20 10:31:27">2024-09-20</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/">网络安全</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">9</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>1分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="关于海康威视部分版本漏洞"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><div class="hbe hbe-container" id="hexo-blog-encrypt" data-wpm="抱歉, 这个密码看着不太对, 请再试试." data-whm="抱歉, 这个文章不能被校验, 不过您还是能看看加密后的内容.">
+  <script id="hbeData" type="hbeData" data-hmacdigest="e92da22278070966452896c86df595a403e016eddbe94bff9b72a76cd85790cd">c910a667b8645307fd5316064815c433d4598c702f6fbf45a05c3a7a5cc244e1185254a72a5b398a12a973574e827ac6960d885b8eafc79cff8188e3dd8c8864d15e0a7b1d139e5e3b29c5321b03db7257ece518b0fdae07adb86a777ea60e5790f11b43568881127ba04e2c6b794f2b723c728dc82f715d938a95fea4162fd032d40302a37e8cb7adfac6c3c1884b3d5c94c654e96cf1b62fcba50b3e56713d83082bb47a020b051915247db3ca17b61441494bfe942ea3293fed292f032224ec09006c96b42a9f0fbad0ebe3ed2c502e7b23c312e3b9b54150c78396b0c085bb9577ab8efc78f7291b02cff50ce4d07226e053b7e96900a1bdb4c624a648c77b629cef0dcb41c4b8d08aa5fc089cd34eca636c45003a5394b55ed41542f2b768857282544c6487275220b294330522b5553ab57a4ac4636b1ca5b8729cb53a763eee8f5ce0f9e76a496a51d59f146d7e1e79dab63bc17dea7166c6112589bc4ddb10a9d93bf1cad52f4342881bf2bb910a54010c74b9e72c759a8914a605234b5eb3a34f61db226cdf66ff04d9a811036e93b3a58d0ec4120bd99633e60b828d4d0c06410b96a259c4b5fdd26e6f126efd79a2c179955d7f65a9aebe1b5792eb7475f41fc7c1f7f9468b5f0285f0f1e8979b6f22999aba3bd2b71b16a7f6da8c328f0bd7266e53b30beb61371bba08dc0cda37b0b6a2352a9e20100a9f903520d6ce3c5d96cb904bbf2e3bece23614bbb32c7e015792c02070b7db2e1ffda700fc3810d7795a59b5aca35254282b4c3524c58cc623703cf03b0fbe029d8122c958df43280d3e995e90b2cd3228d79a44427c50cdacc321f0deee54a58f9b4ebfc9600a5eceeaa6e2f878b944a1927c0ddba0283e2773de6c71d121725e857fdb52109e5eb853ef0f5c47772bd459b2f9bb9f6c7313a547c6e618f153c6dac34148bcba628819c1fcb6cd9d47097f82885c265f369398509def2b176f135fdbb7a15684c62919ccf7647a53b2fa8bde9f12fc30fe66e9dc7cbf7c2c3b0ef1085bfbe33403e64a0892cf29c5a7a4430d501696affb16079f1e7147f9ff0d7d7d44cba8b8f85f3a7d9f211c8f546a8ce065fb371095167056e365e6e4b312198c5d1610ccc2885249a6d2c17d4fcb315156916c610e4f0f06acdd7366dc2ac60b6026e61c2743f1dc24bf7a25731a3b0fc4f0e0c79df1bc4a552e9619a90cb174560cf711b1022198f11aea130aa5fc8b01ccef3fddcaef5fb4e875e8c1e305742955148ace6e01d50f4082857908fb90aaf40d1dff4d54a748867c41b725cab976aeddfa37ccbe7150d058a349ce6ed0dd247ef33d52be0015886c832e758af171a1a7e912ac06dec9a5691394a8afb5f3ec1dfb57d8c5496fd0e9c63ec5b018f2c6b6191bd5a0189531f071522fda1b9dfddb963733c38ba872967980e6d6d770c3eb220e441700041e1964b4b8608829b11f15a69afad413423814fb35ebe168a696fe0a081ae0fc307dd8f9f67a97e972876025cd038db184b8532282d01f672781ddf896fb20cbdea27facc01e6d7647260c7724522366493359b5cd2a6116ae7d25d8a8bbb2aeb8f43bd9c339176b1e8285bd38154b9f80fb10db05d0a9c023dc2332343e07e7b35b169334a5e94829a2419c4777a4d31eebd9655c3e2211c1529caf40cb5fd8653fe26d838cb8ec0beafba0f3eb8b96505b1c49e957475d08909d00b81a37fa2acdc90757fb97803649a9904e403085c3a667961f5b67f83bd8132bdfbfef416c6934f8ed439a3cca59778847933a6401a4ef7a8c9285a1828f388fc1b35dea29d5b056b16313ab466c906b6a1e6b5752fd41224389d2083db37b2932ab250d98818ea29f7423f488dcf4c980f8ba1db77afbe462ab89c9db9ed9ece671a5157fb49e75e5958450cc6bfec7e8d746567f81101aa78a4475906cd380e7d40ef65675d407c952e2ae025cd98b7af776907b4476be8615e3fcf4c61851168a340b5c668cc5add9a7ab001a5d62d7a9ff43d5407ef8712c29be044e7ff6c31452a083c45f3307ae04410b651b246cb5b629317adb44719820aa3b1289a7ab8ae93ad4897205e4016f18a7488c1750ff7f0116283729a367030992ec537de544e1416dd5a7f393ffdcd1580ed22cd0bb21fb8f0ed62cdbdeed69dc569dad7e99fa4f47826cec2d45a61e728bc3f6015b029661041876e96a2195ff1a67858165fd018f3286f443fb0736395cd04528ad6cb9aa34c9da452902879d152c06345e8dfcd62c4747bd2df3949abdcc0a2d4e1c113c6b36a14486d0c8e6a1f0706fcf776617535aea8566d1d0b7e67bc53bbbc6710f92111213478b632f37554ec85483df68d7ac4d1b8f13de8cbf21b6f51f319e492d5dc4d13018e692e94058347d271be9128998338507b760cdd42a0dcd2536f5a6f1d850222fac97b1b3a376c4ac9d975b821772473ffb6ff801022cb68ae751eac93ad309aa1eca5aa79ed1682cb9687999b109d135bf212ec136cd37bfbd5ae75450fc7f6009c034efa0c1e99c46920d15399b7a5053a80e15c63fe9e7e65447defa489131af7c64bdafd67ab3ff1ac948c374a84f33eccca619d54bf3bea07efa716e93d44b93334b18e9d5c7efd93852f6d3c54b7059f2242fc47b8bb15250159ca419bbff20911976c954d745611b50299df60fd12a816f579d468a8c924335f6532bcd3f85bfdc95de6849f3912115d9790347612b2dcf9adf3e14ba4cd7375703ad5b96b046832e83a29daeb67f0f222a5aaa90f4c3778291b92038203e1a19285294b35b41340d93b2a1effc1c68c2aa9314965780f732873b1258eb4b6615a37ca8cad5617f9ccc5e49fad5ed7119cdd31ba04741618076e6baf4fbc2c4828d899cb804cc71bc59ffe0493c86d811296a3991afd1a7ab69dbc79cfa62252b39ac850f9d4624f11cdfaad0f76f57d4bced182199870e6b76287cda398d50837bfa96a07bc4f5852483c34d7edead3fa8db0d383817855f6fe9cccdcc29dddc2d8c1a17c95f9a00900a66eaa558daec21d2df9b2dcbc33ecd25e91862b7ee1c5e7a7a629eaab7cfc1213087306efcc0a6ff0024d56d8dfd1a2beabb4198667018c52e1b1e60c362afbbf4356838b7e4e88d5ff1e0550157ccf6463682d50d3c2cbaa01bd1c2b1d3390f97df596b3de05f8ad349b8f16c9c3ea3e9b0c5139c51495b94c002e50a58e86b0fde6f0a9e7a0ff379cc33ebab6d0390fe362e015263c9d6fc31f069ba35fa4ec3bbb93fed7ea132b28e0ad54816affd613b94620d446529a83ecebc9535df07f094dd3b91386b797150a26d95f9eb258bd3755d1208a2c0e2fb56bf4f6a5ed6d35d0fb33b958280ebb8f2c5b1c40a8fb8a80bfe8a9c4bb6dbc11db9b3c68b22ca28f19569862b92597ebc54943eeb2be6e8098538f5769e4e6ff91607c3e976e5f22ca6a459ddc67024d5541083288b6be882d074a2c3c21fc35ed791f645c5aa699a1d4ed8315d221721d192977108e1cd795d9f57d4266f8df49a695f51dca7b9c0c569cb2be3db4e45589cdcd26f7b2789f8c0fe6ad392ec69252a8abd3bc3efb5114a56000b0c0e684be4569d9e0fd3247aed232b3f9fc12ec05b302387f6e80166fc1075bcbc6b4eb379574c1d17029af194724e038d8b586f84a72cbdc5adf7b31d9fb8101938f3f20fc01e22b148ad30c2d28ab40db767c45f1dcfe4107ffe37b219524296e9b9dfb1115842fdfff8d230c1912406b63f1fd2215706f1cde0582ab33300a8d36783f321e4b710403f97694920d0d903e3a6043b4e97e328eb5deb246cc6770dcd14ab77cd2a2d4a2dfcc813d633b7eeba57312ae1e649e2836cfe0faf8e7e2a6119b47dd07fa1e0d7c0e4f0f09983426a063c62f0d47b070175daa19a23f33664c73b828eec58f528a80c2abb22281a768f5e52c5f38ef345950019b8e9057d0bfb9e48610be0e48e964a58d25d813b95f59cc0de0775240dcf9e77f35cc0587e12f09aa94cc2036aafed343a3f6dfd2fea7a554fdd05624b8628c8d7eba9e6c73c2882c4939a8717563a4c72462da81a94682df914691aa8fc0054ab0b8235882df0a75cf5e8c8c450ce80d70031f197b99c024477f54a9b1ddb5e52e4d574690571d838d8167898ab264de9ce2a8fe685ba573dc9ad8c0900cfab66ae8697e3f1994824bd206107efca39c34e7ad2416e40bf64ba36893afb149fe0e68c2b20db2e3633ce698a3f15562167770aac80cb6febb625470ef602a645414da689ad6202e2ce0ca696cf03423e8a57804b880f878bba9d414b7a68cfb376fe86dc884b56e2fcb383e3ce38b1d33c214304a835a5f134d3be7bf859468bb9c8289ac14aef1e2c684c267b717ff3de8b30e511bc4f49a17695dce041317953eaecd18154b9082ad073314a9f809fae1b90fb2e8c4103039211238749d9207cb390fdce0a6dad569202c301ed9441e0d149abf2ff8bd284d6a833a20f253fdd3a6d585205d735aed832b2f210256c29d05ba6c2b234e037c5543018ae167b2c822ae6efdab8dc7035296b42697a9aa37069fec049f73891bbfeb051bcd3ffebeade1354f4e86b29688f1da284650e1721e30e385768e0ccd8f4a35ce43e23d48839ef1ab66f5a74e21db068d0ed45b7b4df7a4a054e92d1db7431457628e9b36abe44338ab1469ea7cbb3912c3c26b56de7e7aa9fc27d729e1d116c7ec18eae2a97bd101ed85f52988a5408802dd127d9b273279d540b9ff3ec3788daba6674d45f016a40f5a48c8d7cab0c6234d5a2f1e9996cc1f6633b497335083ded009322f61f4ffca56e1693b85dbd5b9967ead23e4c2dad6023adcd0105b338d083c0438da2504d037da8b5d573d57a77c3a649e16dea63295279be2c2f66340f54be510aaaf71455e322ee45b02bb0d559cbb61736e1592ff3f7d97d37db9139c656e7c7f62cc2d36543ab90fb1f6feb2f608576a07c6dd9cb3bae8c98ef88fecc9861c60e74953afd8b75a97fb997944a10537798c502bcbbb2e2e61c9490573510039ed437266742e4d10b5e547b7176c0b82eec3e896827c5ec4005504f783dfcb4498e55a49070d4008969163839b424c7219a224be689876f56e3d181fd1d98df8c7bfb07c0797995f7d9b0aa033575c218a83cf94d718a6d0a2f4c2ab6f62ab08e91397deb83d7224a5ba51fd5508f1cf10f13aeb3ec6ad4cdcc3be41014615ca6d04c8fd1798a7820a3ac15ce0fdcb7817cee12331d15cee957d9cc2144090481f914523f398c1198ec4adaeae5f8da18103249c5c19320854222cbf2d3d2162694d7266b5f7bb0fb485037b3013956e8e82a9d8ee2c4b0f91d8bd264acc2ab9e2aed1d4653be5a5ecfdae6546f86dd9e0b19cbb5e9884a4a18c6cda9319d91acad697c481307b02336cd6ed361fff1b029f9d4b367340b7a32f0e9b3142f74c46c048112480b95918376aa1fc55bb1009dade0b835c2078e393f854d66f9d516d88103fbfddb4ba90c7c600bd81b3fd4720b71b8936c8c904c1b8eaee002ef1b2735b330aee56846a9a96ba720eb27974cb4989b6be592817fdbef3d9d92f18d714f35712d7fb092f181e415036b44db2fffe3ade668b32f71233fa4271ce483c33a06771b35f53a0f4f294727123bb239aece584de603a6a91cfbec33243af7c65228bb6aff62c7f2e254b27bb939d5417b9ca877d3e66ccf558ed765648483f4fb5826eb69ec60e5c8e9d07579c80fbfac84f56db9da8671e56574c0d18c62e0038dfc4d35a260802439874b1f7a5a8dfe95006d1cc157321a51db8306d33414d6be5a2052acd43355f48896df537f0a419eb01e6c8e4e232e9f53d8b68bad4243cbecb685667bc679da1cd2d3edd5b15a963d29f5f0a9b4e73be5f1ef97b868a76a6859892431efea954bb4a65dc3222f82efd89a13584710ee54b4719735</script>
+  <div class="hbe hbe-content">
+    <div class="hbe hbe-input hbe-input-xray">
+      <input class="hbe hbe-input-field hbe-input-field-xray" type="password" id="hbePass">
+      <label class="hbe hbe-input-label hbe-input-label-xray" for="hbePass">
+        <span class="hbe hbe-input-label-content hbe-input-label-content-xray">您好, 这里需要密码.</span>
+      </label>
+      <svg class="hbe hbe-graphic hbe-graphic-xray" width="300%" height="100%" viewBox="0 0 1200 60" preserveAspectRatio="none">
+        <path d="M0,56.5c0,0,298.666,0,399.333,0C448.336,56.5,513.994,46,597,46c77.327,0,135,10.5,200.999,10.5c95.996,0,402.001,0,402.001,0"></path>
+        <path d="M0,2.5c0,0,298.666,0,399.333,0C448.336,2.5,513.994,13,597,13c77.327,0,135-10.5,200.999-10.5c95.996,0,402.001,0,402.001,0"></path>
+      </svg>
+    </div>
+  </div>
+</div>
+<script data-pjax src="/lib/hbe.js"></script><link href="/css/hbe.style.css" rel="stylesheet" type="text/css"></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a target="_blank" rel="noopener" href="https://www.skyking.us.kg/">0xking</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://skyking.us.kg/post/af9e54a7.html">https://skyking.us.kg/post/af9e54a7.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://skyking.us.kg" target="_blank">w0xking</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/%E6%BC%8F%E6%B4%9E/">漏洞</a><a class="post-meta__tags" href="/tags/poc/">poc</a></div><div class="post_share"><div class="social-share" data-image="https://w0xking.github.io/picx-images-hosting/战双-(14).70a4mqp9oi.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://lib.baomitu.com/social-share.js/1.0.16/css/share.min.css" media="print" onload="this.media='all'"><script src="https://lib.baomitu.com/social-share.js/1.0.16/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>你的打赏是我创作的动力！</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.jpg" target="_blank"><img class="post-qr-code-img" src="/img/wechat.jpg" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/alipay.jpg" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/post/c636442c.html" title="工作记录"><img class="cover" src="https://w0xking.github.io/picx-images-hosting/%E6%88%98%E5%8F%8C-(16).7w6m26yy5j.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">工作记录</div></div></a></div><div class="next-post pull-right"><a href="/post/41767f46.html" title="使用Github Action实现全自动部署"><img class="cover" src="https://w0xking.github.io/picx-images-hosting/战双-(13).5j3zkzl4xf.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">使用Github Action实现全自动部署</div></div></a></div></nav><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="lv-container" data-id="city" data-uid="MTAyMC81OTczMC8zNjE5Mg"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/02%20(1).png" onerror="this.onerror=null;this.src='/img/catloading.gif'" alt="avatar"/></div><div class="author-info__name">0xking</div><div class="author-info__description">记录一些学习中的琐事</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">24</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/w0xking" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:w0king@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="http://wpa.qq.com/msgrd?v=3&amp;uin=xxxxx&amp;site=qq&amp;menu=yes" target="_blank" title="QQ"><i class="fab fa-qq"></i></a></div></div><div class="card-widget card-announcement"><div id="welcome-info"></div><div class="item-headline"><!--i.fas.fa-bullhorn.fa-shake--><span>公告</span></div><div class="announcement_content">本站点使用github page，加载慢可自行使用节点加速。也可访问<b><a href="https://blog.skyking.us.kg/" target="_blank">备份站</a> </b></div></div><div class="card-widget tzy-right-widget" id="card-wechat"><div id="flip-wrapper"><div id="flip-content"><div class="face"></div><div class="back face"></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content toc-div-class" style="display:none"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#Hikvision-IP-Camera-Access-Bypass-ICSA-17-124-01-CVE-2017-7921"><span class="toc-number">1.</span> <span class="toc-text">Hikvision IP Camera Access Bypass(ICSA-17-124-01&#x2F;CVE-2017-7921)</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#%E7%9B%AE%E6%A0%87url"><span class="toc-number">1.1.</span> <span class="toc-text">目标url</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%BC%8F%E6%B4%9E%E6%8A%A5%E9%80%81%E6%8A%A5%E5%91%8A"><span class="toc-number">1.2.</span> <span class="toc-text">漏洞报送报告</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%8F%90%E6%9D%83"><span class="toc-number">1.2.1.</span> <span class="toc-text">提权</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%A3%80%E7%B4%A2%E6%89%80%E6%9C%89%E7%94%A8%E6%88%B7"><span class="toc-number">1.2.1.1.</span> <span class="toc-text">检索所有用户</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96%E9%95%9C%E5%A4%B4%E5%BF%AB%E7%85%A7%E8%80%8C%E4%B8%8D%E8%BF%9B%E8%A1%8C%E8%BA%AB%E4%BB%BD%E9%AA%8C%E8%AF%81"><span class="toc-number">1.2.1.2.</span> <span class="toc-text">获取镜头快照而不进行身份验证</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E4%B8%8B%E8%BD%BD%E6%91%84%E5%83%8F%E5%A4%B4%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">1.2.1.3.</span> <span class="toc-text">下载摄像头二进制配置文件</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#%E4%BD%BF%E7%94%A8crypto%E7%BF%BB%E8%AF%91%E4%BA%8C%E8%BF%9B%E5%88%B6%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6"><span class="toc-number">1.2.1.3.1.</span> <span class="toc-text">使用crypto翻译二进制配置文件</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E4%BF%AE%E5%A4%8D%E5%BB%BA%E8%AE%AE"><span class="toc-number">1.3.</span> <span class="toc-text">修复建议</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#PS-%E9%83%A8%E5%88%86%E5%BC%80%E6%94%BE%E4%BA%86445%E7%AB%AF%E5%8F%A3%EF%BC%88Critical%EF%BC%89"><span class="toc-number">1.4.</span> <span class="toc-text">PS 部分开放了445端口（Critical）</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/post/d2d7725.html" title="Markdown语法自带格式"><img src="https://w0xking.github.io/picx-images-hosting/战双-(17).3k7sunfmnw.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Markdown语法自带格式"/></a><div class="content"><a class="title" href="/post/d2d7725.html" title="Markdown语法自带格式">Markdown语法自带格式</a><time datetime="2024-11-16T02:38:09.000Z" title="发表于 2024-11-16 10:38:09">2024-11-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/41767f46.html" title="使用Github Action实现全自动部署"><img src="https://w0xking.github.io/picx-images-hosting/战双-(13).5j3zkzl4xf.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="使用Github Action实现全自动部署"/></a><div class="content"><a class="title" href="/post/41767f46.html" title="使用Github Action实现全自动部署">使用Github Action实现全自动部署</a><time datetime="2024-09-23T13:27:08.000Z" title="发表于 2024-09-23 21:27:08">2024-09-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/af9e54a7.html" title="关于海康威视部分版本漏洞"><img src="https://w0xking.github.io/picx-images-hosting/战双-(14).70a4mqp9oi.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="关于海康威视部分版本漏洞"/></a><div class="content"><a class="title" href="/post/af9e54a7.html" title="关于海康威视部分版本漏洞">关于海康威视部分版本漏洞</a><time datetime="2024-09-20T02:31:27.000Z" title="发表于 2024-09-20 10:31:27">2024-09-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/c636442c.html" title="工作记录"><img src="https://w0xking.github.io/picx-images-hosting/%E6%88%98%E5%8F%8C-(16).7w6m26yy5j.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="工作记录"/></a><div class="content"><a class="title" href="/post/c636442c.html" title="工作记录">工作记录</a><time datetime="2024-08-30T04:11:08.000Z" title="发表于 2024-08-30 12:11:08">2024-08-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/b01882d5.html" title="党纪学习教育心得体会"><img src="https://w0xking.github.io/picx-images-hosting/%E6%88%98%E5%8F%8C-(12).2h83jrjspt.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="党纪学习教育心得体会"/></a><div class="content"><a class="title" href="/post/b01882d5.html" title="党纪学习教育心得体会">党纪学习教育心得体会</a><time datetime="2024-06-04T09:26:05.000Z" title="发表于 2024-06-04 17:26:05">2024-06-04</time></div></div></div></div></div></div></main><footer id="footer" style="background: falst"><div id="footer-wrap"><div id="ft"><div class="ft-item-1"><div class="t-top"><div class="t-t-l">    <p class="ft-t t-l-t">✨星辰之旅✨</p><div class="bg-ad"><div>再看看那个光点，它就在这里，这是家园，这是我们 —— 你所爱的每一个人，你认识的一个人，你听说过的每一个人，曾经有过的每一个人，都在它上面度过他们的一生✨</div><div class="btn-xz-box"><a class="btn-xz" target="_blank" rel="noopener" href="https://stellarium.org/">点击开启星辰之旅✨        </a></div></div></div><div class="t-t-r"><p class="ft-t t-l-t">网站导航</p><ul class="ft-links"><li><a href="../license/">使用指南</a><a href="/">网址导航</a></li><li><a href="../gallery/">看看图片</a><a href="../comments/">留点什么</a></li><li><a href="../about/">关于博主</a><a href="../archives/">文章归档</a></li><li><a href="../categories/">文章分类</a><a href="../tags/">文章标签</a></li></ul></div></div></div><div class="ft-item-2"><div class="t-t-l"></div><p class="ft-t">推荐友链</p><div class="ft-img-group"><div class="img-group-item"><a target="_blank" rel="noopener" href="https://blog.anheyu.com/"><img src="https://npm.elemecdn.com/anzhiyu-blog-static@1.0.4/img/avatar.jpg" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://www.fomal.cc/"><img src="https://sourcebucket.s3.bitiful.net/img/avatar.webp" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://fe32.top/"><img src="https://bu.dusays.com/2022/05/02/626f92e193879.jpg" alt=""/></a></div></div><div class="t-t-r"><p class="ft-t">公益广告</p><div class="bg-ad"><div>国家反诈中心是国务院打击治理电信网络新型违法犯罪工作部际联席会议合成作战平台，集资源整合、情报研判、侦查指挥为一体，在打击、防范、治理电信网络诈骗等新型违法犯罪中发挥着重要作用。</div><div class="btn-xz-box"><a class="btn-xz" target="_blank" rel="noopener" href="https://w0xking.github.io/post/494f7a99.html">下载（国家反诈中心） APP</a></div></div></div></div></div><div class="copyright">&copy;2020 - 2024 By 0xking</div><div class="footer_custom_text">I wish you to become your own sun, no need to rely on who's light.<p><a target="_blank" href="https://hexo.io/"><img src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&logo=hexo" title="博客框架为Hexo"></a>&nbsp;<a target="_blank" href="https://butterfly.js.org/"><img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&logo=bitdefender" title="主题采用butterfly"></a>&nbsp;<a target="_blank" href="https://www.jsdelivr.com/"><img src="https://img.shields.io/badge/CDN-jsDelivr-orange?style=flat&logo=jsDelivr" title="本站使用JsDelivr为静态资源提供CDN加速"></a> &nbsp;<a target="_blank" href="https://vercel.com/ "><img src="https://img.shields.io/badge/Hosted-Vervel-brightgreen?style=flat&logo=Vercel" title="本站采用双线部署，默认线路托管于Vercel"></a>&nbsp;<a target="_blank" href="https://vercel.com/ "><img src="https://img.shields.io/badge/Hosted-Coding-0cedbe?style=flat&logo=Codio" title="本站采用双线部署，联通线路托管于Coding"></a>&nbsp;<a target="_blank" href="https://icp.gov.moe/?keyword=20242550"><img src="https://img.shields.io/badge/%E8%90%8CICP%E5%A4%87-20242550%E5%8F%B7-fe1384"> </a>&nbsp;<a target="_blank" href="https://github.com/"><img src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&logo=GitHub" title="本站项目由Gtihub托管"></a>&nbsp;<a target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&logo=Claris" title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可"></a></p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button type="button" title="切换背景" onclick="toggleWinbox()"><i class="fas fa-image"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button><button id="go-down" type="button" title="直达底部" onclick="btf.scrollToDest(document.body.scrollHeight, 500)"><i class="fas fa-arrow-down"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.33/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(()=>{
+  const loadLivere = () => {
+    if (typeof LivereTower === 'object') window.LivereTower.init()
+    else {
+      (function(d, s) {
+          var j, e = d.getElementsByTagName(s)[0];
+          if (typeof LivereTower === 'function') { return; }
+          j = d.createElement(s);
+          j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+          j.async = true;
+          e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    }
+  }
+
+  if ('Livere' === 'Livere' || !false) {
+    if (false) btf.loadComment(document.getElementById('lv-container'), loadLivere)
+    else loadLivere()
+  } else {
+    window.loadOtherComment = loadLivere
+  }
+})()</script></div><div class="aplayer no-destroy" data-id="2276118625" data-server="netease" data-type="playlist" data-fixed="true" data-mini="true" data-listFolded="false" data-order="random" data-preload="none" data-autoplay="true" muted></div><script data-pjax type="application/javascript" src="/js/Sakura.js"></script><script data-pjax type="application/javascript" src="/js/custom.js"></script><script>let tianliGPT_postSelector = '\#post \#article-container';let tianliGPT_theme = 'yanzhi' ;let tianliGPT_blacklist = 'https://w0xking.github.io/blacklist.json'; let tianliGPT_Title = '来自kking的AI摘要';let tianliGPT_wordLimit = 180;let tianliGPT_key = '66UsY6V7Qd8';</script><script src="https://ai.tianli0.top/static/public/tianli_gpt.min.js"></script><script data-pjax src="https://cdn.jsdelivr.net/gh/nextapps-de/winbox/dist/winbox.bundle.min.js"></script><script data-pjax type="application/javascript" src="/js/bg.js"></script><script type="text/javascript" src="https://unpkg.zhimg.com/jquery@latest/dist/jquery.min.js"></script><script type="application/javascript" src="/js/ipdw.js"></script><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.3/canvas-fluttering-ribbon.min.js"></script><link rel="stylesheet" href="/css/APlayer.min.css" media="print" onload="this.media='all'"><script src="/js/APlayer.min.js"></script><script src="/js/Meting.min.js"></script><script src="https://lib.baomitu.com/pjax/0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["meta[property=\"og:image\"]","meta[property=\"og:title\"]","meta[property=\"og:url\"]","head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"]):not([href="/music/"]):not([href="/no-pjax/"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener
+  btf.removeGlobalFnEvent('pjax')
+  btf.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_clock_anzhiyu_injector_config(){
+    var parent_div_git = document.getElementsByClassName('sticky_layout')[0];
+    var item_html = '<div class="card-widget card-clock"><div class="card-glass"><div class="card-background"><div class="card-content"><div id="hexo_electric_clock"><img class="entered loading" id="card-clock-loading" src="https://npm.elemecdn.com/hexo-butterfly-clock/lib/loading.gif" style="height: 120px; width: 100%;" data-ll-status="loading"/></div></div></div></div></div>';
+    console.log('已挂载butterfly_clock_anzhiyu')
+    if(parent_div_git) {
+      parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var qweather_key = '53b0fff98fe943b99e8c38e9e15657c3';
+  var gaud_map_key = '8ebbcccc634142084c3a0abfd64eb681';
+  var baidu_ak_key = 'undefined';
+  var flag = 0;
+  var clock_rectangle = '108.940174,34.341568';
+  var clock_default_rectangle_enable = 'false';
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_clock_anzhiyu_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_clock_anzhiyu_injector_config();
+  }
+  </script><script src="https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0"></script><script data-pjax src="/js/clock.min.js"></script><script data-pjax>
+  function butterfly_swiper_injector_config(){
+    var parent_div_git = document.getElementById('recent-posts');
+    var item_html = '<div class="recent-post-item" style="height: auto;width: 100%"><div class="blog-slider swiper-container-fade swiper-container-horizontal" id="swiper_container"><div class="blog-slider__wrp swiper-wrapper" style="transition-duration: 0ms;"><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" onclick="pjax.loadUrl(&quot;post/dc8d366.html&quot;);" href="javascript:void(0);" alt=""><img width="48" height="48" src="https://w0xking.github.io/picx-images-hosting/02-(2).ibwqnh48f.jpg" alt="" onerror="this.src=/img/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2021-04-10</span><a class="blog-slider__title" onclick="pjax.loadUrl(&quot;post/dc8d366.html&quot;);" href="javascript:void(0);" alt="">向你的Hexo里放上一只live2d桌宠!</a><div class="blog-slider__text">再怎么看我也不知道怎么描述它的啦！</div><a class="blog-slider__button" onclick="pjax.loadUrl(&quot;post/dc8d366.html&quot;);" href="javascript:void(0);" alt="">详情       </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" onclick="pjax.loadUrl(&quot;post/cb557a52.html&quot;);" href="javascript:void(0);" alt=""><img width="48" height="48" src="https://w0xking.github.io/picx-images-hosting/深空之眼-(41).8vmpfd52p3.jpg" alt="" onerror="this.src=/img/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2021-04-03</span><a class="blog-slider__title" onclick="pjax.loadUrl(&quot;post/cb557a52.html&quot;);" href="javascript:void(0);" alt="">hexo-blog-encrypt</a><div class="blog-slider__text">再怎么看我也不知道怎么描述它的啦！</div><a class="blog-slider__button" onclick="pjax.loadUrl(&quot;post/cb557a52.html&quot;);" href="javascript:void(0);" alt="">详情       </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" onclick="pjax.loadUrl(&quot;post/5372cc32.html&quot;);" href="javascript:void(0);" alt=""><img width="48" height="48" src="https://w0xking.github.io/picx-images-hosting/战双-(15).2a4vobxnbn.jpg" alt="" onerror="this.src=/img/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2021-03-01</span><a class="blog-slider__title" onclick="pjax.loadUrl(&quot;post/5372cc32.html&quot;);" href="javascript:void(0);" alt="">Butterfly 安裝文檔(二) 主題頁面  Butterfly</a><div class="blog-slider__text">再怎么看我也不知道怎么描述它的啦！</div><a class="blog-slider__button" onclick="pjax.loadUrl(&quot;post/5372cc32.html&quot;);" href="javascript:void(0);" alt="">详情       </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" onclick="pjax.loadUrl(&quot;post/f0a4488f.html&quot;);" href="javascript:void(0);" alt=""><img width="48" height="48" src="https://s2.loli.net/2024/04/12/eE8bJqYWshiOcmx.png" alt="" onerror="this.src=/img/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2021-01-03</span><a class="blog-slider__title" onclick="pjax.loadUrl(&quot;post/f0a4488f.html&quot;);" href="javascript:void(0);" alt="">hexo教程</a><div class="blog-slider__text">hexo博客搭建教程</div><a class="blog-slider__button" onclick="pjax.loadUrl(&quot;post/f0a4488f.html&quot;);" href="javascript:void(0);" alt="">详情       </a></div></div></div><div class="blog-slider__pagination swiper-pagination-clickable swiper-pagination-bullets"></div></div></div>';
+    console.log('已挂载butterfly_swiper')
+    parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  var elist = '/about/,/archives/,/categories/,/gallery/,/license/,/link/,/movies/,/music/,/tags/,/page/'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_swiper_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_swiper_injector_config();
+  }
+  </script><script defer src="/js/swiper.min.js"></script><script defer data-pjax src="/js/swiper_init.js"></script><!-- hexo injector body_end end --><script src="https://npm.elemecdn.com/live2d-widget@3.x/lib/L2Dwidget.min.js"></script><script>L2Dwidget.init({"pluginRootPath":"node_modules/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"https://unpkg.com/live2d-widget-model-tororo@1.0.5/assets/tororo.model.json"},"display":{"position":"right","width":170,"height":260},"mobile":{"show":false},"log":false});</script></body></html>

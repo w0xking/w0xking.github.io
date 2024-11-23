@@ -1,0 +1,443 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1.0,viewport-fit=cover"><title>使用Github Action实现全自动部署 | w0xking</title><meta name="author" content="0xking"><meta name="copyright" content="0xking"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="Github Action">
+<meta property="og:type" content="article">
+<meta property="og:title" content="使用Github Action实现全自动部署">
+<meta property="og:url" content="https://skyking.us.kg/post/41767f46.html">
+<meta property="og:site_name" content="w0xking">
+<meta property="og:description" content="Github Action">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://w0xking.github.io/picx-images-hosting/%E6%88%98%E5%8F%8C-(13).5j3zkzl4xf.jpg">
+<meta property="article:published_time" content="2024-09-23T13:27:08.000Z">
+<meta property="article:modified_time" content="2024-09-23T13:27:08.000Z">
+<meta property="article:author" content="0xking">
+<meta property="article:tag" content="Hexo">
+<meta property="article:tag" content="博客">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://w0xking.github.io/picx-images-hosting/%E6%88%98%E5%8F%8C-(13).5j3zkzl4xf.jpg"><link rel="shortcut icon" href="/img/favicon.ico"><link rel="canonical" href="https://skyking.us.kg/post/41767f46.html"><link rel="preconnect" href="//cdnjs.cloudflare.com"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.33/fancybox/fancybox.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = {
+  root: '/',
+  algolia: undefined,
+  localSearch: {"path":"/search.xml","preload":false,"top_n_per_article":1,"unescape":false,"languages":{"hits_empty":"找不到您查询的内容：${query}","hits_stats":"共找到 ${hits} 篇文章"}},
+  translate: {"defaultEncoding":2,"translateDelay":0,"msgToTraditionalChinese":"繁","msgToSimplifiedChinese":"簡"},
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlight.js","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: true,
+    post: true
+  },
+  runtime: '天',
+  dateSuffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: {"limitCount":20,"languages":{"author":"作者: 0xking","link":"链接: ","source":"来源: w0xking","info":"著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。"}},
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  infinitegrid: {
+    js: 'https://cdnjs.cloudflare.com/ajax/libs/egjs-infinitegrid/4.11.1/infinitegrid.min.js',
+    buttonText: '加载更多'
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isAnchor: true,
+  percent: {
+    toc: true,
+    rightside: true,
+  },
+  autoDarkmode: true
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '使用Github Action实现全自动部署',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2024-09-23 21:27:08'
+}</script><script>(win=>{
+      win.saveToLocal = {
+        set: (key, value, ttl) => {
+          if (ttl === 0) return
+          const now = Date.now()
+          const expiry = now + ttl * 86400000
+          const item = {
+            value,
+            expiry
+          }
+          localStorage.setItem(key, JSON.stringify(item))
+        },
+      
+        get: key => {
+          const itemStr = localStorage.getItem(key)
+      
+          if (!itemStr) {
+            return undefined
+          }
+          const item = JSON.parse(itemStr)
+          const now = Date.now()
+      
+          if (now > item.expiry) {
+            localStorage.removeItem(key)
+            return undefined
+          }
+          return item.value
+        }
+      }
+    
+      win.getScript = (url, attr = {}) => new Promise((resolve, reject) => {
+        const script = document.createElement('script')
+        script.src = url
+        script.async = true
+        script.onerror = reject
+        script.onload = script.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          script.onload = script.onreadystatechange = null
+          resolve()
+        }
+
+        Object.keys(attr).forEach(key => {
+          script.setAttribute(key, attr[key])
+        })
+
+        document.head.appendChild(script)
+      })
+    
+      win.getCSS = (url, id = false) => new Promise((resolve, reject) => {
+        const link = document.createElement('link')
+        link.rel = 'stylesheet'
+        link.href = url
+        if (id) link.id = id
+        link.onerror = reject
+        link.onload = link.onreadystatechange = function() {
+          const loadState = this.readyState
+          if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+          link.onload = link.onreadystatechange = null
+          resolve()
+        }
+        document.head.appendChild(link)
+      })
+    
+      win.activateDarkMode = () => {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = () => {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          const isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+          const isLightMode = window.matchMedia('(prefers-color-scheme: light)').matches
+          const isNotSpecified = window.matchMedia('(prefers-color-scheme: no-preference)').matches
+          const hasNoSupport = !isDarkMode && !isLightMode && !isNotSpecified
+
+          if (t === undefined) {
+            if (isLightMode) activateLightMode()
+            else if (isDarkMode) activateDarkMode()
+            else if (isNotSpecified || hasNoSupport) {
+              const now = new Date()
+              const hour = now.getHours()
+              const isNight = hour <= 6 || hour >= 18
+              isNight ? activateDarkMode() : activateLightMode()
+            }
+            window.matchMedia('(prefers-color-scheme: dark)').addListener(e => {
+              if (saveToLocal.get('theme') === undefined) {
+                e.matches ? activateDarkMode() : activateLightMode()
+              }
+            })
+          } else if (t === 'light') activateLightMode()
+          else activateDarkMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+      const detectApple = () => {
+        if(/iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+          document.documentElement.classList.add('apple')
+        }
+      }
+      detectApple()
+    })(window)</script><link rel="stylesheet" href="/css/aplayer.css" media="defer" onload="this.media='all'"><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="/css/bg.css"><link rel="stylesheet" href="/css/ipdw.css"><link rel="stylesheet" href="https://ai.tianli0.top/static/public/tianli_gpt.min.css"><!-- hexo injector head_end start --><link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/Zfour/Butterfly-double-row-display@1.00/cardlistpost.min.css"/>
+<style>#recent-posts > .recent-post-item >.recent-post-info > .article-meta-wrap > .tags:before {content:"\A";
+  white-space: pre;}#recent-posts > .recent-post-item >.recent-post-info > .article-meta-wrap > .tags > .article-meta__separator{display:none}</style>
+<link rel="stylesheet" href="/css/clock.min.css" /><link rel="stylesheet" href="/css/swiper.min.css" media="print" onload="this.media='all'"><link rel="stylesheet" href="/css/swiperstyle.css" media="print" onload="this.media='all'"><!-- hexo injector head_end end --><meta name="generator" content="Hexo 7.3.0"></head><body><script>window.paceOptions = {
+  restartOnPushState: false
+}
+
+document.addEventListener('pjax:send', () => {
+  Pace.restart()
+})
+</script><link rel="stylesheet" href="/css/flash.css"/><script src="https://cdnjs.cloudflare.com/ajax/libs/pace/1.2.4/pace.min.js"></script><div id="web_bg"> </div><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="/img/02%20(1).png" onerror="onerror=null;src='/img/catloading.gif'" alt="avatar"/></div><div class="sidebar-site-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">24</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><hr class="custom-hr"/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 更多</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 追番</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-user"></i><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/comments/"><i class="fa-fw fas fa-envelope"></i><span> 留言板</span></a></li><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li><li><a class="site-page child" href="/license/"><i class="fa-fw fas fa-user-shield"></i><span> 声明</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('https://w0xking.github.io/picx-images-hosting/战双-(13).5j3zkzl4xf.jpg')"><nav id="nav"><span id="blog-info"><a href="/" title="w0xking"><span class="site-name">w0xking</span></a></span><div id="menus"><div id="search-button"><a class="site-page social-icon search" href="javascript:void(0);"><i class="fas fa-search fa-fw"></i><!-- span=' '+_p('search.title') 注释，取消搜索按钮文字--></a></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 首页</span></a></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-book"></i><span> 文章</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-list"></i><span> 更多</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/music/"><i class="fa-fw fas fa-music"></i><span> 音乐</span></a></li><li><a class="site-page child" href="/gallery/"><i class="fa-fw fas fa-images"></i><span> 照片</span></a></li><li><a class="site-page child" href="/movies/"><i class="fa-fw fas fa-video"></i><span> 追番</span></a></li></ul></div><div class="menus_item"><a class="site-page group" href="javascript:void(0);"><i class="fa-fw fas fa-user"></i><span> 社交</span><i class="fas fa-chevron-down"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/comments/"><i class="fa-fw fas fa-envelope"></i><span> 留言板</span></a></li><li><a class="site-page child" href="/link/"><i class="fa-fw fas fa-link"></i><span> 友链</span></a></li><li><a class="site-page child" href="/about/"><i class="fa-fw fas fa-heart"></i><span> 关于</span></a></li><li><a class="site-page child" href="/license/"><i class="fa-fw fas fa-user-shield"></i><span> 声明</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page" href="javascript:void(0);"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">使用Github Action实现全自动部署</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2024-09-23T13:27:08.000Z" title="发表于 2024-09-23 21:27:08">2024-09-23</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2024-09-23T13:27:08.000Z" title="更新于 2024-09-23 21:27:08">2024-09-23</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/%E6%95%99%E7%A8%8B/">教程</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-wordcount"><i class="far fa-file-word fa-fw post-meta-icon"></i><span class="post-meta-label">字数总计:</span><span class="word-count">3.3k</span><span class="post-meta-separator">|</span><i class="far fa-clock fa-fw post-meta-icon"></i><span class="post-meta-label">阅读时长:</span><span>11分钟</span></span><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="使用Github Action实现全自动部署"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"><i class="fa-solid fa-spinner fa-spin"></i></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h2 id="Github-Action简介"><a href="#Github-Action简介" class="headerlink" title="Github Action简介"></a>Github Action简介</h2><p><a target="_blank" rel="noopener" href="https://github.com/features/actions">Github Action</a>是 GitHub于2018年10月推出的一个CI\CD服务。  </p>
+<p>CI&#x2F;CD解释</p>
+<p>CI\CD 其实说的是三件事情：「持续集成（<code>Continuous Integration</code>）」、「持续交付（<code>Continuous Delivery</code>）」、「持续部署（<code>Continuous Deployment</code>）」。<br>因为「持续交付」和「持续部署」的英文缩写是一样的，所以这三件事情缩写成了 <code>CI\CD</code> 。</p>
+<p>每次部署<code>Hexo</code>都需要运行指令三件套，随着文章越来越多，编译的时间也随之越来越长，通过<code>Github Action</code>，我们只需要在每次完成博客的编写或修改以后，将改动直接<code>push</code>到远程仓库，之后的编译部署的工作统统交给<code>CI</code>来完成即可，如果是看过<a target="_blank" rel="noopener" href="https://akilar.top/posts/54c08a4b/">Coding部署教程</a>的小伙伴，应该对这种持续部署的操作有所感触。</p>
+<h2 id="教程常量声明"><a href="#教程常量声明" class="headerlink" title="教程常量声明"></a>教程常量声明</h2><p>感谢<a target="_blank" rel="noopener" href="https://menglei.xyz/">@YML</a>的反馈。以下将使用特定的常量名来指代一些名词。此处建议读者直接使用教程内容的常量名。在最后再逐一搜索替换。这样可以避免对各种常量名的混淆。</p>
+<table>
+<thead>
+<tr>
+<th>常量名</th>
+<th>常量释义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>[Blogroot]</strong></td>
+<td>本地存放博客源码的文件夹路径</td>
+</tr>
+<tr>
+<td><strong>[SourceRepo]</strong></td>
+<td>存放博客源码的私有仓库名</td>
+</tr>
+<tr>
+<td><strong>[SiteBlogRepo]</strong></td>
+<td>存放编译好的博客页面的公有仓库名Site指站点，教程中会替换成Github、Gitee、Coding</td>
+</tr>
+<tr>
+<td><strong>[SiteUsername]</strong></td>
+<td>用户名  Site指站点，教程中会替换成  Github、Gitee、Coding</td>
+</tr>
+<tr>
+<td><strong>[SiteToken]</strong></td>
+<td>申请到的令牌码  Site指站点，教程中会替换成  Github、Gitee、Coding</td>
+</tr>
+<tr>
+<td><strong>[GithubEmail]</strong></td>
+<td>与github绑定的主邮箱，建议使用Gmail</td>
+</tr>
+<tr>
+<td><strong>[TokenUser]</strong></td>
+<td>Coding配置特有的令牌用户名</td>
+</tr>
+</tbody></table>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"># 在记事本中逐个记录，方便替换，以下为我的示例</span><br><span class="line"></span><br><span class="line">[Blogroot]：E:\Blogroot</span><br><span class="line"></span><br><span class="line">[SourceRepo]：Akilarlxh/Hexo-blog-source</span><br><span class="line"></span><br><span class="line">[SiteBlogRepo]</span><br><span class="line">  [GithubBlogRepo]：Akilarlxh.github.io</span><br><span class="line">  [GiteeBlogRepo]：akilar</span><br><span class="line">  [CodingBlogRepo]：akilar/akilar</span><br><span class="line"></span><br><span class="line">[SiteUsername]</span><br><span class="line">  [GithubUsername]：Akilarlxh</span><br><span class="line">  [GiteeUsername]：Akilar</span><br><span class="line">  [CodingUsername]：akilar</span><br><span class="line"></span><br><span class="line">[SiteToken]</span><br><span class="line">  [GithubToken]：15076c8eb9c874sad676bc9bfb13sadw86babf2</span><br><span class="line">  [GiteeToken]：f57acasdadgar4578603adas5d8w79bb</span><br><span class="line">  [CodingToken]：a4e45daf78as1f2670dcbbcfd5as7d8asd8cd66a77</span><br><span class="line"></span><br><span class="line">[GithubEmail]：akilarlxh@gmail.com</span><br><span class="line"></span><br><span class="line">[TokenUser]：RAxDiobbRi</span><br></pre></td></tr></table></figure>
+<h2 id="Github-Action使用教程"><a href="#Github-Action使用教程" class="headerlink" title="Github Action使用教程"></a>Github Action使用教程</h2><h3 id="获取Token"><a href="#获取Token" class="headerlink" title="获取Token"></a>获取Token</h3><p>为了确保交由<code>Github Action</code>来持续部署时，<code>Github Action</code>具备足够的权限来进行<code>hexo deploy</code>操作,需要先获取<code>Token</code>，博主分别在<code>Github</code>、<code>Gitee</code>、<code>Coding</code>处部署了静态页面，所以也就需要获取这三处的<code>Token</code>。 </p>
+<h4 id="github"><a href="#github" class="headerlink" title="github"></a>github</h4><p>访问<a target="_blank" rel="noopener" href="https://github.com/login?return_to=https://github.com/settings/tokens">Github-&gt;头像（右上角）-&gt;Settings-&gt;Developer Settings-&gt;Personal access tokens</a>-&gt;generate new token,创建的Token名称随意，但必须勾选repo项和workflows项。<br><img src="https://npm.elemecdn.com/akilar-candyassets/image/PISlRDgrsBXzcLK.png"><br><img src="https://npm.elemecdn.com/akilar-candyassets/image/ca384d58.png"><br><img src="https://npm.elemecdn.com/akilar-candyassets/image/20200923085908748.png"></p>
+<h4 id="gitee"><a href="#gitee" class="headerlink" title="gitee"></a>gitee</h4><p>访问Gitee-&gt;<a target="_blank" rel="noopener" href="https://gitee.com/profile/personal_access_tokens">头像（右上角）-&gt;设置-&gt;私人令牌</a>-&gt;生成新令牌<br><img src="https://npm.elemecdn.com/akilar-candyassets/image/voHjeENlQOpFA6n.png"><br><img src="https://npm.elemecdn.com/akilar-candyassets/image/X6x8Tz9bgO7HNRP.png"></p>
+<p>token只会显示这一次，之后将无法查看，所以务必保证你已经记录下了Token。之后如果忘记了就只能重新生成重新配置了。</p>
+<h3 id="创建存放源码的私有仓库"><a href="#创建存放源码的私有仓库" class="headerlink" title="创建存放源码的私有仓库"></a>创建存放源码的私有仓库</h3><p>我们需要创建一个用来存放<code>Hexo</code>博客源码的私有仓库<code>[SourceRepo]</code>，这点在<a target="_blank" rel="noopener" href="https://akilar.top/posts/6ef63e2d/">Win10</a>的<code>Hexo</code>博客搭建教程中有提到。为了保持教程的连贯，此处再写一遍。<br><img src="https://npm.elemecdn.com/akilar-candyassets/image/PZ7wmiuX8ae9rVK.png"><br>创建完成后，需要把博客的源码<code>push</code>到这里。首先获取远程仓库地址，此处虽然<code>SSH</code>和<code>HTTPS</code>均可。<code>SSH</code>在绑定过<code>ssh key</code>的设备上无需再输入密码，<code>HTTPS</code>则需要输入密码，但是<code>SSH</code>偶尔会遇到端口占用的情况。请自主选择。<br><img src="https://npm.elemecdn.com/akilar-candyassets/image/mpdUYJKcfWLQ2Eg.png"></p>
+<p>这里之所以是私有仓库，是因为在接下来的配置中会用到<code>Token</code>，如果<code>Token</code>被盗用，别人可以肆意操作你的github仓库内容，为了避免这一风险，才选择的博客源码闭源。</p>
+<h3 id="配置Github-Action"><a href="#配置Github-Action" class="headerlink" title="配置Github Action"></a>配置Github Action</h3><ol>
+<li><p>在<code>[Blogroot]</code>新建<code>.github</code>文件夹,注意开头是有个<code>.</code>的。然后在<code>.github</code>内新建<code>workflows</code>文件夹，再在<code>workflows</code>文件夹内新建<code>autodeploy.yml</code>,在<code>[Blogroot]/.github/workflows/autodeploy.yml</code>里面输入</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 当有改动推送到master分支时，启动Action</span></span><br><span class="line"><span class="attr">name:</span> <span class="string">自动部署</span></span><br><span class="line"></span><br><span class="line"><span class="attr">on:</span></span><br><span class="line">  <span class="attr">push:</span></span><br><span class="line">    <span class="attr">branches:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">master</span> <span class="comment">#2020年10月后github新建仓库默认分支改为main，注意更改</span></span><br><span class="line"></span><br><span class="line">  <span class="attr">release:</span></span><br><span class="line">    <span class="attr">types:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="string">published</span></span><br><span class="line"></span><br><span class="line"><span class="attr">jobs:</span></span><br><span class="line">  <span class="attr">deploy:</span></span><br><span class="line">    <span class="attr">runs-on:</span> <span class="string">ubuntu-latest</span></span><br><span class="line">    <span class="attr">steps:</span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">检查分支</span></span><br><span class="line">      <span class="attr">uses:</span> <span class="string">actions/checkout@v2</span></span><br><span class="line">      <span class="attr">with:</span></span><br><span class="line">        <span class="attr">ref:</span> <span class="string">master</span> <span class="comment">#2020年10月后github新建仓库默认分支改为main，注意更改</span></span><br><span class="line"></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">安装</span> <span class="string">Node</span></span><br><span class="line">      <span class="attr">uses:</span> <span class="string">actions/setup-node@v1</span></span><br><span class="line">      <span class="attr">with:</span></span><br><span class="line">        <span class="attr">node-version:</span> <span class="string">&quot;12.x&quot;</span> <span class="comment">#action使用的node版本，建议大版本和本地保持一致。可以在本地用node -v查询版本号。</span></span><br><span class="line"></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">安装</span> <span class="string">Hexo</span></span><br><span class="line">      <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line"><span class="string">        export TZ=&#x27;Asia/Shanghai&#x27;</span></span><br><span class="line"><span class="string">        npm install hexo-cli -g</span></span><br><span class="line"><span class="string"></span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">缓存</span> <span class="string">Hexo</span></span><br><span class="line">      <span class="attr">uses:</span> <span class="string">actions/cache@v1</span></span><br><span class="line">      <span class="attr">id:</span> <span class="string">cache</span></span><br><span class="line">      <span class="attr">with:</span></span><br><span class="line">        <span class="attr">path:</span> <span class="string">node_modules</span></span><br><span class="line">        <span class="attr">key:</span> <span class="string">$&#123;&#123;runner.OS&#125;&#125;-$&#123;&#123;hashFiles(&#x27;**/package-lock.json&#x27;)&#125;&#125;</span></span><br><span class="line"></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">安装依赖</span></span><br><span class="line">      <span class="attr">if:</span> <span class="string">steps.cache.outputs.cache-hit</span> <span class="type">!=</span> <span class="string">&#x27;true&#x27;</span></span><br><span class="line">      <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line"><span class="string">        npm install --save</span></span><br><span class="line"><span class="string"></span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">生成静态文件</span></span><br><span class="line">      <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line"><span class="string">        hexo clean</span></span><br><span class="line"><span class="string">        hexo generate</span></span><br><span class="line"><span class="string"></span></span><br><span class="line">    <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">部署</span> <span class="comment">#此处master:master 指从本地的master分支提交到远程仓库的master分支，若远程仓库没有对应分支则新建一个。如有其他需要，可以根据自己的需求更改。</span></span><br><span class="line">      <span class="attr">run:</span> <span class="string">|</span></span><br><span class="line"><span class="string">        cd ./public</span></span><br><span class="line"><span class="string">        git init</span></span><br><span class="line"><span class="string">        git config --global user.name &#x27;$&#123;&#123; secrets.GITHUBUSERNAME &#125;&#125;&#x27;</span></span><br><span class="line"><span class="string">        git config --global user.email &#x27;$&#123;&#123; secrets.GITHUBEMAIL &#125;&#125;&#x27;</span></span><br><span class="line"><span class="string">        git add .</span></span><br><span class="line"><span class="string">        git commit -m &quot;$&#123;&#123; github.event.head_commit.message &#125;&#125; $(date +&quot;%Z %Y-%m-%d %A %H:%M:%S&quot;) Updated By Github Actions&quot;</span></span><br><span class="line"><span class="string">        git push --force --quiet &quot;https://$&#123;&#123; secrets.GITHUBUSERNAME &#125;&#125;:$&#123;&#123; secrets.GITHUBTOKEN &#125;&#125;@github.com/$&#123;&#123; secrets.GITHUBUSERNAME &#125;&#125;/$&#123;&#123; secrets.GITHUBUSERNAME &#125;&#125;.github.io.git&quot; master:master</span></span><br><span class="line"><span class="string">        #git push --force --quiet &quot;https://$&#123;&#123; secrets.TOKENUSER &#125;&#125;:$&#123;&#123; secrets.CODINGTOKEN &#125;&#125;@e.coding.net/$&#123;&#123; secrets.CODINGUSERNAME &#125;&#125;/$&#123;&#123;  secrets.CODINGBLOGREPO &#125;&#125;.git&quot; master:master #coding部署写法，需要的自行取消注释</span></span><br><span class="line"><span class="string">        #git push --force --quiet &quot;https://$&#123;&#123; secrets.GITEEUSERNAME &#125;&#125;:$&#123;&#123; secrets.GITEETOKEN &#125;&#125;@gitee.com/$&#123;&#123; secrets.GITEEUSERNAME &#125;&#125;/$&#123;&#123; secrets.GITEEUSERNAME &#125;&#125;.git&quot; master:master #gitee部署写法，需要的自行取消注释</span></span><br></pre></td></tr></table></figure>
+
+
+<p>注意最后一行的<code>master:master</code>指从本地的master分支提交到远程仓库的master分支,需要根据你自己的实际情况进行调整。本地分支可以在git bash中看到。线上分支可以在提交仓库中查看。因为“政治正确”的原因，github在2020年10月将默认分支改为main。而git软件在本地默认创建的分支依然是master，所以若你线上仓库默认分支是main，这里应该写成master:main，表示从本地的master推送到远程的main。</p>
+</li>
+<li><p>之后需要自己到仓库的Settings-&gt;Secrets-&gt;actions 下添加环境变量，变量名参考脚本中出现的，依次添加。<br><img src="https://npm.elemecdn.com/akilar-candyassets/image/fdf9b9c9.png"><br>例如，需要部署在githubpage上，那么脚本中必要的变量为<br><code>GITHUBUSERNAME</code>、<code>GITHUBEMAIL</code>、<code>GITHUBTOKEN</code>，因此添加这三条变量。变量具体内容释义可以查看本文开头。<br><img src="https://npm.elemecdn.com/akilar-candyassets/image/d1fc6570.png"></p>
+</li>
+</ol>
+<h3 id="重新设置远程仓库和分支"><a href="#重新设置远程仓库和分支" class="headerlink" title="重新设置远程仓库和分支"></a>重新设置远程仓库和分支</h3><ol>
+<li><p>删除或者先把<code>[Blogroot]/themes/butterfly/.git</code>移动到非博客文件夹目录下,原因是主题文件夹下的<code>.git</code>文件夹的存在会导致其被识别成子项目，从而无法被上传到源码仓库。</p>
+</li>
+<li><p>在博客根目录<code>[Blogroot]</code>路径下运行指令</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">git init <span class="comment">#初始化</span></span><br><span class="line">git remote add origin git@github.com:[GithubUsername]/[SourceRepo].git <span class="comment">#[SourceRepo]为存放源码的github私有仓库</span></span><br><span class="line">git checkout -b master <span class="comment"># 切换到master分支，</span></span><br><span class="line"><span class="comment">#2020年10月后github新建仓库默认分支改为main，注意更改</span></span><br><span class="line"><span class="comment"># 如果不是，后面的所有设置的分支记得保持一致</span></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加屏蔽项<br>因为能够使用指令进行安装的内容不包括在需要提交的源码内，所有我们需要将这些内容添加到屏蔽项，表示不上传到github上。这样可以显著减少需要提交的文件量和加快提交速度。<br>打开<code>[Blogroot]/.gitignore</code>,输入以下内容：</p>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">.DS_Store</span><br><span class="line">Thumbs.db</span><br><span class="line">db.json</span><br><span class="line">*.log</span><br><span class="line">node_modules/</span><br><span class="line">public/</span><br><span class="line">.deploy*/</span><br><span class="line">.deploy_git*/</span><br><span class="line">.idea</span><br><span class="line">themes/butterfly/.git</span><br></pre></td></tr></table></figure>
+
+<p>如果不是<code>butterfly</code>主题，记得替换最后一行内容为你自己当前使用的主题。</p>
+</li>
+<li><p>之后再运行git提交指令，将博客源码提交到github上。牢记下方的三行指令，以后都是通过这个指令进行提交。</p>
+</li>
+</ol>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">git add .</span><br><span class="line">git commit -m <span class="string">&quot;github action update&quot;</span> <span class="comment">#引号内的内容可以自行更改作为提交记录。</span></span><br><span class="line">git push origin master</span><br><span class="line"><span class="comment">#2020年10月后github新建仓库默认分支改为main，注意更改</span></span><br></pre></td></tr></table></figure>
+<ol start="5">
+<li>此时你的主题文件夹若已经被正常上传，并且你也添加了主题文件夹下的.git文件夹的屏蔽项。那你可以考虑把第二步移走或删除的<code>.git</code>放回来，用作以后升级。（不禁怀疑真的有人会去用这个方式来升级吗）</li>
+</ol>
+<h3 id="查看部署情况"><a href="#查看部署情况" class="headerlink" title="查看部署情况"></a>查看部署情况</h3><p>此时，打开GIthub存放源码的私有仓库，找到action。<br><img src="https://npm.elemecdn.com/akilar-candyassets/image/20200923095030252.png"><br>根据刚刚的Commit记录找到相应的任务<br><img src="https://npm.elemecdn.com/akilar-candyassets/image/20200923095125814.png"><br>点击Deploy查看部署情况<br><img src="https://npm.elemecdn.com/akilar-candyassets/image/20200923095219663.png"><br>若全部打钩，恭喜你，你现在可以享受自动部署的快感了。</p>
+<h3 id="可能遇到的bug"><a href="#可能遇到的bug" class="headerlink" title="可能遇到的bug"></a>可能遇到的bug</h3><p>最新教程已更新在提交至源码仓库章节前作为提示</p>
+<h4 id="Unknown-block-tag-”tagname”"><a href="#Unknown-block-tag-”tagname”" class="headerlink" title="Unknown block tag:”tagname”"></a>Unknown block tag:”tagname”</h4><p>要是在github action部署时遇到<code>unknown block tag: &quot;tagname&quot;</code>这样的报错，说明你可能没有正确上传主题文件夹，也可能遇到安装依赖或生成页面失败的情况。</p>
+<p>请按照以下思路逐一排查。</p>
+<ol>
+<li>是否将<code>node_modules</code>也上传到源码仓库<code>[SourceRepo]</code>了。源码仓库不需要有<code>node_modules</code>文件夹。</li>
+<li>是否有将<code>[Blogroot]/themes/</code>下的主题文件夹上传，例如检查[SourceRepo]内的<code>[Blogroot]/themes/Butterfly</code>是否为空文件夹。为了能够正常编译页面，源码仓库需要有<code>[Blogroot]/themes/Butterfly</code>文件夹及它所包含的主题文件内容。<br>为了避免这两点，需要添加git屏蔽项。通过给<code>.gitignore</code>添加屏蔽项解决。<br>打开<code>[Blogroot]/.gitignore</code>,输入以下内容：</li>
+</ol>
+<figure class="highlight txt"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">.DS_Store</span><br><span class="line">Thumbs.db</span><br><span class="line">db.json</span><br><span class="line">*.log</span><br><span class="line">node_modules/</span><br><span class="line">public/</span><br><span class="line">.deploy*/</span><br><span class="line">.deploy_git*/</span><br><span class="line">.idea</span><br><span class="line">themes/butterfly/.git</span><br></pre></td></tr></table></figure>
+<ol start="3">
+<li>若是遇到添加屏蔽项，但是还是无法正常上传主题文件夹的情况。<ul>
+<li>请先将本地源码中的<code>themes/butterfly</code>文件夹下的<code>.git</code>文件夹删除。</li>
+<li>然后将<code>butterfly</code>文件夹移动到别的目录下。然后<code>commit</code>一次。</li>
+<li>接着将<code>butterfly</code>文件夹移动回来，再<code>commit</code>一次。</li>
+</ul>
+</li>
+</ol>
+<h4 id="变量名称问题"><a href="#变量名称问题" class="headerlink" title="变量名称问题"></a>变量名称问题</h4><p>部分不愿意用教程给出的变量名的可能遇到未知bug，此处给出官方的命名规则：</p>
+<p>以下规则适用于密码名称：</p>
+<p>密钥名称只能包含字母数字字符（[a-z]、[A-Z]、[0-9]）或下划线 (_)。 不允许空格。</p>
+<p>密钥名称不得以 GITHUB_ 前缀开头。</p>
+<p>密钥名称不能以数字开头。</p>
+<p>密钥名称不区分大小写。</p>
+<p>密钥名称在所创建的级别上必须是唯一的。</p>
+<h4 id="spawn-failed"><a href="#spawn-failed" class="headerlink" title="spawn failed"></a>spawn failed</h4><p>若是遇到spawn failed报错。在github action的配置中出现这一报错。一般是因为涉及到部署地址的配置项有误。</p>
+<p>首先排查你在[Blogroot]_config.yml的deploy配置项是否按照上文配置deploy项中的步骤正确组装配置链接。<br>其次排查[Blogroot].github\workflows\autodeploy.yml中各个关于仓库链接的配置内容，注意按照注释指引检查空格、分支等。<br>更多可能的因素和解决方案可以参考@洪哥HEO写的方案:Hexo错误：spawn failed的解决方法。</p>
+<h4 id="分支问题"><a href="#分支问题" class="headerlink" title="分支问题"></a>分支问题</h4><p>本地分支和线上分支不一致导致总是提交不上。<br>注意观察autodeploy.yml文件中，</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push --force --quiet <span class="string">&quot;https://<span class="variable">$&#123;&#123; secrets.GITHUBUSERNAME &#125;</span>&#125;:<span class="variable">$&#123;&#123; secrets.GITHUBTOKEN &#125;</span>&#125;@github.com/<span class="variable">$&#123;&#123; secrets.GITHUBUSERNAME &#125;</span>&#125;/<span class="variable">$&#123;&#123; secrets.GITHUBUSERNAME &#125;</span>&#125;.github.io.git&quot;</span> master:master</span><br></pre></td></tr></table></figure>
+
+<p>末尾的master:master指从本地的master分支提交到远程仓库的master分支。需要根据实际情况进行调整。本地的分支可在git bash中查看。线上的分支可在仓库查看。比如本地默认分支是master，线上默认分支是main，应该改成master:main。<br>会遇到这类问题，一般是有同学直接全局替换master为main导致。</p>
+<h3 id="后记"><a href="#后记" class="headerlink" title="后记"></a>后记</h3><p>这里可能有同学要问，github action有啥用？这不就是从<code>hexo cl &amp;&amp; hexo g &amp;&amp; hexo s</code>的三件套变成了<code>git add .</code>,<code>git commit -m &quot;commit content&quot;</code>,<code>git push</code>三件套吗？<br>其实github action的最大作用就是进一步提高速度和便携性，首先，配置要求提交源码这点，萌新小白就没必要再靠本地不断新建压缩包来备份源码了，借助git的版本管理，不管怎么改都可以快速回滚。<br>然后，git提交是增量更新，每次只提交新增或者删改的内容，而hexo deploy是在本地每次重新生成所有静态文件以后再整个提交。github action能帮我们节省大把时间，把最耗时的hexo generate和hexo deploy的工作丢给CI处理。让我们能够专心与编写博客内容，而不是水文3分钟，提交半小时。</p>
+<h3 id="发散思维"><a href="#发散思维" class="headerlink" title="发散思维"></a><a target="_blank" rel="noopener" href="https://akilar.top/posts/f752c86d/#%E5%8F%91%E6%95%A3%E6%80%9D%E7%BB%B4" title="发散思维"></a>发散思维</h3><p><code>Github action</code>只要监测到<code>master</code>分支有所变动就会启动部署，那么顺着这个思路，手机用户可以在网页Github进行小幅修改，例如修改错别字，调整布局之类的。保存后也会启动<code>Github action</code>，从而将内容部署到网页上去。</p>
+<p>2020年10月后<code>github</code>新建仓库默认分支改为<code>main</code>，注意更改</p>
+<h2 id="拓展内容"><a href="#拓展内容" class="headerlink" title="拓展内容"></a>拓展内容</h2><ol>
+<li><a target="_blank" rel="noopener" href="https://akilar.top/posts/812734f8/">使用Vercel来加速Hexo博客</a></li>
+<li><a target="_blank" rel="noopener" href="https://akilar.top/posts/54c08a4b/">使用Coding和github来实现双线部署</a></li>
+<li><a target="_blank" rel="noopener" href="https://akilar.top/posts/6ff8c001/">使用Gitee提供镜像站支持</a></li>
+</ol>
+<p>原创使用Github Action实现全自动部署</p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta"><i class="fas fa-circle-user fa-fw"></i>文章作者: </span><span class="post-copyright-info"><a target="_blank" rel="noopener" href="https://www.skyking.us.kg/">0xking</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta"><i class="fas fa-square-arrow-up-right fa-fw"></i>文章链接: </span><span class="post-copyright-info"><a href="https://skyking.us.kg/post/41767f46.html">https://skyking.us.kg/post/41767f46.html</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta"><i class="fas fa-circle-exclamation fa-fw"></i>版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="https://skyking.us.kg" target="_blank">w0xking</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Hexo/">Hexo</a><a class="post-meta__tags" href="/tags/%E5%8D%9A%E5%AE%A2/">博客</a></div><div class="post_share"><div class="social-share" data-image="https://w0xking.github.io/picx-images-hosting/战双-(13).5j3zkzl4xf.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://lib.baomitu.com/social-share.js/1.0.16/css/share.min.css" media="print" onload="this.media='all'"><script src="https://lib.baomitu.com/social-share.js/1.0.16/js/social-share.min.js" defer></script></div></div><div class="post-reward"><div class="reward-button"><i class="fas fa-qrcode"></i>你的打赏是我创作的动力！</div><div class="reward-main"><ul class="reward-all"><li class="reward-item"><a href="/img/wechat.jpg" target="_blank"><img class="post-qr-code-img" src="/img/wechat.jpg" alt="wechat"/></a><div class="post-qr-code-desc">wechat</div></li><li class="reward-item"><a href="/img/alipay.jpg" target="_blank"><img class="post-qr-code-img" src="/img/alipay.jpg" alt="alipay"/></a><div class="post-qr-code-desc">alipay</div></li></ul></div></div><nav class="pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/post/af9e54a7.html" title="关于海康威视部分版本漏洞"><img class="cover" src="https://w0xking.github.io/picx-images-hosting/战双-(14).70a4mqp9oi.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of previous post"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">关于海康威视部分版本漏洞</div></div></a></div><div class="next-post pull-right"><a href="/post/d2d7725.html" title="Markdown语法自带格式"><img class="cover" src="https://w0xking.github.io/picx-images-hosting/战双-(17).3k7sunfmnw.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">Markdown语法自带格式</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/post/d2d7725.html" title="Markdown语法自带格式"><img class="cover" src="https://w0xking.github.io/picx-images-hosting/战双-(17).3k7sunfmnw.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2024-11-16</div><div class="title">Markdown语法自带格式</div></div></a></div><div><a href="/post/dabe8c2.html" title="如何更新Hexo及插件的版本？如何更新主题版本？"><img class="cover" src="https://w0xking.github.io/picx-images-hosting/战双-(21).2h83jrjsuf.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-03-03</div><div class="title">如何更新Hexo及插件的版本？如何更新主题版本？</div></div></a></div><div><a href="/post/5372cc32.html" title="Butterfly 安裝文檔(二) 主題頁面  Butterfly"><img class="cover" src="https://w0xking.github.io/picx-images-hosting/战双-(15).2a4vobxnbn.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-03-01</div><div class="title">Butterfly 安裝文檔(二) 主題頁面  Butterfly</div></div></a></div><div><a href="/post/548d9c19.html" title="github action"><img class="cover" src="https://w0xking.github.io/picx-images-hosting/战双-(1).pf4ov0fkc.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-05-16</div><div class="title">github action</div></div></a></div><div><a href="/post/4ea940d2.html" title="博客搭建+美化（巨细版本）"><img class="cover" src="https://cdn.seovx.com/?mom=302" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-01-12</div><div class="title">博客搭建+美化（巨细版本）</div></div></a></div><div><a href="/post/f0a4488f.html" title="hexo教程"><img class="cover" src="https://s2.loli.net/2024/04/12/eE8bJqYWshiOcmx.png" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-01-03</div><div class="title">hexo教程</div></div></a></div></div></div><hr class="custom-hr"/><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="fas fa-comments fa-fw"></i><span> 评论</span></div></div><div class="comment-wrap"><div><div id="lv-container" data-id="city" data-uid="MTAyMC81OTczMC8zNjE5Mg"></div></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="/img/02%20(1).png" onerror="this.onerror=null;this.src='/img/catloading.gif'" alt="avatar"/></div><div class="author-info__name">0xking</div><div class="author-info__description">记录一些学习中的琐事</div></div><div class="card-info-data site-data is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">19</div></a><a href="/tags/"><div class="headline">标签</div><div class="length-num">24</div></a><a href="/categories/"><div class="headline">分类</div><div class="length-num">6</div></a></div><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/w0xking" target="_blank" title="Github"><i class="fab fa-github" style="color: #24292e;"></i></a><a class="social-icon" href="mailto:w0king@qq.com" target="_blank" title="Email"><i class="fas fa-envelope" style="color: #4a7dbe;"></i></a><a class="social-icon" href="http://wpa.qq.com/msgrd?v=3&amp;uin=xxxxx&amp;site=qq&amp;menu=yes" target="_blank" title="QQ"><i class="fab fa-qq"></i></a></div></div><div class="card-widget card-announcement"><div id="welcome-info"></div><div class="item-headline"><!--i.fas.fa-bullhorn.fa-shake--><span>公告</span></div><div class="announcement_content">本站点使用github page，加载慢可自行使用节点加速。也可访问<b><a href="https://blog.skyking.us.kg/" target="_blank">备份站</a> </b></div></div><div class="card-widget tzy-right-widget" id="card-wechat"><div id="flip-wrapper"><div id="flip-content"><div class="face"></div><div class="back face"></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span><span class="toc-percentage"></span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Github-Action%E7%AE%80%E4%BB%8B"><span class="toc-number">1.</span> <span class="toc-text">Github Action简介</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%95%99%E7%A8%8B%E5%B8%B8%E9%87%8F%E5%A3%B0%E6%98%8E"><span class="toc-number">2.</span> <span class="toc-text">教程常量声明</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Github-Action%E4%BD%BF%E7%94%A8%E6%95%99%E7%A8%8B"><span class="toc-number">3.</span> <span class="toc-text">Github Action使用教程</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E8%8E%B7%E5%8F%96Token"><span class="toc-number">3.1.</span> <span class="toc-text">获取Token</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#github"><span class="toc-number">3.1.1.</span> <span class="toc-text">github</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#gitee"><span class="toc-number">3.1.2.</span> <span class="toc-text">gitee</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%88%9B%E5%BB%BA%E5%AD%98%E6%94%BE%E6%BA%90%E7%A0%81%E7%9A%84%E7%A7%81%E6%9C%89%E4%BB%93%E5%BA%93"><span class="toc-number">3.2.</span> <span class="toc-text">创建存放源码的私有仓库</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%85%8D%E7%BD%AEGithub-Action"><span class="toc-number">3.3.</span> <span class="toc-text">配置Github Action</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E9%87%8D%E6%96%B0%E8%AE%BE%E7%BD%AE%E8%BF%9C%E7%A8%8B%E4%BB%93%E5%BA%93%E5%92%8C%E5%88%86%E6%94%AF"><span class="toc-number">3.4.</span> <span class="toc-text">重新设置远程仓库和分支</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E6%9F%A5%E7%9C%8B%E9%83%A8%E7%BD%B2%E6%83%85%E5%86%B5"><span class="toc-number">3.5.</span> <span class="toc-text">查看部署情况</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%AF%E8%83%BD%E9%81%87%E5%88%B0%E7%9A%84bug"><span class="toc-number">3.6.</span> <span class="toc-text">可能遇到的bug</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#Unknown-block-tag-%E2%80%9Dtagname%E2%80%9D"><span class="toc-number">3.6.1.</span> <span class="toc-text">Unknown block tag:”tagname”</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%8F%98%E9%87%8F%E5%90%8D%E7%A7%B0%E9%97%AE%E9%A2%98"><span class="toc-number">3.6.2.</span> <span class="toc-text">变量名称问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#spawn-failed"><span class="toc-number">3.6.3.</span> <span class="toc-text">spawn failed</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#%E5%88%86%E6%94%AF%E9%97%AE%E9%A2%98"><span class="toc-number">3.6.4.</span> <span class="toc-text">分支问题</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%90%8E%E8%AE%B0"><span class="toc-number">3.7.</span> <span class="toc-text">后记</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%8F%91%E6%95%A3%E6%80%9D%E7%BB%B4"><span class="toc-number">3.8.</span> <span class="toc-text">发散思维</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#%E6%8B%93%E5%B1%95%E5%86%85%E5%AE%B9"><span class="toc-number">4.</span> <span class="toc-text">拓展内容</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/post/d2d7725.html" title="Markdown语法自带格式"><img src="https://w0xking.github.io/picx-images-hosting/战双-(17).3k7sunfmnw.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="Markdown语法自带格式"/></a><div class="content"><a class="title" href="/post/d2d7725.html" title="Markdown语法自带格式">Markdown语法自带格式</a><time datetime="2024-11-16T02:38:09.000Z" title="发表于 2024-11-16 10:38:09">2024-11-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/41767f46.html" title="使用Github Action实现全自动部署"><img src="https://w0xking.github.io/picx-images-hosting/战双-(13).5j3zkzl4xf.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="使用Github Action实现全自动部署"/></a><div class="content"><a class="title" href="/post/41767f46.html" title="使用Github Action实现全自动部署">使用Github Action实现全自动部署</a><time datetime="2024-09-23T13:27:08.000Z" title="发表于 2024-09-23 21:27:08">2024-09-23</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/af9e54a7.html" title="关于海康威视部分版本漏洞"><img src="https://w0xking.github.io/picx-images-hosting/战双-(14).70a4mqp9oi.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="关于海康威视部分版本漏洞"/></a><div class="content"><a class="title" href="/post/af9e54a7.html" title="关于海康威视部分版本漏洞">关于海康威视部分版本漏洞</a><time datetime="2024-09-20T02:31:27.000Z" title="发表于 2024-09-20 10:31:27">2024-09-20</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/c636442c.html" title="工作记录"><img src="https://w0xking.github.io/picx-images-hosting/%E6%88%98%E5%8F%8C-(16).7w6m26yy5j.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="工作记录"/></a><div class="content"><a class="title" href="/post/c636442c.html" title="工作记录">工作记录</a><time datetime="2024-08-30T04:11:08.000Z" title="发表于 2024-08-30 12:11:08">2024-08-30</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/post/b01882d5.html" title="党纪学习教育心得体会"><img src="https://w0xking.github.io/picx-images-hosting/%E6%88%98%E5%8F%8C-(12).2h83jrjspt.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="党纪学习教育心得体会"/></a><div class="content"><a class="title" href="/post/b01882d5.html" title="党纪学习教育心得体会">党纪学习教育心得体会</a><time datetime="2024-06-04T09:26:05.000Z" title="发表于 2024-06-04 17:26:05">2024-06-04</time></div></div></div></div></div></div></main><footer id="footer" style="background: falst"><div id="footer-wrap"><div id="ft"><div class="ft-item-1"><div class="t-top"><div class="t-t-l">    <p class="ft-t t-l-t">✨星辰之旅✨</p><div class="bg-ad"><div>再看看那个光点，它就在这里，这是家园，这是我们 —— 你所爱的每一个人，你认识的一个人，你听说过的每一个人，曾经有过的每一个人，都在它上面度过他们的一生✨</div><div class="btn-xz-box"><a class="btn-xz" target="_blank" rel="noopener" href="https://stellarium.org/">点击开启星辰之旅✨        </a></div></div></div><div class="t-t-r"><p class="ft-t t-l-t">网站导航</p><ul class="ft-links"><li><a href="../license/">使用指南</a><a href="/">网址导航</a></li><li><a href="../gallery/">看看图片</a><a href="../comments/">留点什么</a></li><li><a href="../about/">关于博主</a><a href="../archives/">文章归档</a></li><li><a href="../categories/">文章分类</a><a href="../tags/">文章标签</a></li></ul></div></div></div><div class="ft-item-2"><div class="t-t-l"></div><p class="ft-t">推荐友链</p><div class="ft-img-group"><div class="img-group-item"><a target="_blank" rel="noopener" href="https://blog.anheyu.com/"><img src="https://npm.elemecdn.com/anzhiyu-blog-static@1.0.4/img/avatar.jpg" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://www.fomal.cc/"><img src="https://sourcebucket.s3.bitiful.net/img/avatar.webp" alt=""/></a></div><div class="img-group-item"><a target="_blank" rel="noopener" href="https://fe32.top/"><img src="https://bu.dusays.com/2022/05/02/626f92e193879.jpg" alt=""/></a></div></div><div class="t-t-r"><p class="ft-t">公益广告</p><div class="bg-ad"><div>国家反诈中心是国务院打击治理电信网络新型违法犯罪工作部际联席会议合成作战平台，集资源整合、情报研判、侦查指挥为一体，在打击、防范、治理电信网络诈骗等新型违法犯罪中发挥着重要作用。</div><div class="btn-xz-box"><a class="btn-xz" target="_blank" rel="noopener" href="https://w0xking.github.io/post/494f7a99.html">下载（国家反诈中心） APP</a></div></div></div></div></div><div class="copyright">&copy;2020 - 2024 By 0xking</div><div class="footer_custom_text">I wish you to become your own sun, no need to rely on who's light.<p><a target="_blank" href="https://hexo.io/"><img src="https://img.shields.io/badge/Frame-Hexo-blue?style=flat&logo=hexo" title="博客框架为Hexo"></a>&nbsp;<a target="_blank" href="https://butterfly.js.org/"><img src="https://img.shields.io/badge/Theme-Butterfly-6513df?style=flat&logo=bitdefender" title="主题采用butterfly"></a>&nbsp;<a target="_blank" href="https://www.jsdelivr.com/"><img src="https://img.shields.io/badge/CDN-jsDelivr-orange?style=flat&logo=jsDelivr" title="本站使用JsDelivr为静态资源提供CDN加速"></a> &nbsp;<a target="_blank" href="https://vercel.com/ "><img src="https://img.shields.io/badge/Hosted-Vervel-brightgreen?style=flat&logo=Vercel" title="本站采用双线部署，默认线路托管于Vercel"></a>&nbsp;<a target="_blank" href="https://vercel.com/ "><img src="https://img.shields.io/badge/Hosted-Coding-0cedbe?style=flat&logo=Codio" title="本站采用双线部署，联通线路托管于Coding"></a>&nbsp;<a target="_blank" href="https://icp.gov.moe/?keyword=20242550"><img src="https://img.shields.io/badge/%E8%90%8CICP%E5%A4%87-20242550%E5%8F%B7-fe1384"> </a>&nbsp;<a target="_blank" href="https://github.com/"><img src="https://img.shields.io/badge/Source-Github-d021d6?style=flat&logo=GitHub" title="本站项目由Gtihub托管"></a>&nbsp;<a target="_blank" href="http://creativecommons.org/licenses/by-nc-sa/4.0/"><img src="https://img.shields.io/badge/Copyright-BY--NC--SA%204.0-d42328?style=flat&logo=Claris" title="本站采用知识共享署名-非商业性使用-相同方式共享4.0国际许可协议进行许可"></a></p></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="translateLink" type="button" title="简繁转换">繁</button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button type="button" title="切换背景" onclick="toggleWinbox()"><i class="fas fa-image"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside-config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><a id="to_comment" href="#post-comment" title="直达评论"><i class="fas fa-comments"></i></a><button id="go-up" type="button" title="回到顶部"><span class="scroll-percent"></span><i class="fas fa-arrow-up"></i></button><button id="go-down" type="button" title="直达底部" onclick="btf.scrollToDest(document.body.scrollHeight, 500)"><i class="fas fa-arrow-down"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><script src="/js/tw_cn.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/fancyapps-ui/5.0.33/fancybox/fancybox.umd.min.js"></script><div class="js-pjax"><script>(()=>{
+  const loadLivere = () => {
+    if (typeof LivereTower === 'object') window.LivereTower.init()
+    else {
+      (function(d, s) {
+          var j, e = d.getElementsByTagName(s)[0];
+          if (typeof LivereTower === 'function') { return; }
+          j = d.createElement(s);
+          j.src = 'https://cdn-city.livere.com/js/embed.dist.js';
+          j.async = true;
+          e.parentNode.insertBefore(j, e);
+      })(document, 'script');
+    }
+  }
+
+  if ('Livere' === 'Livere' || !false) {
+    if (false) btf.loadComment(document.getElementById('lv-container'), loadLivere)
+    else loadLivere()
+  } else {
+    window.loadOtherComment = loadLivere
+  }
+})()</script></div><div class="aplayer no-destroy" data-id="2276118625" data-server="netease" data-type="playlist" data-fixed="true" data-mini="true" data-listFolded="false" data-order="random" data-preload="none" data-autoplay="true" muted></div><script data-pjax type="application/javascript" src="/js/Sakura.js"></script><script data-pjax type="application/javascript" src="/js/custom.js"></script><script>let tianliGPT_postSelector = '\#post \#article-container';let tianliGPT_theme = 'yanzhi' ;let tianliGPT_blacklist = 'https://w0xking.github.io/blacklist.json'; let tianliGPT_Title = '来自kking的AI摘要';let tianliGPT_wordLimit = 180;let tianliGPT_key = '66UsY6V7Qd8';</script><script src="https://ai.tianli0.top/static/public/tianli_gpt.min.js"></script><script data-pjax src="https://cdn.jsdelivr.net/gh/nextapps-de/winbox/dist/winbox.bundle.min.js"></script><script data-pjax type="application/javascript" src="/js/bg.js"></script><script type="text/javascript" src="https://unpkg.zhimg.com/jquery@latest/dist/jquery.min.js"></script><script type="application/javascript" src="/js/ipdw.js"></script><script defer="defer" id="fluttering_ribbon" mobile="true" src="https://cdnjs.cloudflare.com/ajax/libs/butterfly-extsrc/1.1.3/canvas-fluttering-ribbon.min.js"></script><link rel="stylesheet" href="/css/APlayer.min.css" media="print" onload="this.media='all'"><script src="/js/APlayer.min.js"></script><script src="/js/Meting.min.js"></script><script src="https://lib.baomitu.com/pjax/0.2.8/pjax.min.js"></script><script>let pjaxSelectors = ["meta[property=\"og:image\"]","meta[property=\"og:title\"]","meta[property=\"og:url\"]","head > title","#config-diff","#body-wrap","#rightside-config-hide","#rightside-config-show",".js-pjax"]
+
+var pjax = new Pjax({
+  elements: 'a:not([target="_blank"]):not([href="/music/"]):not([href="/no-pjax/"])',
+  selectors: pjaxSelectors,
+  cacheBust: false,
+  analytics: false,
+  scrollRestoration: false
+})
+
+document.addEventListener('pjax:send', function () {
+
+  // removeEventListener
+  btf.removeGlobalFnEvent('pjax')
+  btf.removeGlobalFnEvent('themeChange')
+
+  document.getElementById('rightside').classList.remove('rightside-show')
+  
+  if (window.aplayers) {
+    for (let i = 0; i < window.aplayers.length; i++) {
+      if (!window.aplayers[i].options.fixed) {
+        window.aplayers[i].destroy()
+      }
+    }
+  }
+
+  typeof typed === 'object' && typed.destroy()
+
+  //reset readmode
+  const $bodyClassList = document.body.classList
+  $bodyClassList.contains('read-mode') && $bodyClassList.remove('read-mode')
+
+  typeof disqusjs === 'object' && disqusjs.destroy()
+})
+
+document.addEventListener('pjax:complete', function () {
+  window.refreshFn()
+
+  document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+  })
+
+  GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+  typeof panguInit === 'function' && panguInit()
+
+  // google analytics
+  typeof gtag === 'function' && gtag('config', '', {'page_path': window.location.pathname});
+
+  // baidu analytics
+  typeof _hmt === 'object' && _hmt.push(['_trackPageview',window.location.pathname]);
+
+  typeof loadMeting === 'function' && document.getElementsByClassName('aplayer').length && loadMeting()
+
+  // prismjs
+  typeof Prism === 'object' && Prism.highlightAll()
+})
+
+document.addEventListener('pjax:error', e => {
+  if (e.request.status === 404) {
+    pjax.loadUrl('/404.html')
+  }
+})</script><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><span id="loading-status"></span><button class="search-close-button"><i class="fas fa-times"></i></button></nav><div class="is-center" id="loading-database"><i class="fas fa-spinner fa-pulse"></i><span>  数据库加载中</span></div><div class="search-wrap"><div id="local-search-input"><div class="local-search-box"><input class="local-search-box--input" placeholder="搜索文章" type="text"/></div></div><hr/><div id="local-search-results"></div><div id="local-search-stats-wrap"></div></div></div><div id="search-mask"></div><script src="/js/search/local-search.js"></script></div></div><!-- hexo injector body_end start --><script data-pjax>
+  function butterfly_clock_anzhiyu_injector_config(){
+    var parent_div_git = document.getElementsByClassName('sticky_layout')[0];
+    var item_html = '<div class="card-widget card-clock"><div class="card-glass"><div class="card-background"><div class="card-content"><div id="hexo_electric_clock"><img class="entered loading" id="card-clock-loading" src="https://npm.elemecdn.com/hexo-butterfly-clock/lib/loading.gif" style="height: 120px; width: 100%;" data-ll-status="loading"/></div></div></div></div></div>';
+    console.log('已挂载butterfly_clock_anzhiyu')
+    if(parent_div_git) {
+      parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  }
+  var elist = 'null'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var qweather_key = '53b0fff98fe943b99e8c38e9e15657c3';
+  var gaud_map_key = '8ebbcccc634142084c3a0abfd64eb681';
+  var baidu_ak_key = 'undefined';
+  var flag = 0;
+  var clock_rectangle = '108.940174,34.341568';
+  var clock_default_rectangle_enable = 'false';
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_clock_anzhiyu_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_clock_anzhiyu_injector_config();
+  }
+  </script><script src="https://widget.qweather.net/simple/static/js/he-simple-common.js?v=2.0"></script><script data-pjax src="/js/clock.min.js"></script><script data-pjax>
+  function butterfly_swiper_injector_config(){
+    var parent_div_git = document.getElementById('recent-posts');
+    var item_html = '<div class="recent-post-item" style="height: auto;width: 100%"><div class="blog-slider swiper-container-fade swiper-container-horizontal" id="swiper_container"><div class="blog-slider__wrp swiper-wrapper" style="transition-duration: 0ms;"><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" onclick="pjax.loadUrl(&quot;post/dc8d366.html&quot;);" href="javascript:void(0);" alt=""><img width="48" height="48" src="https://w0xking.github.io/picx-images-hosting/02-(2).ibwqnh48f.jpg" alt="" onerror="this.src=/img/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2021-04-10</span><a class="blog-slider__title" onclick="pjax.loadUrl(&quot;post/dc8d366.html&quot;);" href="javascript:void(0);" alt="">向你的Hexo里放上一只live2d桌宠!</a><div class="blog-slider__text">再怎么看我也不知道怎么描述它的啦！</div><a class="blog-slider__button" onclick="pjax.loadUrl(&quot;post/dc8d366.html&quot;);" href="javascript:void(0);" alt="">详情       </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" onclick="pjax.loadUrl(&quot;post/cb557a52.html&quot;);" href="javascript:void(0);" alt=""><img width="48" height="48" src="https://w0xking.github.io/picx-images-hosting/深空之眼-(41).8vmpfd52p3.jpg" alt="" onerror="this.src=/img/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2021-04-03</span><a class="blog-slider__title" onclick="pjax.loadUrl(&quot;post/cb557a52.html&quot;);" href="javascript:void(0);" alt="">hexo-blog-encrypt</a><div class="blog-slider__text">再怎么看我也不知道怎么描述它的啦！</div><a class="blog-slider__button" onclick="pjax.loadUrl(&quot;post/cb557a52.html&quot;);" href="javascript:void(0);" alt="">详情       </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" onclick="pjax.loadUrl(&quot;post/5372cc32.html&quot;);" href="javascript:void(0);" alt=""><img width="48" height="48" src="https://w0xking.github.io/picx-images-hosting/战双-(15).2a4vobxnbn.jpg" alt="" onerror="this.src=/img/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2021-03-01</span><a class="blog-slider__title" onclick="pjax.loadUrl(&quot;post/5372cc32.html&quot;);" href="javascript:void(0);" alt="">Butterfly 安裝文檔(二) 主題頁面  Butterfly</a><div class="blog-slider__text">再怎么看我也不知道怎么描述它的啦！</div><a class="blog-slider__button" onclick="pjax.loadUrl(&quot;post/5372cc32.html&quot;);" href="javascript:void(0);" alt="">详情       </a></div></div><div class="blog-slider__item swiper-slide" style="width: 750px; opacity: 1; transform: translate3d(0px, 0px, 0px); transition-duration: 0ms;"><a class="blog-slider__img" onclick="pjax.loadUrl(&quot;post/f0a4488f.html&quot;);" href="javascript:void(0);" alt=""><img width="48" height="48" src="https://s2.loli.net/2024/04/12/eE8bJqYWshiOcmx.png" alt="" onerror="this.src=/img/loading.gif; this.onerror = null;"/></a><div class="blog-slider__content"><span class="blog-slider__code">2021-01-03</span><a class="blog-slider__title" onclick="pjax.loadUrl(&quot;post/f0a4488f.html&quot;);" href="javascript:void(0);" alt="">hexo教程</a><div class="blog-slider__text">hexo博客搭建教程</div><a class="blog-slider__button" onclick="pjax.loadUrl(&quot;post/f0a4488f.html&quot;);" href="javascript:void(0);" alt="">详情       </a></div></div></div><div class="blog-slider__pagination swiper-pagination-clickable swiper-pagination-bullets"></div></div></div>';
+    console.log('已挂载butterfly_swiper')
+    parent_div_git.insertAdjacentHTML("afterbegin",item_html)
+    }
+  var elist = '/about/,/archives/,/categories/,/gallery/,/license/,/link/,/movies/,/music/,/tags/,/page/'.split(',');
+  var cpage = location.pathname;
+  var epage = 'all';
+  var flag = 0;
+
+  for (var i=0;i<elist.length;i++){
+    if (cpage.includes(elist[i])){
+      flag++;
+    }
+  }
+
+  if ((epage ==='all')&&(flag == 0)){
+    butterfly_swiper_injector_config();
+  }
+  else if (epage === cpage){
+    butterfly_swiper_injector_config();
+  }
+  </script><script defer src="/js/swiper.min.js"></script><script defer data-pjax src="/js/swiper_init.js"></script><!-- hexo injector body_end end --><script src="https://npm.elemecdn.com/live2d-widget@3.x/lib/L2Dwidget.min.js"></script><script>L2Dwidget.init({"pluginRootPath":"node_modules/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"https://unpkg.com/live2d-widget-model-tororo@1.0.5/assets/tororo.model.json"},"display":{"position":"right","width":170,"height":260},"mobile":{"show":false},"log":false});</script></body></html>
