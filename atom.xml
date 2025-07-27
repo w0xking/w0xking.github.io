@@ -1,0 +1,453 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>空天之境</title>
+  
+  <subtitle>分享技术随笔</subtitle>
+  <link href="https://blog.skyk.us.kg/atom.xml" rel="self"/>
+  
+  <link href="https://blog.skyk.us.kg/"/>
+  <updated>2025-07-27T12:58:17.236Z</updated>
+  <id>https://blog.skyk.us.kg/</id>
+  
+  <author>
+    <name>SkyKing</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>西北大学现代学院机房升级改造</title>
+    <link href="https://blog.skyk.us.kg/posts/886c.html"/>
+    <id>https://blog.skyk.us.kg/posts/886c.html</id>
+    <published>2025-07-26T12:50:46.000Z</published>
+    <updated>2025-07-27T12:58:17.236Z</updated>
+    
+    
+    <summary type="html">为满足智慧校园评估，与现代化网络支撑，对旧机房进行升级改造，提供更稳定可靠的校园网络。</summary>
+    
+    
+    
+    <category term="工作记录" scheme="https://blog.skyk.us.kg/categories/%E5%B7%A5%E4%BD%9C%E8%AE%B0%E5%BD%95/"/>
+    
+    
+    <category term="升级改造" scheme="https://blog.skyk.us.kg/tags/%E5%8D%87%E7%BA%A7%E6%94%B9%E9%80%A0/"/>
+    
+    <category term="路由交换" scheme="https://blog.skyk.us.kg/tags/%E8%B7%AF%E7%94%B1%E4%BA%A4%E6%8D%A2/"/>
+    
+    <category term="网络技术" scheme="https://blog.skyk.us.kg/tags/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>八项规定精神学习</title>
+    <link href="https://blog.skyk.us.kg/posts/f5a4.html"/>
+    <id>https://blog.skyk.us.kg/posts/f5a4.html</id>
+    <published>2025-05-13T10:50:27.000Z</published>
+    <updated>2025-07-27T12:58:17.235Z</updated>
+    
+    
+    <summary type="html">党中央决定，自2025年全国两会后至7月在全党开展深入贯彻中央八项规定精神学习教育，准确领会中央八项规定及中央八项规定实施细则的核心要义，推动学习教育入脑入心、见行见效、融为一体，以优良的政风带动民风社风。</summary>
+    
+    
+    
+    <category term="党务" scheme="https://blog.skyk.us.kg/categories/%E5%85%9A%E5%8A%A1/"/>
+    
+    
+    <category term="八项规定精神" scheme="https://blog.skyk.us.kg/tags/%E5%85%AB%E9%A1%B9%E8%A7%84%E5%AE%9A%E7%B2%BE%E7%A5%9E/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>逆向API实现AI chat自由</title>
+    <link href="https://blog.skyk.us.kg/posts/d802.html"/>
+    <id>https://blog.skyk.us.kg/posts/d802.html</id>
+    <published>2025-05-10T11:11:23.000Z</published>
+    <updated>2025-07-27T12:58:17.236Z</updated>
+    
+    
+    <summary type="html">对国外ai平台进行逆向。</summary>
+    
+    
+    
+    <category term="网络安全" scheme="https://blog.skyk.us.kg/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/"/>
+    
+    
+    <category term="AI" scheme="https://blog.skyk.us.kg/tags/AI/"/>
+    
+    <category term="逆向" scheme="https://blog.skyk.us.kg/tags/%E9%80%86%E5%90%91/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>IP协议与DNS协议在Web网站中的应用</title>
+    <link href="https://blog.skyk.us.kg/posts/5de8.html"/>
+    <id>https://blog.skyk.us.kg/posts/5de8.html</id>
+    <published>2025-04-24T10:52:01.000Z</published>
+    <updated>2025-07-27T12:58:17.233Z</updated>
+    
+    
+    <summary type="html">详解IP与DNS</summary>
+    
+    
+    
+    <category term="网络技术" scheme="https://blog.skyk.us.kg/categories/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF/"/>
+    
+    
+    <category term="IP,DNS" scheme="https://blog.skyk.us.kg/tags/IP-DNS/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>文体馆部分操作</title>
+    <link href="https://blog.skyk.us.kg/posts/a7b4.html"/>
+    <id>https://blog.skyk.us.kg/posts/a7b4.html</id>
+    <published>2025-04-01T07:32:19.000Z</published>
+    <updated>2025-07-27T12:58:17.236Z</updated>
+    
+    
+    <summary type="html">带班文体馆设备操作</summary>
+    
+    
+    
+    <category term="工作记录" scheme="https://blog.skyk.us.kg/categories/%E5%B7%A5%E4%BD%9C%E8%AE%B0%E5%BD%95/"/>
+    
+    
+    <category term="网络中心" scheme="https://blog.skyk.us.kg/tags/%E7%BD%91%E7%BB%9C%E4%B8%AD%E5%BF%83/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>网络行为规定</title>
+    <link href="https://blog.skyk.us.kg/posts/8fa9.html"/>
+    <id>https://blog.skyk.us.kg/posts/8fa9.html</id>
+    <published>2025-02-28T10:33:34.000Z</published>
+    <updated>2025-07-27T12:58:17.236Z</updated>
+    
+    
+    <summary type="html">为了规范党员网络行为，发挥党员在网络空间作用，根据《中国共产党党员教育管理工作条例》等有关党内法规，制定本规定。</summary>
+    
+    
+    
+    <category term="党务" scheme="https://blog.skyk.us.kg/categories/%E5%85%9A%E5%8A%A1/"/>
+    
+    
+    <category term="网络行为" scheme="https://blog.skyk.us.kg/tags/%E7%BD%91%E7%BB%9C%E8%A1%8C%E4%B8%BA/"/>
+    
+    <category term="网络空间作用" scheme="https://blog.skyk.us.kg/tags/%E7%BD%91%E7%BB%9C%E7%A9%BA%E9%97%B4%E4%BD%9C%E7%94%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>ArgoX小白版教程</title>
+    <link href="https://blog.skyk.us.kg/posts/4340.html"/>
+    <id>https://blog.skyk.us.kg/posts/4340.html</id>
+    <published>2024-12-31T16:00:01.000Z</published>
+    <updated>2025-07-27T12:58:17.232Z</updated>
+    
+    
+    <summary type="html">有东西被加密了, 请输入密码查看.</summary>
+    
+    
+    
+    <category term="serv00" scheme="https://blog.skyk.us.kg/categories/serv00/"/>
+    
+    
+    <category term="教程" scheme="https://blog.skyk.us.kg/tags/%E6%95%99%E7%A8%8B/"/>
+    
+    <category term="argo" scheme="https://blog.skyk.us.kg/tags/argo/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Markdown语法自带格式</title>
+    <link href="https://blog.skyk.us.kg/posts/d2d7725.html"/>
+    <id>https://blog.skyk.us.kg/posts/d2d7725.html</id>
+    <published>2024-11-16T02:38:09.000Z</published>
+    <updated>2025-07-27T12:58:17.233Z</updated>
+    
+    
+    <summary type="html">Markdown 用法 by &#39;https://www.fomal.cc/posts/2013454d.html&#39;</summary>
+    
+    
+    
+    <category term="教程" scheme="https://blog.skyk.us.kg/categories/%E6%95%99%E7%A8%8B/"/>
+    
+    
+    <category term="Hexo" scheme="https://blog.skyk.us.kg/tags/Hexo/"/>
+    
+    <category term="博客" scheme="https://blog.skyk.us.kg/tags/%E5%8D%9A%E5%AE%A2/"/>
+    
+    <category term="Markdown" scheme="https://blog.skyk.us.kg/tags/Markdown/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>主题外挂标签使用</title>
+    <link href="https://blog.skyk.us.kg/posts/8f9926b7.html"/>
+    <id>https://blog.skyk.us.kg/posts/8f9926b7.html</id>
+    <published>2024-10-07T16:00:00.000Z</published>
+    <updated>2024-10-07T16:00:00.000Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;div class=&quot;note danger modern no-icon&quot;&gt;&lt;p&gt;内置的外挂标签满足大部分用户的需求，不需要额外安装插件。&lt;br&gt;插件的外挂标签需要安装对应的插件，满足部分用户的特殊需求。&lt;/p&gt;&lt;/div&gt;
+
+&lt;h1 id=&quot;内置标签&quot;&gt;&lt;a href=&quot;#</summary>
+      
+    
+    
+    
+    <category term="hexo solitude" scheme="https://blog.skyk.us.kg/categories/hexo-solitude/"/>
+    
+    
+    <category term="外挂标签" scheme="https://blog.skyk.us.kg/tags/%E5%A4%96%E6%8C%82%E6%A0%87%E7%AD%BE/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>使用Github Action实现全自动部署</title>
+    <link href="https://blog.skyk.us.kg/posts/41767f46.html"/>
+    <id>https://blog.skyk.us.kg/posts/41767f46.html</id>
+    <published>2024-09-23T13:27:08.000Z</published>
+    <updated>2025-07-27T12:58:17.235Z</updated>
+    
+    
+    <summary type="html">Github Action</summary>
+    
+    
+    
+    <category term="教程" scheme="https://blog.skyk.us.kg/categories/%E6%95%99%E7%A8%8B/"/>
+    
+    
+    <category term="Hexo" scheme="https://blog.skyk.us.kg/tags/Hexo/"/>
+    
+    <category term="博客" scheme="https://blog.skyk.us.kg/tags/%E5%8D%9A%E5%AE%A2/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>关于海康威视部分版本漏洞</title>
+    <link href="https://blog.skyk.us.kg/posts/af9e54a7.html"/>
+    <id>https://blog.skyk.us.kg/posts/af9e54a7.html</id>
+    <published>2024-09-20T02:31:27.000Z</published>
+    <updated>2025-07-27T12:58:17.235Z</updated>
+    
+    
+    <summary type="html">海康威视poc</summary>
+    
+    
+    
+    <category term="网络安全" scheme="https://blog.skyk.us.kg/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/"/>
+    
+    
+    <category term="推荐" scheme="https://blog.skyk.us.kg/tags/%E6%8E%A8%E8%8D%90/"/>
+    
+    <category term="漏洞" scheme="https://blog.skyk.us.kg/tags/%E6%BC%8F%E6%B4%9E/"/>
+    
+    <category term="poc" scheme="https://blog.skyk.us.kg/tags/poc/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>工作记录</title>
+    <link href="https://blog.skyk.us.kg/posts/c636442c.html"/>
+    <id>https://blog.skyk.us.kg/posts/c636442c.html</id>
+    <published>2024-08-30T04:11:08.000Z</published>
+    <updated>2025-07-27T12:58:17.236Z</updated>
+    
+    
+    <summary type="html">工作周报或工作日志随写，随便记录。</summary>
+    
+    
+    
+    <category term="工作记录" scheme="https://blog.skyk.us.kg/categories/%E5%B7%A5%E4%BD%9C%E8%AE%B0%E5%BD%95/"/>
+    
+    
+    <category term="网络中心" scheme="https://blog.skyk.us.kg/tags/%E7%BD%91%E7%BB%9C%E4%B8%AD%E5%BF%83/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>党纪学习教育心得体会</title>
+    <link href="https://blog.skyk.us.kg/posts/b01882d5.html"/>
+    <id>https://blog.skyk.us.kg/posts/b01882d5.html</id>
+    <published>2024-06-04T09:26:05.000Z</published>
+    <updated>2025-07-27T12:58:17.235Z</updated>
+    
+    
+    <summary type="html">条例自2024年1月1日起施行。</summary>
+    
+    
+    
+    <category term="党务" scheme="https://blog.skyk.us.kg/categories/%E5%85%9A%E5%8A%A1/"/>
+    
+    
+    <category term="纪律处分条例" scheme="https://blog.skyk.us.kg/tags/%E7%BA%AA%E5%BE%8B%E5%A4%84%E5%88%86%E6%9D%A1%E4%BE%8B/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>AI文章摘要</title>
+    <link href="https://blog.skyk.us.kg/posts/da81a947.html"/>
+    <id>https://blog.skyk.us.kg/posts/da81a947.html</id>
+    <published>2024-03-26T10:35:53.000Z</published>
+    <updated>2025-07-27T12:58:17.232Z</updated>
+    
+    
+    <summary type="html">文章部署AI摘要&#39;https://postsummary.zhheo.com/theme/custom.html&#39;</summary>
+    
+    
+    
+    <category term="AI" scheme="https://blog.skyk.us.kg/categories/AI/"/>
+    
+    
+    <category term="AI" scheme="https://blog.skyk.us.kg/tags/AI/"/>
+    
+    <category term="交互" scheme="https://blog.skyk.us.kg/tags/%E4%BA%A4%E4%BA%92/"/>
+    
+    <category term="摘要" scheme="https://blog.skyk.us.kg/tags/%E6%91%98%E8%A6%81/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>反诈骗宣传</title>
+    <link href="https://blog.skyk.us.kg/posts/494f7a99.html"/>
+    <id>https://blog.skyk.us.kg/posts/494f7a99.html</id>
+    <published>2024-03-01T10:34:36.000Z</published>
+    <updated>2025-07-27T12:58:17.235Z</updated>
+    
+    
+    <summary type="html">反诈手段与常见诈骗方式</summary>
+    
+    
+    
+    <category term="网络安全" scheme="https://blog.skyk.us.kg/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/"/>
+    
+    
+    <category term="推荐" scheme="https://blog.skyk.us.kg/tags/%E6%8E%A8%E8%8D%90/"/>
+    
+    <category term="网络诈骗" scheme="https://blog.skyk.us.kg/tags/%E7%BD%91%E7%BB%9C%E8%AF%88%E9%AA%97/"/>
+    
+    <category term="电信诈骗" scheme="https://blog.skyk.us.kg/tags/%E7%94%B5%E4%BF%A1%E8%AF%88%E9%AA%97/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>道德经</title>
+    <link href="https://blog.skyk.us.kg/posts/8e6daf7b.html"/>
+    <id>https://blog.skyk.us.kg/posts/8e6daf7b.html</id>
+    <published>2024-01-01T10:35:47.000Z</published>
+    <updated>2025-07-27T12:58:17.237Z</updated>
+    
+    
+    <summary type="html">春秋时期老子所著的哲学作品，又称《德道经》。</summary>
+    
+    
+    
+    <category term="古文" scheme="https://blog.skyk.us.kg/categories/%E5%8F%A4%E6%96%87/"/>
+    
+    
+    <category term="推荐" scheme="https://blog.skyk.us.kg/tags/%E6%8E%A8%E8%8D%90/"/>
+    
+    <category term="道学" scheme="https://blog.skyk.us.kg/tags/%E9%81%93%E5%AD%A6/"/>
+    
+    <category term="经典" scheme="https://blog.skyk.us.kg/tags/%E7%BB%8F%E5%85%B8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>代码审计笔记（Python）</title>
+    <link href="https://blog.skyk.us.kg/posts/e7654e82.html"/>
+    <id>https://blog.skyk.us.kg/posts/e7654e82.html</id>
+    <published>2022-05-20T06:32:46.000Z</published>
+    <updated>2025-07-27T12:58:17.234Z</updated>
+    
+    
+    <summary type="html">总结一些常见代码中不安全的写法</summary>
+    
+    
+    
+    <category term="网络安全" scheme="https://blog.skyk.us.kg/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/"/>
+    
+    
+    <category term="审计" scheme="https://blog.skyk.us.kg/tags/%E5%AE%A1%E8%AE%A1/"/>
+    
+    <category term="代码安全" scheme="https://blog.skyk.us.kg/tags/%E4%BB%A3%E7%A0%81%E5%AE%89%E5%85%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Windows本地密码抓取</title>
+    <link href="https://blog.skyk.us.kg/posts/b85a533c.html"/>
+    <id>https://blog.skyk.us.kg/posts/b85a533c.html</id>
+    <published>2022-04-18T06:37:08.000Z</published>
+    <updated>2025-07-27T12:58:17.233Z</updated>
+    
+    
+    <summary type="html">各种常见版本Windows下的密码获取</summary>
+    
+    
+    
+    <category term="网络安全" scheme="https://blog.skyk.us.kg/categories/%E7%BD%91%E7%BB%9C%E5%AE%89%E5%85%A8/"/>
+    
+    
+    <category term="红蓝对抗" scheme="https://blog.skyk.us.kg/tags/%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/"/>
+    
+    <category term="密码" scheme="https://blog.skyk.us.kg/tags/%E5%AF%86%E7%A0%81/"/>
+    
+    <category term="推荐" scheme="https://blog.skyk.us.kg/tags/%E6%8E%A8%E8%8D%90/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>freedomain博客加速</title>
+    <link href="https://blog.skyk.us.kg/posts/e9f0bb2c.html"/>
+    <id>https://blog.skyk.us.kg/posts/e9f0bb2c.html</id>
+    <published>2022-01-03T08:24:34.000Z</published>
+    <updated>2025-07-27T12:58:17.234Z</updated>
+    
+    
+      
+      
+    <summary type="html">&lt;h2 id=&quot;0x00-前言简述&quot;&gt;&lt;a href=&quot;#0x00-前言简述&quot; class=&quot;headerlink&quot; title=&quot;0x00 前言简述&quot;&gt;&lt;/a&gt;&lt;a href=&quot;https://blog.weiyigeek.top/2022/10-9-688.html#0x00</summary>
+      
+    
+    
+    
+    <category term="教程" scheme="https://blog.skyk.us.kg/categories/%E6%95%99%E7%A8%8B/"/>
+    
+    
+    <category term="博客" scheme="https://blog.skyk.us.kg/tags/%E5%8D%9A%E5%AE%A2/"/>
+    
+    <category term="热门" scheme="https://blog.skyk.us.kg/tags/%E7%83%AD%E9%97%A8/"/>
+    
+    <category term="域名" scheme="https://blog.skyk.us.kg/tags/%E5%9F%9F%E5%90%8D/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>github action</title>
+    <link href="https://blog.skyk.us.kg/posts/548d9c19.html"/>
+    <id>https://blog.skyk.us.kg/posts/548d9c19.html</id>
+    <published>2021-05-16T03:14:23.000Z</published>
+    <updated>2025-07-27T12:58:17.234Z</updated>
+    
+    
+    <summary type="html">搭配GitHub做一站式部署备份</summary>
+    
+    
+    
+    <category term="教程" scheme="https://blog.skyk.us.kg/categories/%E6%95%99%E7%A8%8B/"/>
+    
+    
+    <category term="Hexo" scheme="https://blog.skyk.us.kg/tags/Hexo/"/>
+    
+    <category term="博客" scheme="https://blog.skyk.us.kg/tags/%E5%8D%9A%E5%AE%A2/"/>
+    
+    <category term="github action" scheme="https://blog.skyk.us.kg/tags/github-action/"/>
+    
+  </entry>
+  
+</feed>

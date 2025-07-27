@@ -1,0 +1,1008 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="utf-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width, initial-scale=1"><title>博客搭建+美化（巨细版本） | 空天之境</title><noscript>开启JavaScript才能访问本站哦~</noscript><link rel="icon" href="/img/favicon.ico"><!-- index.css--><link rel="stylesheet" href="/css/index.css?v=3.0.19"><!-- inject head--><link rel="canonical" href="https://blog.skyk.us.kg/posts/4ea940d2.html"><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.7.2/css/all.min.css"><!-- aplayer--><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.css"><!-- swiper--><link rel="stylesheet" href="https://fastly.jsdelivr.net/npm/swiper@11.0.5/swiper-bundle.min.css"><!-- fancybox ui--><!-- katex--><!-- Open Graph--><meta name="description" content="博客搭建+美化（巨细版本） 一、博客环境搭建QQ 交流群(及文件下载):478404205 1.下载Git和Node.js1.Node.js的安装与配置 首先去Node.js官网 下载node.js的安装程序，根据你电脑系统的配置信息，下载对应的安装程序，然后开始进行下面的步骤。 下载好与电脑"><!-- pwa--><meta name="apple-mobile-web-app-capable" content="空天之境"><meta name="theme-color" content="var(--efu-main)"><meta name="apple-mobile-web-app-status-bar-style" content="var(--efu-main)"><link rel="bookmark" href="/img/favicon.ico"><link rel="apple-touch-icon" href="/img/favicon.ico" sizes="180x180"><script>console.log(' %c Solitude %c ' + '3.0.19' + ' %c https://github.com/everfu/hexo-theme-solitude',
+    'background:#35495e ; padding: 1px; border-radius: 3px 0 0 3px;  color: #fff',
+    'background:#ff9a9a ; padding: 1px; border-radius: 0 3px 3px 0;  color: #fff',
+    'background:unset ; padding: 1px; border-radius: 0 3px 3px 0;  color: #fff')
+</script><script>let mdate = "7-7,9-18,9-30,12-13";
+mdate = (mdate.split(","));
+let ndate = new Date();
+for (let i of mdate) {
+    if (i === (ndate.getMonth()+1) + "-" + (ndate.getDate())) {
+        document.documentElement.classList.add('memorial');
+    }
+}
+</script><link rel="stylesheet" href="/css/custom.css"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.css" /><link rel="stylesheet" href="/css/message_us_font.css"><script>(()=>{
+        const saveToLocal = {
+            set: function setWithExpiry(key, value, ttl) {
+                if (ttl === 0)
+                    return
+                const now = new Date()
+                const expiryDay = ttl * 86400000
+                const item = {
+                    value: value,
+                    expiry: now.getTime() + expiryDay
+                }
+                localStorage.setItem(key, JSON.stringify(item))
+            },
+            get: function getWithExpiry(key) {
+                const itemStr = localStorage.getItem(key)
+
+                if (!itemStr) {
+                    return undefined
+                }
+                const item = JSON.parse(itemStr)
+                const now = new Date()
+
+                if (now.getTime() > item.expiry) {
+                    localStorage.removeItem(key)
+                    return undefined
+                }
+                return item.value
+            }
+        };
+        window.utils = {
+            saveToLocal: saveToLocal,
+            getCSS: (url, id = false) => new Promise((resolve, reject) => {
+              const link = document.createElement('link')
+              link.rel = 'stylesheet'
+              link.href = url
+              if (id) link.id = id
+              link.onerror = reject
+              link.onload = link.onreadystatechange = function() {
+                const loadState = this.readyState
+                if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+                link.onload = link.onreadystatechange = null
+                resolve()
+              }
+              document.head.appendChild(link)
+            }),
+            getScript: (url, attr = {}) => new Promise((resolve, reject) => {
+              const script = document.createElement('script')
+              script.src = url
+              script.async = true
+              script.onerror = reject
+              script.onload = script.onreadystatechange = function() {
+                const loadState = this.readyState
+                if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+                script.onload = script.onreadystatechange = null
+                resolve()
+              }
+
+              Object.keys(attr).forEach(key => {
+                script.setAttribute(key, attr[key])
+              })
+
+              document.head.appendChild(script)
+            }),
+            addGlobalFn: (key, fn, name = false, parent = window) => {
+                const globalFn = parent.globalFn || {}
+                const keyObj = globalFn[key] || {}
+
+                if (name && keyObj[name]) return
+
+                name = name || Object.keys(keyObj).length
+                keyObj[name] = fn
+                globalFn[key] = keyObj
+                parent.globalFn = globalFn
+            },
+            addEventListenerPjax: (ele, event, fn, option = false) => {
+              ele.addEventListener(event, fn, option)
+              utils.addGlobalFn('pjax', () => {
+                  ele.removeEventListener(event, fn, option)
+              })
+            },
+            diffDateFormat: (selector) => {
+                selector.forEach(item => {
+                    const date = new Date(item.getAttribute('datetime') || item.textContent);
+                    item.textContent = (date.getMonth() + 1).toString()+'/'+date.getDate().toString();
+                });
+            },
+        }
+    })()</script><!-- theme--><script>initTheme = () => {
+    let isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches
+    const cachedMode = utils.saveToLocal.get('theme');
+    if (cachedMode === undefined) {
+        const nowMode =
+            isDarkMode ? 'dark' : 'light'
+        document.documentElement.setAttribute('data-theme', nowMode);
+    } else {
+        document.documentElement.setAttribute('data-theme', cachedMode);
+    }
+    typeof rm === 'object' && rm.mode(cachedMode === 'dark' && isDarkMode)
+}
+initTheme()</script><!-- global head--><script>const GLOBAL_CONFIG = {
+    root: '/',
+    algolia: undefined,
+    localsearch: {"preload":false,"path":"/search.xml"},
+    runtime: '2021-06-30 00:00:00',
+    lazyload: {
+        enable: true,
+        error: '/img/error_load.avif'
+    },
+    copyright: {"limit":50,"author":"作者: SkyKing","link":"链接: ","source":"来源: 空天之境","info":"著作权归作者所有。 商业转载请联系作者获得授权，非商业转载请注明出处。"},
+    highlight: {"limit":200,"expand":true,"copy":true,"syntax":"highlight.js"},
+    randomlink: true,
+    lang: {"theme":{"dark":"已切换至深色模式","light":"已切换至浅色模式"},"copy":{"success":"复制成功","error":"复制失败"},"backtop":"返回顶部","time":{"day":"天前","hour":"小时前","just":"刚刚","min":"分钟前","month":"个月前"},"day":" 天","f12":"开发者模式已打开，请遵循GPL协议。","totalk":"无需删除空行，直接输入评论即可","search":{"empty":"找不到你查询的内容：${query}","hit":"找到 ${hits} 条结果，用时 ${time} 毫秒","placeholder":"输入关键词快速查找","count":"共 <b>${count}</b> 条结果。","loading":"搜索中..."},"barrage":{"title":"热评"}},
+    aside: {
+        state: {
+            morning: "✨ 早上好，新的一天开始了",
+            noon: "🍲 午餐时间",
+            afternoon: "🌞 下午好",
+            night: "早点休息",
+            goodnight: "晚安 😴",
+        },
+        witty_words: ["你可以的","你一定可以的","祝你好运，陌生人"],
+        witty_comment: {
+            prefix: '好久不见，',
+            back: '欢迎再次回来，',
+        },
+    },
+    covercolor: {
+        enable: true
+    },
+    comment: {"avatar":"https://gravatar.com/avatar","commentBarrage":true},
+    lightbox: 'mediumZoom',
+    right_menu: {"mode":{"dark":"深色模式","light":"浅色模式"},"img_error":"此图片无法复制与下载","music":{"start":"播放音乐","stop":"暂停音乐"},"barrage":{"open":"显示热评","close":"关闭热评"}},
+    translate: false,
+    lure: {"jump":"w(ﾟДﾟ)w 不要走！再看看嘛！","back":"♪(^∇^*)欢迎肥来！"},
+    expire: false,
+};</script><!-- page-config head--><script id="config-diff">var PAGE_CONFIG = {
+    is_post: true,
+    is_page: false,
+    is_home: false,
+    page: '',
+    toc: true,
+    comment: true,
+    ai_text: false,
+    color: false,
+}</script><meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="空天之境" type="application/atom+xml">
+</head><body id="body"><!-- universe--><canvas id="universe"></canvas><!-- background img--><div id="global_bg"></div><!-- loading--><!-- console--><div id="console"><div class="close-btn" onclick="sco.hideConsole()"><i class="solitude fas fa-xmark"></i></div><div class="console-card-group"><div class="console-card-group-left"><div class="console-card" id="card-newest-comments" onclick="sco.hideConsole()"><div class="card-content"><div class="author-content-item-tips">互动</div><div class="author-content-item-title">最新评论<a class="recent-comment-more" href="/recentcomments/" title="最近评论"><i class="solitude fas fa-circle-chevron-right"></i></a></div></div><div class="console_recentcomments"><script pjax>(async () => {
+    document.querySelector('.console-card .console_recentcomments').textContent = `加载中...`
+    const emojiReg = /<img class="tk-owo-emotion" [^>]+>/g
+    let cache = utils.saveToLocal.get('twikoo-recent-comments-console')
+    if (cache) {
+        setHtml(document.querySelector('.console-card .console_recentcomments'), cache)
+        return
+    }
+    let ls = []
+
+    await fetch('https://twikoo.skyk.us.kg/', {
+        method: "POST",
+        body: JSON.stringify({
+            "event": "GET_RECENT_COMMENTS",
+            "includeReply": true,
+            "pageSize": 6
+        }),
+        headers: {'Content-Type': 'application/json'}
+    }).then(res => res.json()).then(async ({data}) => {
+        for (const i of data) {
+            if (i.avatar === undefined) i.avatar = '/avatar/d615d5793929e8c7d70eab5f00f7f5f1?d=mp'
+            let title = ''
+            if (i.url) {
+                await fetch(i.url).then(res => res.text()).then(html => {
+                    const parser = new DOMParser()
+                    const doc = parser.parseFromString(html, 'text/html')
+                    title = doc.querySelector('title').innerText
+                }).catch(() => {
+                    title = i.url
+                })
+            }
+            if (title.indexOf('|') > 0) {
+                title = title.split('|')[0]
+            }
+            ls.push({
+                avatar: i.avatar,
+                nick: i.nick,
+                title: title,
+                content: i.comment,
+                url: i.url + '#' + i.id,
+                time: i.created
+            })
+        }
+        setHtml(document.querySelector('.console-card .console_recentcomments'), ls)
+        utils.saveToLocal.set('twikoo-recent-comments-console', ls, 0.2)
+    });
+
+    function setHtml(el, data) {
+        el.innerHTML = data.length !== 0 ? data.map(i => `
+            <div class="comment-card" title="${i.title}" onclick="pjax.loadUrl('${i.url}')">
+                <div class="comment-info">
+                    <img src="${i.avatar}" class="nolazyload" alt="${i.nick}">
+                    <div>
+                        <span class="comment-user">${i.nick}</span>
+                    </div>
+                    <time class="comment-time" datetime="${new Date(i.time)}"></time>
+                </div>
+                <div class="comment-content">${formatContent(i.content)}</div>
+                <div class="comment-title">
+                <i class="solitude fas fa-comment"></i>
+                ${i.title}</div>
+            </div>
+        `).join('') : `暂无评论...`
+        if (typeof utils !== 'undefined') utils.diffDateFormat(document.querySelectorAll('.comment-time'))
+        else {
+            document.addEventListener('pjax:complete', () => utils.diffDateFormat(document.querySelectorAll('.comment-time')))
+            document.addEventListener('DOMContentLoaded', () => utils.diffDateFormat(document.querySelectorAll('.comment-time')))
+        }
+    }
+
+    function formatContent(content) {
+        content = content.replace(emojiReg, '表情')
+        content = content.replace(/<\/*br>|[\s\uFEFF\xA0]+/g, '');
+        content = content.replace(/<img.*?>/g, '[图片]');
+        content = content.replace(/<a.*?>.*?<\/a>/g, '[链接]');
+        content = content.replace(/<pre.*?>.*?<\/pre>/g, '[代码]');
+        content = content.replace(/<.*?>/g, '');
+        return content
+    }
+})()</script></div></div></div><div class="console-card-group-right"><div class="console-card tags" onclick="sco.hideConsole()"><div class="card-content"><div class="author-content-item-tips">标签</div><div class="author-content-item-title">寻找感兴趣的领域</div></div><div class="card-tag-cloud"><a href="/tags/AI/">AI<sup>2</sup></a><a href="/tags/%E4%BA%A4%E4%BA%92/">交互<sup>1</sup></a><a href="/tags/%E6%91%98%E8%A6%81/">摘要<sup>1</sup></a><a href="/tags/%E6%95%99%E7%A8%8B/">教程<sup>1</sup></a><a href="/tags/argo/">argo<sup>1</sup></a><a href="/tags/Hexo/">Hexo<sup>8</sup></a><a href="/tags/%E5%8D%9A%E5%AE%A2/">博客<sup>9</sup></a><a href="/tags/IP-DNS/">IP,DNS<sup>1</sup></a><a href="/tags/Markdown%E8%AF%AD%E6%B3%95/">Markdown语法<sup>1</sup></a><a href="/tags/%E7%83%AD%E9%97%A8/">热门<sup>3</sup></a><a href="/tags/Markdown/">Markdown<sup>1</sup></a><a href="/tags/%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/">红蓝对抗<sup>1</sup></a><a href="/tags/%E5%AF%86%E7%A0%81/">密码<sup>1</sup></a><a href="/tags/%E6%8E%A8%E8%8D%90/">推荐<sup>4</sup></a><a href="/tags/%E5%8A%A0%E5%AF%86/">加密<sup>2</sup></a><a href="/tags/%E5%9F%9F%E5%90%8D/">域名<sup>1</sup></a><a href="/tags/github-action/">github action<sup>1</sup></a><a href="/tags/live2d/">live2d<sup>1</sup></a><a href="/tags/%E5%AE%A1%E8%AE%A1/">审计<sup>1</sup></a><a href="/tags/%E4%BB%A3%E7%A0%81%E5%AE%89%E5%85%A8/">代码安全<sup>1</sup></a><a href="/tags/%E7%BA%AA%E5%BE%8B%E5%A4%84%E5%88%86%E6%9D%A1%E4%BE%8B/">纪律处分条例<sup>1</sup></a><a href="/tags/%E5%85%AB%E9%A1%B9%E8%A7%84%E5%AE%9A%E7%B2%BE%E7%A5%9E/">八项规定精神<sup>1</sup></a><a href="/tags/%E6%BC%8F%E6%B4%9E/">漏洞<sup>1</sup></a><a href="/tags/poc/">poc<sup>1</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C%E8%AF%88%E9%AA%97/">网络诈骗<sup>1</sup></a><a href="/tags/%E7%94%B5%E4%BF%A1%E8%AF%88%E9%AA%97/">电信诈骗<sup>1</sup></a><a href="/tags/%E5%A4%96%E6%8C%82%E6%A0%87%E7%AD%BE/">外挂标签<sup>1</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C%E4%B8%AD%E5%BF%83/">网络中心<sup>2</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C%E8%A1%8C%E4%B8%BA/">网络行为<sup>1</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C%E7%A9%BA%E9%97%B4%E4%BD%9C%E7%94%A8/">网络空间作用<sup>1</sup></a><a href="/tags/%E5%8D%87%E7%BA%A7%E6%94%B9%E9%80%A0/">升级改造<sup>1</sup></a><a href="/tags/%E8%B7%AF%E7%94%B1%E4%BA%A4%E6%8D%A2/">路由交换<sup>1</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF/">网络技术<sup>1</sup></a><a href="/tags/%E9%80%86%E5%90%91/">逆向<sup>1</sup></a><a href="/tags/%E9%81%93%E5%AD%A6/">道学<sup>1</sup></a><a href="/tags/%E7%BB%8F%E5%85%B8/">经典<sup>1</sup></a></div></div><div class="console-card history" onclick="sco.hideConsole()"><ul class="card-archive-list"><li class="item"><a href="/archives/2025/07/"><span class="date">2025/07</span><div class="count-group"><span class="count">1</span><span class="unit">篇</span></div></a></li><li class="item"><a href="/archives/2025/05/"><span class="date">2025/05</span><div class="count-group"><span class="count">2</span><span class="unit">篇</span></div></a></li><li class="item"><a href="/archives/2025/04/"><span class="date">2025/04</span><div class="count-group"><span class="count">2</span><span class="unit">篇</span></div></a></li><li class="item"><a href="/archives/2025/02/"><span class="date">2025/02</span><div class="count-group"><span class="count">1</span><span class="unit">篇</span></div></a></li><li class="item"><a href="/archives/2025/01/"><span class="date">2025/01</span><div class="count-group"><span class="count">1</span><span class="unit">篇</span></div></a></li><li class="item"><a href="/archives/2024/11/"><span class="date">2024/11</span><div class="count-group"><span class="count">1</span><span class="unit">篇</span></div></a></li><li class="item"><a href="/archives/2024/10/"><span class="date">2024/10</span><div class="count-group"><span class="count">1</span><span class="unit">篇</span></div></a></li><li class="item"><a href="/archives/2024/09/"><span class="date">2024/09</span><div class="count-group"><span class="count">2</span><span class="unit">篇</span></div></a></li><li class="item"><a href="/archives/2024/08/"><span class="date">2024/08</span><div class="count-group"><span class="count">1</span><span class="unit">篇</span></div></a></li><li class="item"><a href="/archives/2024/06/"><span class="date">2024/06</span><div class="count-group"><span class="count">1</span><span class="unit">篇</span></div></a></li><li class="item"><a href="/archives/2024/03/"><span class="date">2024/03</span><div class="count-group"><span class="count">2</span><span class="unit">篇</span></div></a></li><li class="item"><a href="/archives/2024/01/"><span class="date">2024/01</span><div class="count-group"><span class="count">1</span><span class="unit">篇</span></div></a></li><li class="item"><a href="/archives/2022/05/"><span class="date">2022/05</span><div class="count-group"><span class="count">1</span><span class="unit">篇</span></div></a></li><li class="item"><a href="/archives/2022/04/"><span class="date">2022/04</span><div class="count-group"><span class="count">1</span><span class="unit">篇</span></div></a></li><li class="item"><a href="/archives/2022/01/"><span class="date">2022/01</span><div class="count-group"><span class="count">1</span><span class="unit">篇</span></div></a></li><li class="item"><a href="/archives/2021/05/"><span class="date">2021/05</span><div class="count-group"><span class="count">1</span><span class="unit">篇</span></div></a></li><li class="item"><a href="/archives/2021/04/"><span class="date">2021/04</span><div class="count-group"><span class="count">3</span><span class="unit">篇</span></div></a></li><li class="item"><a href="/archives/2021/03/"><span class="date">2021/03</span><div class="count-group"><span class="count">2</span><span class="unit">篇</span></div></a></li><li class="item"><a href="/archives/2021/01/"><span class="date">2021/01</span><div class="count-group"><span class="count">2</span><span class="unit">篇</span></div></a></li><li class="item"><a href="/archives/"><span class="date">全部文章</span><div class="count-group"><span class="count">27</span><span class="unit">篇</span></div></a></li></ul></div></div></div><div class="button-group"><div class="console-btn-item"><span class="darkmode_switchbutton" onclick="sco.switchDarkMode()" title="昼夜切换"><i class="solitude fas fa-circle-half-stroke"></i></span></div><div class="console-btn-item" id="consoleHideAside"><span class="asideSwitch" onclick="sco.switchHideAside()" title="边栏显示控制"><i class="solitude fas fa-arrows-left-right-to-line"></i></span></div><div class="console-btn-item" id="consoleMusic" onclick="sco.musicToggle()"><span class="music-switch" title="音乐开关"><i class="solitude fas fa-compact-disc"></i></span></div><div class="console-btn-item on" id="consoleCommentBarrage" onclick="sco.switchCommentBarrage()"><span class="commentBarrage"><i class="solitude fas fa-comment"></i></span></div></div><div class="console-mask" onclick="sco.hideConsole()"></div></div><!-- sidebar--><div id="sidebar" style="zoom: 1;"><div id="menu-mask" style="display: none;"></div><div id="sidebar-menus"><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">27</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">9</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">36</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/recentcomments/"><div class="headline">评论</div><div class="length-num" id="twikoo_allcount"><i class="solitude fas fa-spinner fa-spin"></i></div><script pjax="pjax">(async () => {
+  await fetch('https://twikoo.skyk.us.kg/', {
+    method: "POST",
+    body: JSON.stringify({
+      "event": "GET_RECENT_COMMENTS",
+      "includeReply": true,
+      "pageSize": 999
+    }),
+    headers: {'Content-Type': 'application/json'}
+  }).then(res => res.json()).then(async ({data}) => {
+    document.querySelector('#twikoo_allcount').innerHTML = data.length
+  })
+})()</script></a></div></div></div><span class="sidebar-menu-item-title">功能</span><div class="sidebar-menu-item"><span class="darkmode_switchbutton menu-child" onclick="sco.switchDarkMode()"><i class="solitude fas fa-circle-half-stroke"></i><span>显示模式</span></span></div><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">我的</div><div class="back-menu-list"><a class="back-menu-item" href="https://blog.skyk.us.kg/" title="个人主页"><img class="nolazyload back-menu-item-icon" src="https://img.skyk.us.kg/file/1741260241065_02_1x.png" alt="个人主页"><span class="back-menu-item-text">个人主页</span></a><a class="back-menu-item" target="_blank" rel="noopener" href="https://gblog.skyk.us.kg/" title="博客"><img class="nolazyload back-menu-item-icon" src="https://img.skyk.us.kg/file/1741260238499_02_2x.png" alt="博客"><span class="back-menu-item-text">博客</span></a><a class="back-menu-item" target="_blank" rel="noopener" href="https://cdn.skyk.us.kg/" title="换线"><img class="nolazyload back-menu-item-icon" src="https://api.nsmao.net/api/Img/query?key=7s6oqQUBTNq57QBqeGWcr6Ff5s&amp;sort=scenery&amp;radom=10" alt="换线"><span class="back-menu-item-text">换线</span></a><a class="back-menu-item" target="_blank" rel="noopener" href="https://news.skyk.us.kg/" title="新闻"><img class="nolazyload back-menu-item-icon" src="https://news.skyk.us.kg/icon.svg" alt="新闻"><span class="back-menu-item-text">新闻</span></a><a class="back-menu-item" target="_blank" rel="noopener" href="https://newapi.112426.xyz/" title="AI"><img class="nolazyload back-menu-item-icon" src="https://chat.skyk.us.kg/favicon.ico" alt="AI"><span class="back-menu-item-text">AI</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">使用的项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://speed.cloudflare.com/" title="测速"><img class="nolazyload back-menu-item-icon" src="https://speed.cloudflare.com/static/img/speedrabbit-static.png" alt="测速"><span class="back-menu-item-text">测速</span></a><a class="back-menu-item" target="_blank" rel="noopener" href="https://api.qjqq.cn/" title="青桔气球API"><img class="nolazyload back-menu-item-icon" src="https://api.qjqq.cn/assets/img/favicons/favicon.ico" alt="青桔气球API"><span class="back-menu-item-text">青桔气球API</span></a><a class="back-menu-item" target="_blank" rel="noopener" href="https://api.nsmao.net" title="奶思猫API"><img class="nolazyload back-menu-item-icon" src="https://api.nsmao.net/assets/img/%E5%A5%B6%E6%80%9D%E7%8C%ABico.svg" alt="奶思猫API"><span class="back-menu-item-text">奶思猫API</span></a><a class="back-menu-item" target="_blank" rel="noopener" href="https://www.mongodb.com/zh-cn" title="mongodb"><img class="nolazyload back-menu-item-icon" src="https://www.mongodb.com/assets/images/global/favicon.ico" alt="mongodb"><span class="back-menu-item-text">mongodb</span></a></div></div></div><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span>首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span>文库</span></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="solitude  fas fa-folder-closed"></i><span>全部文章</span></a></li><li><a class="site-page child" href="/categories/"><i class="solitude  fas fa-clone"></i><span>分类列表</span></a></li><li><a class="site-page child" href="/tags/"><i class="solitude  fas fa-tags"></i><span>标签列表</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span>我的</span></a><ul class="menus_item_child"><li><a class="site-page child" href="/equipment/"><i class="solitude  fas fa-tools"></i><span>我的装备</span></a></li><li><a class="site-page child" href="/gallery/"><i class="solitude  fas fa-images"></i><span>照片</span></a></li><li><a class="site-page child" href="/music/"><i class="solitude  fas fa-music"></i><span>音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="solitude  fas fa-video"></i><span>追番</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span>朋友圈</span></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener" href="https://summary.zhheo.com/static/matrix-posts.html"><i class="solitude  fas fa-wifi"></i><span>文章矩阵</span></a></li><li><a class="site-page child" href="/links/"><i class="solitude  fas fa-user-group"></i><span>友情链接</span></a></li><li><a class="site-page child" href="javascript:travelling()"><i class="solitude  fas fa-gift"></i><span>宝藏博主</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span>其他</span></a><ul class="menus_item_child"><li><a class="site-page child" href="/message/"><i class="solitude  far fa-file-alt"></i><span>留言</span></a></li><li><a class="site-page child" href="/about/"><i class="solitude  fas fa-user"></i><span>关于本站</span></a></li><li><a class="site-page child" href="/privacy/"><i class="solitude  fas fa-user-shield"></i><span>声明</span></a></li></ul></div></div><span class="sidebar-menu-item-title">标签</span><div class="card-tags"><div class="card-tag-cloud"><a href="/tags/AI/">AI<sup>2</sup></a><a href="/tags/%E4%BA%A4%E4%BA%92/">交互<sup>1</sup></a><a href="/tags/%E6%91%98%E8%A6%81/">摘要<sup>1</sup></a><a href="/tags/%E6%95%99%E7%A8%8B/">教程<sup>1</sup></a><a href="/tags/argo/">argo<sup>1</sup></a><a href="/tags/Hexo/">Hexo<sup>8</sup></a><a href="/tags/%E5%8D%9A%E5%AE%A2/">博客<sup>9</sup></a><a href="/tags/IP-DNS/">IP,DNS<sup>1</sup></a><a href="/tags/Markdown%E8%AF%AD%E6%B3%95/">Markdown语法<sup>1</sup></a><a href="/tags/%E7%83%AD%E9%97%A8/">热门<sup>3</sup></a><a href="/tags/Markdown/">Markdown<sup>1</sup></a><a href="/tags/%E7%BA%A2%E8%93%9D%E5%AF%B9%E6%8A%97/">红蓝对抗<sup>1</sup></a><a href="/tags/%E5%AF%86%E7%A0%81/">密码<sup>1</sup></a><a href="/tags/%E6%8E%A8%E8%8D%90/">推荐<sup>4</sup></a><a href="/tags/%E5%8A%A0%E5%AF%86/">加密<sup>2</sup></a><a href="/tags/%E5%9F%9F%E5%90%8D/">域名<sup>1</sup></a><a href="/tags/github-action/">github action<sup>1</sup></a><a href="/tags/live2d/">live2d<sup>1</sup></a><a href="/tags/%E5%AE%A1%E8%AE%A1/">审计<sup>1</sup></a><a href="/tags/%E4%BB%A3%E7%A0%81%E5%AE%89%E5%85%A8/">代码安全<sup>1</sup></a><a href="/tags/%E7%BA%AA%E5%BE%8B%E5%A4%84%E5%88%86%E6%9D%A1%E4%BE%8B/">纪律处分条例<sup>1</sup></a><a href="/tags/%E5%85%AB%E9%A1%B9%E8%A7%84%E5%AE%9A%E7%B2%BE%E7%A5%9E/">八项规定精神<sup>1</sup></a><a href="/tags/%E6%BC%8F%E6%B4%9E/">漏洞<sup>1</sup></a><a href="/tags/poc/">poc<sup>1</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C%E8%AF%88%E9%AA%97/">网络诈骗<sup>1</sup></a><a href="/tags/%E7%94%B5%E4%BF%A1%E8%AF%88%E9%AA%97/">电信诈骗<sup>1</sup></a><a href="/tags/%E5%A4%96%E6%8C%82%E6%A0%87%E7%AD%BE/">外挂标签<sup>1</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C%E4%B8%AD%E5%BF%83/">网络中心<sup>2</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C%E8%A1%8C%E4%B8%BA/">网络行为<sup>1</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C%E7%A9%BA%E9%97%B4%E4%BD%9C%E7%94%A8/">网络空间作用<sup>1</sup></a><a href="/tags/%E5%8D%87%E7%BA%A7%E6%94%B9%E9%80%A0/">升级改造<sup>1</sup></a><a href="/tags/%E8%B7%AF%E7%94%B1%E4%BA%A4%E6%8D%A2/">路由交换<sup>1</sup></a><a href="/tags/%E7%BD%91%E7%BB%9C%E6%8A%80%E6%9C%AF/">网络技术<sup>1</sup></a><a href="/tags/%E9%80%86%E5%90%91/">逆向<sup>1</sup></a><a href="/tags/%E9%81%93%E5%AD%A6/">道学<sup>1</sup></a><a href="/tags/%E7%BB%8F%E5%85%B8/">经典<sup>1</sup></a></div></div></div></div><!-- keyboard--><!-- righhtside--><div class="needEndHide" id="rightside"><div class="rs_hide"><button class="mode" type="button" title="显示模式切换" onclick="sco.switchDarkMode()"><i class="fas fa-circle-half-stroke"></i></button><button class="aside pc" type="button" title="侧边栏" onclick="sco.switchHideAside()"><i class="fas fa-arrows-alt-h"></i></button></div><div class="rs_show"><button class="config" type="button" title="扩展" onclick="document.querySelector(&quot;.rs_hide&quot;).classList.toggle(&quot;show&quot;)"><i class="fas fa-gear fa-spin"></i></button><button class="mobile toc" type="button" title="目录" onclick="document.querySelector('#card-toc').classList.toggle('open')"><i class="fas fa-list"></i></button><button class="comment" type="button" title="评论" onclick="sco.scrollTo('post-comment')"><i class="fas fa-comment"></i></button><button class="barrage pc" type="button" title="弹" onclick="sco.switchCommentBarrage()"><span>弹</span></button><button class="top" type="button" title="返回顶部" onclick="sco.toTop()"><i class="fas fa-arrow-up"></i><span id="percent">0</span></button></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header"><nav class="show" id="nav"><div id="nav-group"><div id="blog_name"><div class="back-home-button" tabindex="-1"><i class="back-home-button-icon solitude fas fa-bars-progress"></i><div class="back-menu-list-groups"><div class="back-menu-list-group"><div class="back-menu-list-title">我的</div><div class="back-menu-list"><a class="back-menu-item" href="https://blog.skyk.us.kg/" title="个人主页"><img class="nolazyload back-menu-item-icon" src="https://img.skyk.us.kg/file/1741260241065_02_1x.png" alt="个人主页"><span class="back-menu-item-text">个人主页</span></a><a class="back-menu-item" target="_blank" rel="noopener" href="https://gblog.skyk.us.kg/" title="博客"><img class="nolazyload back-menu-item-icon" src="https://img.skyk.us.kg/file/1741260238499_02_2x.png" alt="博客"><span class="back-menu-item-text">博客</span></a><a class="back-menu-item" target="_blank" rel="noopener" href="https://cdn.skyk.us.kg/" title="换线"><img class="nolazyload back-menu-item-icon" src="https://api.nsmao.net/api/Img/query?key=7s6oqQUBTNq57QBqeGWcr6Ff5s&amp;sort=scenery&amp;radom=10" alt="换线"><span class="back-menu-item-text">换线</span></a><a class="back-menu-item" target="_blank" rel="noopener" href="https://news.skyk.us.kg/" title="新闻"><img class="nolazyload back-menu-item-icon" src="https://news.skyk.us.kg/icon.svg" alt="新闻"><span class="back-menu-item-text">新闻</span></a><a class="back-menu-item" target="_blank" rel="noopener" href="https://newapi.112426.xyz/" title="AI"><img class="nolazyload back-menu-item-icon" src="https://chat.skyk.us.kg/favicon.ico" alt="AI"><span class="back-menu-item-text">AI</span></a></div></div><div class="back-menu-list-group"><div class="back-menu-list-title">使用的项目</div><div class="back-menu-list"><a class="back-menu-item" target="_blank" rel="noopener" href="https://speed.cloudflare.com/" title="测速"><img class="nolazyload back-menu-item-icon" src="https://speed.cloudflare.com/static/img/speedrabbit-static.png" alt="测速"><span class="back-menu-item-text">测速</span></a><a class="back-menu-item" target="_blank" rel="noopener" href="https://api.qjqq.cn/" title="青桔气球API"><img class="nolazyload back-menu-item-icon" src="https://api.qjqq.cn/assets/img/favicons/favicon.ico" alt="青桔气球API"><span class="back-menu-item-text">青桔气球API</span></a><a class="back-menu-item" target="_blank" rel="noopener" href="https://api.nsmao.net" title="奶思猫API"><img class="nolazyload back-menu-item-icon" src="https://api.nsmao.net/assets/img/%E5%A5%B6%E6%80%9D%E7%8C%ABico.svg" alt="奶思猫API"><span class="back-menu-item-text">奶思猫API</span></a><a class="back-menu-item" target="_blank" rel="noopener" href="https://www.mongodb.com/zh-cn" title="mongodb"><img class="nolazyload back-menu-item-icon" src="https://www.mongodb.com/assets/images/global/favicon.ico" alt="mongodb"><span class="back-menu-item-text">mongodb</span></a></div></div></div></div><a id="site-name" href="/" title="返回博客主页"><span class="title">空天之境</span><i class="solitude fas fa-home"></i></a></div><div id="page-name-mask"><div id="page-name"><a id="page-name-text" onclick="sco.toTop()">博客搭建+美化（巨细版本）</a></div></div><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><span>首页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span>文库</span></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="solitude  fas fa-folder-closed"></i><span>全部文章</span></a></li><li><a class="site-page child" href="/categories/"><i class="solitude  fas fa-clone"></i><span>分类列表</span></a></li><li><a class="site-page child" href="/tags/"><i class="solitude  fas fa-tags"></i><span>标签列表</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span>我的</span></a><ul class="menus_item_child"><li><a class="site-page child" href="/equipment/"><i class="solitude  fas fa-tools"></i><span>我的装备</span></a></li><li><a class="site-page child" href="/gallery/"><i class="solitude  fas fa-images"></i><span>照片</span></a></li><li><a class="site-page child" href="/music/"><i class="solitude  fas fa-music"></i><span>音乐</span></a></li><li><a class="site-page child" href="/movies/"><i class="solitude  fas fa-video"></i><span>追番</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span>朋友圈</span></a><ul class="menus_item_child"><li><a class="site-page child" target="_blank" rel="noopener" href="https://summary.zhheo.com/static/matrix-posts.html"><i class="solitude  fas fa-wifi"></i><span>文章矩阵</span></a></li><li><a class="site-page child" href="/links/"><i class="solitude  fas fa-user-group"></i><span>友情链接</span></a></li><li><a class="site-page child" href="javascript:travelling()"><i class="solitude  fas fa-gift"></i><span>宝藏博主</span></a></li></ul></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><span>其他</span></a><ul class="menus_item_child"><li><a class="site-page child" href="/message/"><i class="solitude  far fa-file-alt"></i><span>留言</span></a></li><li><a class="site-page child" href="/about/"><i class="solitude  fas fa-user"></i><span>关于本站</span></a></li><li><a class="site-page child" href="/privacy/"><i class="solitude  fas fa-user-shield"></i><span>声明</span></a></li></ul></div></div></div><div id="nav-left"></div><div id="nav-right"><div class="nav-button" id="travellings_button"><a class="site-page" target="_blank" rel="noopener" href="https://www.travellings.cn/go.html" title=""><i class="solitude fas fa-train"></i></a></div><div class="nav-button" id="randomPost_button"><a class="site-page" onclick="toRandomPost()" title="随机一篇文章" href="javascript:void(0);"><i class="solitude fas fa-dice-d6"></i></a></div><div class="nav-button" id="search-button"><a class="site-page social-icon search" href="javascript:void(0);" title="搜索"><i class="solitude fas fa-magnifying-glass"></i></a></div><div class="nav-button" id="nav-console"><a class="console_switchbutton" onclick="sco.showConsole()" title="中控台" href="javascript:void(0);"><label><i class="left"></i><i class="center"></i><i class="right"></i></label></a></div><div id="toggle-menu"><a class="site-page"><i class="solitude fas fa-bars"></i></a></div></div></div></nav><div class="coverdiv" id="coverdiv"><img class="nolazyload" id="post-cover" src="https://api.r10086.com/樱道随机图片api接口.php?自适应图片系列=原神&amp;参数=1.jpg" alt="博客搭建+美化（巨细版本）"></div><div id="post-info"><div id="post-firstinfo"><div class="meta-firstline"><a class="post-meta-original" title="该文章为原创文章，注意版权协议">原创</a><span class="post-meta-categories"><a class="post-meta-categories" href="/categories/%E6%95%99%E7%A8%8B/">教程</a></span><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Hexo/"><span class="tags-name tags-punctuation"><i class="solitude fas fa-hashtag"></i>Hexo</span></a><a class="post-meta__tags" href="/tags/%E5%8D%9A%E5%AE%A2/"><span class="tags-name tags-punctuation"><i class="solitude fas fa-hashtag"></i>博客</span></a></div></div></div></div><h1 class="post-title">博客搭建+美化（巨细版本）</h1><div id="post-meta"><div class="meta-secondline"><span class="post-meta-date" title="发布于 2021-01-12 18:18:49"><i class="post-meta-icon solitude fas fa-calendar-days"></i><time datetime="2021-01-12T10:18:49.000Z">2021-01-12T10:18:49.000Z</time></span><span class="post-meta-wordcount"><i class="post-meta-icon solitude fas fa-file-word" title="文章字数"></i><span class="word-count">12.3k</span><span class="post-meta-separator"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content article-container"><h2 id=""><a href="#" class="headerlink" title=""></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA-%E7%BE%8E%E5%8C%96%EF%BC%88%E5%B7%A8%E7%BB%86%E7%89%88%E6%9C%AC%EF%BC%89" title="博客搭建+美化（巨细版本）"></a></h2><p>博客搭建+美化（巨细版本）</p>
+<h3 id="一、博客环境搭建"><a href="#一、博客环境搭建" class="headerlink" title="一、博客环境搭建"></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#%E4%B8%80%E3%80%81%E5%8D%9A%E5%AE%A2%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA" title="一、博客环境搭建"></a>一、博客环境搭建</h3><p>QQ 交流群(及文件下载):478404205</p>
+<h4 id="1-下载Git和Node-js"><a href="#1-下载Git和Node-js" class="headerlink" title="1.下载Git和Node.js"></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#1-%E4%B8%8B%E8%BD%BDGit%E5%92%8CNode-js" title="1.下载Git和Node.js"></a>1.下载Git和Node.js</h4><h5 id="1-Node-js的安装与配置"><a href="#1-Node-js的安装与配置" class="headerlink" title="1.Node.js的安装与配置"></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#1-Node-js%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE" title="1.Node.js的安装与配置"></a>1.Node.js的安装与配置</h5><p>  首先去Node.js<a target="_blank" rel="noopener" href="https://nodejs.org/zh-cn/">官网</a> 下载node.js的安装程序，根据你电脑系统的配置信息，下载对应的安装程序，然后开始进行下面的步骤。</p>
+<p>  下载好与电脑系统对应的安装程序后，开始安装流程：</p>
+<p>1.1.1 打开下载好的Node.js安装程序，点击Next，进行下一步的安装；  </p>
+<p><img src= "" data-lazy-src="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/1.jpg" alt="1"></p>
+<p><strong>1</strong></p>
+<p>1.1.2 将”I accept the terms in the License Agreement”前面的复选框勾选，同意安装协议，再点击Next，进行下一步操作；  </p>
+<p><img src= "" data-lazy-src="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/2.jpg" alt="2"></p>
+<p><strong>2</strong></p>
+<p>1.1.3 选择Node.js安装程序的安装位置，在这里我以”C:\Program Files\nodejs”为例，点击Next，进入下一步操作；  </p>
+<p><img src= "" data-lazy-src="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/3.jpg" alt="3"></p>
+<p><strong>3</strong></p>
+<p>1.1.4 选择安装的模块和功能，这里全部安装，并添加到系统环境变量 ，继续点击Next，进入下一步操作；  </p>
+<p><img src= "" data-lazy-src="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/4.jpg" alt="4"></p>
+<p><strong>4</strong></p>
+<p>1.1.5 这一步可以跳过，这个选项的意思是安装一些编译本地模块的工具，比如python，C&#x2F;C++等，点击Next，进入下一步；  </p>
+<p><img src= "" data-lazy-src="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/5.jpg" alt="5"></p>
+<p><strong>5</strong></p>
+<p>1.1.6 点击”Install”，等待Node.js安装完成；  </p>
+<p><img src= "" data-lazy-src="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/6.jpg" alt="6"></p>
+<p><strong>6</strong></p>
+<p>1.1.7 当看到下图所显示的情况，Node.js就成功安装完毕。  </p>
+<p><img src= "" data-lazy-src="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/7.jpg" alt="7"></p>
+<p><strong>7</strong></p>
+<p>1.1.8 验证安装，并测试Node.js是否加入环境变量，当出现如下图的情况，Node.js安装大功告成。  </p>
+<p><img src= "" data-lazy-src="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/8.jpg" alt="8"></p>
+<p><strong>8</strong></p>
+<p>  如果执行node -v报错的话，那么手动将Node.js的安装路径添加到环境变量中，右击点击我的电脑 -&gt;属性 -&gt; 高级系统设置 -&gt; 环境变量，在系统变量下找到名为path的变量名，如下图：  </p>
+<p><img src= "" data-lazy-src="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/9.jpg" alt="9"></p>
+<p><strong>9</strong></p>
+<p>  选中path，或者双击，然后将你node.js的安装路径放在path变量值的最后面，如果添加之前path值最后有 英文的分号，则直接将路径添加进去即可，如果没有，先添加分号，然后点击保存，回到桌面，打开cmd（Win+R），执行node -v，看是否成功。</p>
+<p>1.1.9 设置npm的镜像源：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 查看npm的配置 npm config list # 默认源 npm config set registry https://registry.npmjs.org # 临时改变镜像源 npm --registry=https://registry.npm.taobao.org # 永久设置为淘宝镜像源 npm config set registry https://registry.npm.taobao.org # 另一种方式，编辑 ~/.npmrc 加入下面内容 registry = https://registry.npm.taobao.org</span></span><br></pre></td></tr></table></figure>
+
+<p>1.1.10 设置npm的内置路径——&gt;全局模块路径和缓存路径（可选）<br>  如果不改变内置路径也可，除非你的C盘空间足够bigger，这一步可以略过，不改变的话，它的路径在：</p>
+<p>npm包全局目录：C:&#x2F;Users&#x2F;[username]&#x2F;AppData&#x2F;Roaming&#x2F;npm&#x2F;node_modules<br>npm包全局命令目录：C:&#x2F;Users&#x2F;[username]&#x2F;AppData&#x2F;Roaming&#x2F;npm<br>npm实际去找全局命令的目录：C:&#x2F;Users&#x2F;[username]&#x2F;.npmrc 文件内容的prefix值<br>npm包全局cache目录：C:&#x2F;Users&#x2F;[username]&#x2F;.npmrc 文件内容的cache值</p>
+<p>  首先在你Node.js的安装位置，新建两个文件夹，node_global和node_cache，我的路径是：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">C:\Program Files\nodejs\node_global C:\Program Files\nodejs\node_cache</span><br></pre></td></tr></table></figure>
+
+<p>然后分别执行的命令就是：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm config <span class="built_in">set</span> prefix<span class="string">&quot;C:\Program Files\nodejs\node_global&quot;</span> npm config <span class="built_in">set</span> cache <span class="string">&quot;C:\Program Files\nodejs\node_cache&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>  然后在配置环境变量，右击我的电脑 -&gt;属性 -&gt; 高级系统设置 -&gt; 环境变量同样的位置，在用户变量的地方，找到path变量进行修改，修改值如下图：  </p>
+<p><img src= "" data-lazy-src="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/10.jpg" alt="10"></p>
+<p><strong>10</strong></p>
+<p><img src= "" data-lazy-src="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/11.jpg" alt="11"></p>
+<p><strong>11</strong></p>
+<p>然后就大功告成了，Node.js就安装完毕了，下面开始Git安装。👇👇👇</p>
+<h4 id="1-2-Git的安装与配置"><a href="#1-2-Git的安装与配置" class="headerlink" title="1.2 Git的安装与配置"></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#1-2-Git%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE" title="1.2 Git的安装与配置"></a>1.2 Git的安装与配置</h4><p>  首先就是去<a target="_blank" rel="noopener" href="https://git-scm.com/">Git官网</a>下载Git，根据你电脑系统的配置信息，下载对应的安装程序，然后开始进行下面的步骤。  </p>
+<p><img src= "" data-lazy-src="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/12.jpg" alt="12"></p>
+<p><strong>12</strong></p>
+<p>1.2.1 下载好Git的安装包，开始安装，打开安装包，出现如图的界面，点击Next：  </p>
+<p><img src= "" data-lazy-src="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/13.jpg" alt="13"></p>
+<p><strong>13</strong></p>
+<p>1.2.2 选择你要安装的位置，我以C盘为例，路径为图中所示，安装到其他位置的话，点击Browse，选择你要安装的位置，然后点击Next，进入下一步：  </p>
+<p><img src= "" data-lazy-src="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/14.jpg" alt="14"></p>
+<p><strong>14</strong></p>
+<p>1.2.3 选择你是否创建桌面快捷放方式，其他默认即可，点击Next，进入下一步：  </p>
+<p><img src= "" data-lazy-src="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/15.jpg" alt="15"></p>
+<p><strong>15</strong></p>
+<p>1.2.4 是否将Git快捷方式的目录加入开是菜单栏  </p>
+<p><img src= "" data-lazy-src="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/16.jpg" alt="16"></p>
+<p><strong>16</strong></p>
+<p>1.2.5 这个是选择文本编辑器的方式，默认是Vim，也可以选择其他的方式，自主选择，在这里我选择的Vim默认方式。选择好文本编辑器的方式后，点击Next，进入下一个流程：  </p>
+<p><img src= "" data-lazy-src="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/17.jpg" alt="17"></p>
+<p><strong>17</strong></p>
+<p>1.2.6 选择安装 Git 时对环境变量PATH的影响，第一种影响较小，第三种会影响到Windows的自带工具，默认勾选中间项，建议不要修改，直接点击 “Next” 继续安装：  </p>
+<p><img src= "" data-lazy-src="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/18.jpg" alt="18"></p>
+<p><strong>18</strong></p>
+<p>1.2.7 选择 Git 在使用 HTTPS 时使用的库，若无特殊需求，可保持默认选项，点击 “Next” 继续安装：  </p>
+<p><img src= "" data-lazy-src="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/19.jpg" alt="19"></p>
+<p><strong>19</strong></p>
+<p>1.2.8 选择提交与拉取记录时，对换行符的处理方式，若无特殊需要，默认选择即可，点击 “Next” 继续安装：  </p>
+<p><img src= "" data-lazy-src="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/20.jpg" alt="20"></p>
+<p><strong>20</strong></p>
+<p>1.2.9 选择模拟终端软件（即命令行窗口软件），若无特殊需要，可默认选择，点击 “Next” 继续安装：  </p>
+<p><img src= "" data-lazy-src="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/21.jpg" alt="21"></p>
+<p><strong>21</strong></p>
+<p>1.2.10 最新功能的询问，若不想尝试尚未保证稳定性的新功能，默认不勾选，点击 “Install” 即可完成安装：  </p>
+<p><img src= "" data-lazy-src="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/22.jpg" alt="22"></p>
+<p><strong>22</strong></p>
+<p>1.2.11 安装完成  </p>
+<p><img src= "" data-lazy-src="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/23.jpg" alt="23"></p>
+<p><strong>23</strong></p>
+<p>1.2.12 回到桌面，点击鼠标右键，会出现两个选项Git GUI Here和Git Bash Here，在打开Cmd(Win+R)，分别输入git和git –version，如果出现如下图的情况，即安装成功！  </p>
+<p><img src= "" data-lazy-src="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/24.jpg" alt="24"></p>
+<p><strong>24</strong></p>
+<p><img src= "" data-lazy-src="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/25.jpg" alt="25"></p>
+<p><strong>25</strong></p>
+<h4 id="1-3-修改配置文件要用到的软件："><a href="#1-3-修改配置文件要用到的软件：" class="headerlink" title="1.3 修改配置文件要用到的软件："></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#1-3-%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E8%A6%81%E7%94%A8%E5%88%B0%E7%9A%84%E8%BD%AF%E4%BB%B6%EF%BC%9A" title="1.3 修改配置文件要用到的软件："></a>1.3 修改配置文件要用到的软件：</h4><p>  Visual Studio Code <a target="_blank" rel="noopener" href="https://visualstudio.microsoft.com/zh-hans/">官网下载</a></p>
+<h3 id="二、Github注册以及Github-Pages创建"><a href="#二、Github注册以及Github-Pages创建" class="headerlink" title="二、Github注册以及Github Pages创建"></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#%E4%BA%8C%E3%80%81Github%E6%B3%A8%E5%86%8C%E4%BB%A5%E5%8F%8AGithub-Pages%E5%88%9B%E5%BB%BA" title="二、Github注册以及Github Pages创建"></a>二、Github注册以及Github Pages创建</h3><p>QQ 交流群(及文件下载):478404205</p>
+<h4 id="打开Github官网"><a href="#打开Github官网" class="headerlink" title="打开Github官网"></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#%E6%89%93%E5%BC%80Github%E5%AE%98%E7%BD%91" title="打开Github官网"></a>打开Github<a target="_blank" rel="noopener" href="https://github.com/">官网</a></h4><p>  点击右上角的Sign Up ，然后在出现的页面上填写你的相关信息，进行注册：  </p>
+<p><img src= "" data-lazy-src="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/26.jpg" alt="26"></p>
+<p><strong>26</strong></p>
+<p><img src= "" data-lazy-src="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/27.jpg" alt="27"></p>
+<p><strong>27</strong></p>
+<p><img src= "" data-lazy-src="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/28.jpg" alt="28"></p>
+<p><strong>28</strong></p>
+<p>  验证完成后，点击Next：Select a plan，会出现如上图的验证界面，同理，只需要将其中的动物调整为正向显示即可。接着会出现下图的界面，选择Free，下方的两个选项可选可不选，点击Continue继续：  </p>
+<p><img src= "" data-lazy-src="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/29.jpg" alt="29"></p>
+<p><strong>29</strong></p>
+<p>  这时Github会给你发一封邮件，验证一下即可，验证过后才可以创建库。  </p>
+<p><img src= "" data-lazy-src="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/30.jpg" alt="30"></p>
+<p><strong>30</strong></p>
+<p>  验证完成后，开始创建库，如下图所示，仓库名创建格式必须为：&lt;用户名&gt;.github.io，Description为描述仓库，自定义写，填写必要的描述，也可不填。勾选Initialize this repository with a README点击Creat repository进行创建。  </p>
+<p><img src= "" data-lazy-src="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/31.jpg" alt="31"></p>
+<p><strong>31</strong></p>
+<p>  然后就会出现如图所示的界面，即仓库创建成功！  </p>
+<p><img src= "" data-lazy-src="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/32.jpg" alt="32"></p>
+<p><strong>32</strong></p>
+<p>  我们来测试一下，点击Create new file，出现如下界面，然后命名文件名为index.html，在填写如图的内容，再点击Commit new file，即创建成功，然后打开一个新的网页，输入网址https:&#x2F;&#x2F;&lt;你的用户名&gt;.github.io，即可以看见一个新的网页，其中的内容就是你写的内容。  </p>
+<p><img src= "" data-lazy-src="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/33.jpg" alt="33"></p>
+<p><strong>33</strong></p>
+<p><img src= "" data-lazy-src="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/34.jpg" alt="34"></p>
+<p><strong>34</strong></p>
+<p><img src= "" data-lazy-src="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/35.jpg" alt="35"></p>
+<p><strong>35</strong></p>
+<p>  至此，Github的注册以及Github Pages已经创建完成了。</p>
+<h3 id="三、配置Git用户名和邮箱"><a href="#三、配置Git用户名和邮箱" class="headerlink" title="三、配置Git用户名和邮箱"></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#%E4%B8%89%E3%80%81%E9%85%8D%E7%BD%AEGit%E7%94%A8%E6%88%B7%E5%90%8D%E5%92%8C%E9%82%AE%E7%AE%B1" title="三、配置Git用户名和邮箱"></a>三、配置Git用户名和邮箱</h3><p>QQ 交流群(及文件下载):478404205<br>  在桌面点击鼠标右键，点击Git Bash Here，会出现一个界面如下图所示：  </p>
+<p><img src= "" data-lazy-src="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/36.jpg" alt="36"></p>
+<p><strong>36</strong></p>
+<p>  然后分别输入下面的两个命令，并回车：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git config --global user.name <span class="string">&quot;此处填写你注册时的用户名&quot;</span> git config --global user.email <span class="string">&quot;此处填写你注册时的邮箱&quot;</span> <span class="comment"># 一般只要不报错，可以跳过下面寻找.gitconfig文件</span></span><br></pre></td></tr></table></figure>
+
+<p>  然后找到.gitconfig文件，文件存放位置在C:&#x2F;Users&#x2F;[username]&#x2F;.gitconfig（未找到的话，请开启显示隐藏文件的功能），用编辑器打开，看到如下图所示的内容，即配置成功！  </p>
+<p><img src= "" data-lazy-src="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/37.jpg" alt="37"></p>
+<p><strong>37</strong></p>
+<h3 id="四、本地安装以及发布"><a href="#四、本地安装以及发布" class="headerlink" title="四、本地安装以及发布"></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#%E5%9B%9B%E3%80%81%E6%9C%AC%E5%9C%B0%E5%AE%89%E8%A3%85%E4%BB%A5%E5%8F%8A%E5%8F%91%E5%B8%83" title="四、本地安装以及发布"></a>四、本地安装以及发布</h3><p>QQ 交流群(及文件下载):478404205</p>
+<h4 id="1-安装到本地"><a href="#1-安装到本地" class="headerlink" title="1.安装到本地"></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#1-%E5%AE%89%E8%A3%85%E5%88%B0%E6%9C%AC%E5%9C%B0" title="1.安装到本地"></a>1.安装到本地</h4><p>  首先选择一个磁盘作为你博客文件的存放位置，然后新建一个文件夹，比如名为blogtest的文件夹，创建完后，先不要点进去，在此处点击鼠标右键，选择Git Bash Here，然后依次输入如下命令，：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># hexo框架的安装 npm install -g hexo-cli # 等上一个命令完成后，在输入下面的命令 hexo init &lt;新建文件夹的名称&gt; #初始化文件夹 cd &lt;新建文件夹的名称&gt; npm install # 安装博客所需要的依赖文件</span></span><br></pre></td></tr></table></figure>
+
+<p><img src= "" data-lazy-src="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/38.jpg" alt="38"></p>
+<p><strong>38</strong></p>
+<p><img src= "" data-lazy-src="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/39.jpg" alt="39"></p>
+<p><strong>39</strong></p>
+<p>  等待运行完成，此时文件夹中多了许多文件。<br>  注意：后续的命令均需要在站点目录下（即文件夹内）使用Git Bash运行。<br>  此时Hexo框架的本地搭建已经完成了。我们来运行一下看看，命令行依次输入以下命令 :</p>
+<p><img src= "" data-lazy-src="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/40.jpg" alt="40"></p>
+<p><strong>40</strong></p>
+<p>  浏览器中打开<a target="_blank" rel="noopener" href="http://localhost:4000/">http://localhost:4000/</a>，可以看到一个网页，说明Hexo博客已经成功在本地运行。  </p>
+<p><img src= "" data-lazy-src="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/41.jpg" alt="41"></p>
+<p><strong>41</strong></p>
+<h4 id="2-本地博客发布到Github-Pages"><a href="#2-本地博客发布到Github-Pages" class="headerlink" title="2. 本地博客发布到Github Pages"></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#2-%E6%9C%AC%E5%9C%B0%E5%8D%9A%E5%AE%A2%E5%8F%91%E5%B8%83%E5%88%B0Github-Pages" title="2. 本地博客发布到Github Pages"></a>2. 本地博客发布到Github Pages</h4><p>  之前的步骤中，我们已经完成了对Github账户的注册以及Github Pages的创建，接下来是将本地博客发布至Github Pages。</p>
+<p>2.1 首先需要安装发布的插件，在站点目录下执行下面的命令，也就是创建的博客目录下：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+
+<p>  紧接着，将本地目录与GitHub关联起来，输入下面的命令行：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh-keygen -t rsa -C <span class="string">&quot;你的邮箱地址&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>  输入后一直回车，然后在C:&#x2F;Users&#x2F;[username]目录下找到名为.ssh的文件夹， 文件夹内会有两个文件，一个id_rsa.pub一个id_rsa，用文本编辑器打开id_rsa.pub，复制里面的的内容。 然后打开Github，点击右上角的头像 Settings 选择SSH and GPG keys  </p>
+<p><img src= "" data-lazy-src="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/42.jpg" alt="42"></p>
+<p><strong>42</strong></p>
+<p>  点击New SSH key 将之前复制的内容粘帖到Key的框中。 上面的Title可以随意，点击Add SSH key 完成添加。  </p>
+<p><img src= "" data-lazy-src="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/43.jpg" alt="43"></p>
+<p><strong>43</strong></p>
+<p>2.2 然后回到Git的命令行界面，测试一下是否与GitHub连接成功。输入下面的命令行：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ssh -T git@github.com</span><br></pre></td></tr></table></figure>
+
+<p>  点击回车，然后会出现一个询问内容，输入yes，回车，会出现一段内容，Hi ! You’ve successfully authenticated, but GitHub doesnot provide shell access.。 说明连接成功。此处这个应该是你Github的用户名。</p>
+<p>2.3 进入博客站点目录，用文本编辑器打开_config.yml，这个_config.yml是博客的配置文件，在以后的博客修改，如个性化修改，博客SEO优化等都会使用到，  修改如下图的几个地方：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">title: 你的博客名 subtitle: 博客的副标题，有些主题支持 description: 博客描述 keywords: 博客关键词 author: 作者，在文章中显示 language: 博客语言语种 timezone: 时区</span><br></pre></td></tr></table></figure>
+
+<p><img src= "" data-lazy-src="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/44.jpg" alt="44"></p>
+<p><strong>44</strong></p>
+<p>  滑到文件最底部，有一个deploy，在deploy下面添加一个repo项 ，一个branch项。填入如下代码，并如下图所示：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">type</span>: git repo: git@github.com:Github用户名/github用户名.github.io.git //也可使用https地址，如：https://github.com/Github用户名/Github用户名.github.io.git branch: master</span><br></pre></td></tr></table></figure>
+
+<p><img src= "" data-lazy-src="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/45.jpg" alt="45"></p>
+<p><strong>45</strong></p>
+<p>2.4 最后就是生成页面，并发布至Github Pages，执行如下命令：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Hexo会根据配置文件渲染出一套静态页面 hexo g # 将上一步渲染出的一系列文件上传至至Github Pages hexo d # 也可以直接输入此命令，直接完成渲染和上传 hexo g -d</span></span><br></pre></td></tr></table></figure>
+
+<p>  上传完成后，在浏览器中打开https:&#x2F;&#x2F;&lt;用户名&gt;.github.io，查看上传的网页。如果页面变成了之前本地调试时的样子，说明上传以及完成了。没变的话查看一下上传时命令行窗口的信息有没有错误信息，没有的话清除一下浏览器缓存试试。</p>
+<h3 id="五、hexo博客主题安装与修改"><a href="#五、hexo博客主题安装与修改" class="headerlink" title="五、hexo博客主题安装与修改"></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#%E4%BA%94%E3%80%81hexo%E5%8D%9A%E5%AE%A2%E4%B8%BB%E9%A2%98%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BF%AE%E6%94%B9" title="五、hexo博客主题安装与修改"></a>五、hexo博客主题安装与修改</h3><p>QQ 交流群(及文件下载):478404205</p>
+<h4 id="1-主题下载与安装"><a href="#1-主题下载与安装" class="headerlink" title="1. 主题下载与安装"></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#1-%E4%B8%BB%E9%A2%98%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85" title="1. 主题下载与安装"></a>1. 主题下载与安装</h4><p>  点击 <a target="_blank" rel="noopener" href="https://codeload.github.com/blinkfox/hexo-theme-matery/zip/master">网站</a> 下载 master 分支的最新稳定版的代码，解压缩后，将 hexo-theme-matery 的文件夹复制到你 Hexo 的 themes 文件夹中即可。</p>
+<p>  当然你也可以在你的站点目录文件夹下使用 git clone 命令来下载：直接在站点根目录下执行下面的命令，即可进行主题的下载，主题有两个版本，稳定版本和最新版本(不定期更新优化)，自主选择版本。</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git <span class="built_in">clone</span> https://github.com/blinkfox/hexo-theme-matery themes/matery <span class="comment"># 稳定版 git clone -b develop https://github.com/blinkfox/hexo-theme-matery themes/matery #最新版(不定期进行优化更新)</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="2-主题配置"><a href="#2-主题配置" class="headerlink" title="2. 主题配置"></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#2-%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE" title="2. 主题配置"></a>2. 主题配置</h4><h5 id="2-1-切换主题"><a href="#2-1-切换主题" class="headerlink" title="2.1 切换主题"></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#2-1-%E5%88%87%E6%8D%A2%E4%B8%BB%E9%A2%98" title="2.1 切换主题"></a>2.1 切换主题</h5><p>  <strong>注意：</strong>首先需要明白什么是站点配置文件，什么是主题配置文件，站点配置文件就是根目录下的配置文件，比如我的博客文件在F:\blog下，那么站点配置文件就是F:\blog_config.yml，主题配置文件就是F:\blog\themes\matery_config.yml。</p>
+<p>  另外注意，配置文件中的标点符号不要出现中文格式的标点符号，不然运行会出错。</p>
+<p>  主题下载完成后，将站点配置文件中的theme值修改为你下载主题的文件名，此处为matery，那么值就修改为theme: matery。</p>
+<p>  一些站点配置文件的其他地方的修改：</p>
+<p>  语言选择：如果为中文用户，则在language:后添加值zh-CN，如果不修改，默认为英语；<br>  网址修改：url:的值为你的网址名，如<a target="_blank" rel="noopener" href="http://xxxx.github.io,如果有域名,则修改为你的域名即可,至于有关域名的修改解析,后面我会说到,这里先不说了./">http://xxxx.github.io，如果有域名，则修改为你的域名即可，至于有关域名的修改解析，后面我会说到，这里先不说了。</a><br>  站点配置文件有个per_page属性，建议修改为6的倍数，这样网站在适应设备时，有较好的显示效果。</p>
+<h5 id="2-2-新建标签-tags-页面"><a href="#2-2-新建标签-tags-页面" class="headerlink" title="2.2 新建标签 tags 页面"></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#2-2-%E6%96%B0%E5%BB%BA%E6%A0%87%E7%AD%BE-tags-%E9%A1%B5%E9%9D%A2" title="2.2 新建标签 tags 页面"></a>2.2 新建标签 tags 页面</h5><p>tags 页是用来展示所有标签的页面，如果在你的博客 source 目录下还没有 tags&#x2F;index.md 文件，那么你就需要新建一个，命令如下：</p>
+<p>  编辑你刚刚新建的页面文件 &#x2F;source&#x2F;tags&#x2F;index.md，至少需要以下内容：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--- title: tags <span class="built_in">date</span>: 2018-09-30 18:23:38 <span class="built_in">type</span>: <span class="string">&quot;tags&quot;</span> layout: <span class="string">&quot;tags&quot;</span> ---</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-3-新建分类-categories-页面"><a href="#2-3-新建分类-categories-页面" class="headerlink" title="2.3 新建分类 categories 页面"></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#2-3-%E6%96%B0%E5%BB%BA%E5%88%86%E7%B1%BB-categories-%E9%A1%B5%E9%9D%A2" title="2.3 新建分类 categories 页面"></a>2.3 新建分类 categories 页面</h5><p>  categories 页是用来展示所有分类的页面，如果在你的博客 source 目录下还没有 categories&#x2F;index.md 文件，那么你就需要新建一个，命令如下：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page <span class="string">&quot;categories&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>  编辑你刚刚新建的页面文件 &#x2F;source&#x2F;categories&#x2F;index.md，至少需要以下内容：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--- title: categories <span class="built_in">date</span>: 2018-09-30 17:25:30 <span class="built_in">type</span>: <span class="string">&quot;categories&quot;</span> layout: <span class="string">&quot;categories&quot;</span> ---</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-4-新建关于我-about-页面"><a href="#2-4-新建关于我-about-页面" class="headerlink" title="2.4 新建关于我 about 页面"></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#2-4-%E6%96%B0%E5%BB%BA%E5%85%B3%E4%BA%8E%E6%88%91-about-%E9%A1%B5%E9%9D%A2" title="2.4 新建关于我 about 页面"></a>2.4 新建关于我 about 页面</h5><p>  about 页是用来展示关于我和我的博客信息的页面，如果在你的博客 source 目录下还没有 about&#x2F;index.md 文件，那么你就需要新建一个，命令如下：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page <span class="string">&quot;about&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>  编辑你刚刚新建的页面文件 &#x2F;source&#x2F;about&#x2F;index.md，至少需要以下内容：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--- title: about <span class="built_in">date</span>: 2018-09-30 17:25:30 <span class="built_in">type</span>: <span class="string">&quot;about&quot;</span> layout: <span class="string">&quot;about&quot;</span> ---</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-5-新建留言板-contact-页面-可选"><a href="#2-5-新建留言板-contact-页面-可选" class="headerlink" title="2.5 新建留言板 contact 页面 (可选)"></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#2-5-%E6%96%B0%E5%BB%BA%E7%95%99%E8%A8%80%E6%9D%BF-contact-%E9%A1%B5%E9%9D%A2-%E5%8F%AF%E9%80%89" title="2.5 新建留言板 contact 页面 (可选)"></a>2.5 新建留言板 contact 页面 (可选)</h5><p>  contact 页是用来展示留言板信息的页面，如果在你的博客 source 目录下还没有 contact&#x2F;index.md 文件，那么你就需要新建一个，命令如下：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page <span class="string">&quot;contact&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>  编辑你刚刚新建的页面文件 &#x2F;source&#x2F;contact&#x2F;index.md，至少需要以下内容：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--- title: contact <span class="built_in">date</span>: 2018-09-30 17:25:30 <span class="built_in">type</span>: <span class="string">&quot;contact&quot;</span> layout: <span class="string">&quot;contact&quot;</span> ---</span><br></pre></td></tr></table></figure>
+
+<p>  注：本留言板功能依赖于第三方评论系统，请激活你的评论系统才有效果。并且在主题的 _config.yml 文件中，第 19 至 21 行的“菜单”配置，取消关于留言板的注释即可。</p>
+<h5 id="2-6-新建友情链接-friends-页面-可选"><a href="#2-6-新建友情链接-friends-页面-可选" class="headerlink" title="2.6 新建友情链接 friends 页面 (可选)"></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#2-6-%E6%96%B0%E5%BB%BA%E5%8F%8B%E6%83%85%E9%93%BE%E6%8E%A5-friends-%E9%A1%B5%E9%9D%A2-%E5%8F%AF%E9%80%89" title="2.6 新建友情链接 friends 页面 (可选)"></a>2.6 新建友情链接 friends 页面 (可选)</h5><p>friends 页是用来展示友情链接信息的页面，如果在你的博客 source 目录下还没有 friends&#x2F;index.md 文件，那么你就需要新建一个，命令如下：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new page <span class="string">&quot;friends&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>  编辑你刚刚新建的页面文件 &#x2F;source&#x2F;friends&#x2F;index.md，至少需要以下内容：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--- title: friends <span class="built_in">date</span>: 2018-12-12 21:25:30 <span class="built_in">type</span>: <span class="string">&quot;friends&quot;</span> layout: <span class="string">&quot;friends&quot;</span> ---</span><br></pre></td></tr></table></figure>
+
+<p>  同时，在你的博客 source 目录下新建 _data 目录，在 _data 目录中新建 friends.json 文件，文件内容如下所示：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&#123; <span class="string">&quot;avatar&quot;</span>: <span class="string">&quot;http://image.luokangyuan.com/1_qq_27922023.jpg&quot;</span>, <span class="string">&quot;name&quot;</span>: <span class="string">&quot;码酱&quot;</span>, <span class="string">&quot;introduction&quot;</span>: <span class="string">&quot;我不是大佬，只是在追寻大佬的脚步&quot;</span>, <span class="string">&quot;url&quot;</span>: <span class="string">&quot;http://luokangyuan.com/&quot;</span>, <span class="string">&quot;title&quot;</span>: <span class="string">&quot;前去学习&quot;</span> &#125;, &#123; <span class="string">&quot;avatar&quot;</span>: <span class="string">&quot;http://image.luokangyuan.com/4027734.jpeg&quot;</span>, <span class="string">&quot;name&quot;</span>: <span class="string">&quot;闪烁之狐&quot;</span>, <span class="string">&quot;introduction&quot;</span>: <span class="string">&quot;编程界大佬，技术牛，人还特别好，不懂的都可以请教大佬&quot;</span>, <span class="string">&quot;url&quot;</span>: <span class="string">&quot;https://blinkfox.github.io/&quot;</span>, <span class="string">&quot;title&quot;</span>: <span class="string">&quot;前去学习&quot;</span> &#125;, &#123; <span class="string">&quot;avatar&quot;</span>: <span class="string">&quot;http://image.luokangyuan.com/avatar.jpg&quot;</span>, <span class="string">&quot;name&quot;</span>: <span class="string">&quot;ja_rome&quot;</span>, <span class="string">&quot;introduction&quot;</span>: <span class="string">&quot;平凡的脚步也可以走出伟大的行程&quot;</span>, <span class="string">&quot;url&quot;</span>: <span class="string">&quot;https://me.csdn.net/jlh912008548&quot;</span>, <span class="string">&quot;title&quot;</span>: <span class="string">&quot;前去学习&quot;</span> &#125;]</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-7-菜单导航配置"><a href="#2-7-菜单导航配置" class="headerlink" title="2.7 菜单导航配置"></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#2-7-%E8%8F%9C%E5%8D%95%E5%AF%BC%E8%88%AA%E9%85%8D%E7%BD%AE" title="2.7 菜单导航配置"></a>2.7 菜单导航配置</h5><h6 id="2-7-1-配置基本菜单导航的名称、路径url和图标icon"><a href="#2-7-1-配置基本菜单导航的名称、路径url和图标icon" class="headerlink" title="2.7.1 配置基本菜单导航的名称、路径url和图标icon."></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#2-7-1-%E9%85%8D%E7%BD%AE%E5%9F%BA%E6%9C%AC%E8%8F%9C%E5%8D%95%E5%AF%BC%E8%88%AA%E7%9A%84%E5%90%8D%E7%A7%B0%E3%80%81%E8%B7%AF%E5%BE%84url%E5%92%8C%E5%9B%BE%E6%A0%87icon" title="2.7.1 配置基本菜单导航的名称、路径url和图标icon."></a>2.7.1 配置基本菜单导航的名称、路径url和图标icon.</h6><p>1.菜单导航名称可以是中文也可以是英文(如：Index或主页)<br>2.图标icon 可以在Font Awesome 中查找</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">menu: Index: url: / icon: fas fa-home Tags: url: /tags icon: fas fa-tags Categories: url: /categories icon: fas fa-bookmark Archives: url: /archives icon: fas fa-archive About: url: /about icon: fas fa-user-circle Friends: url: /friends icon: fas fa-address-book</span><br></pre></td></tr></table></figure>
+
+<h6 id="2-7-2-二级菜单配置方法"><a href="#2-7-2-二级菜单配置方法" class="headerlink" title="2.7.2. 二级菜单配置方法"></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#2-7-2-%E4%BA%8C%E7%BA%A7%E8%8F%9C%E5%8D%95%E9%85%8D%E7%BD%AE%E6%96%B9%E6%B3%95" title="2.7.2. 二级菜单配置方法"></a>2.7.2. 二级菜单配置方法</h6><p>  如果你需要二级菜单则可以在原基本菜单导航的基础上如下操作</p>
+<p>1.在需要添加二级菜单的一级菜单下添加children关键字(如:About菜单下添加children)<br>2.在children下创建二级菜单的 名称name,路径url和图标icon.<br>3.注意每个二级菜单模块前要加 -.<br>4.注意缩进格式</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">menu: Index: url: / icon: fas fa-home Tags: url: /tags icon: fas fa-tags Categories: url: /categories icon: fas fa-bookmark Archives: url: /archives icon: fas fa-archive About: url: /about icon: fas fa-user-circle-o Friends: url: /friends icon: fas fa-address-book Medias: icon: fas fa-list children: - name: Musics url: /musics icon: fas fa-music - name: Movies url: /movies icon: fas fa-film - name: Books url: /books icon: fas fa-book - name: Galleries url: /galleries icon: fas fa-image</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-8-添加emoji表情支持（可选的）"><a href="#2-8-添加emoji表情支持（可选的）" class="headerlink" title="2.8 添加emoji表情支持（可选的）"></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#2-8-%E6%B7%BB%E5%8A%A0emoji%E8%A1%A8%E6%83%85%E6%94%AF%E6%8C%81%EF%BC%88%E5%8F%AF%E9%80%89%E7%9A%84%EF%BC%89" title="2.8 添加emoji表情支持（可选的）"></a>2.8 添加emoji表情支持（可选的）</h5><p>  本主题新增了对emoji表情的支持，使用到了 hexo-filter-github-emojis 的 Hexo 插件来支持 emoji表情的生成，把对应的markdown emoji语法（::,例如：:smile:）转变成会跳跃的emoji表情，安装命令如下：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-filter-github-emojis --save</span><br></pre></td></tr></table></figure>
+
+<p>  在 Hexo 根目录下的 _config.yml 文件中，新增以下的配置项：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">githubEmojis: <span class="built_in">enable</span>: <span class="literal">true</span> className: github-emoji inject: <span class="literal">true</span> styles: customEmojis:</span><br></pre></td></tr></table></figure>
+
+<p>  执行 hexo clean &amp;&amp; hexo g 重新生成博客文件，然后就可以在文章中对应位置看到你用emoji语法写的表情了。</p>
+<h5 id="2-9-代码高亮"><a href="#2-9-代码高亮" class="headerlink" title="2.9 代码高亮"></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#2-9-%E4%BB%A3%E7%A0%81%E9%AB%98%E4%BA%AE" title="2.9 代码高亮"></a>2.9 代码高亮</h5><p>  由于 Hexo 自带的代码高亮主题显示不好看，所以主题中使用到了 hexo-prism-plugin 的 Hexo 插件来做代码高亮，安装命令如下：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -S hexo-prism-plugin</span><br></pre></td></tr></table></figure>
+
+<p>  然后，修改 Hexo 根目录下 _config.yml 文件中 highlight.enable 的值为 false，并新增 prism 插件相关的配置，主要配置如下：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">prism_plugin: mode: <span class="string">&#x27;preprocess&#x27;</span> <span class="comment"># realtime/preprocess theme: &#x27;tomorrow&#x27; line_number: false # default false custom_css:</span></span><br></pre></td></tr></table></figure>
+
+<h5 id="2-10-搜索"><a href="#2-10-搜索" class="headerlink" title="2.10 搜索"></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#2-10-%E6%90%9C%E7%B4%A2" title="2.10 搜索"></a>2.10 搜索</h5><p>  本主题中还使用到了 hexo-generator-search 的 Hexo 插件来做内容搜索，安装命令如下：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-generator-search --save</span><br></pre></td></tr></table></figure>
+
+<p>  在 Hexo 根目录下的 _config.yml 文件中，新增以下的配置项：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">search: path: search.xml field: post</span><br></pre></td></tr></table></figure>
+
+<h5 id="2-11-中文链接转拼音（可选的）"><a href="#2-11-中文链接转拼音（可选的）" class="headerlink" title="2.11 中文链接转拼音（可选的）"></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#2-11-%E4%B8%AD%E6%96%87%E9%93%BE%E6%8E%A5%E8%BD%AC%E6%8B%BC%E9%9F%B3%EF%BC%88%E5%8F%AF%E9%80%89%E7%9A%84%EF%BC%89" title="2.11 中文链接转拼音（可选的）"></a>2.11 中文链接转拼音（可选的）</h5><p>  如果你的文章名称是中文的，那么 Hexo 默认生成的永久链接也会有中文，这样不利于 SEO，且 gitment 评论对中文链接也不支持。我们可以用   hexo-permalink-pinyin Hexo 插件使在生成文章时生成中文拼音的永久链接。</p>
+<p>  安装命令如下：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i hexo-permalink-pinyin --save</span><br></pre></td></tr></table></figure>
+
+<p>  在 Hexo 根目录下的 _config.yml 文件中，新增以下的配置项：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">permalink_pinyin: <span class="built_in">enable</span>: <span class="literal">true</span> separator: <span class="string">&#x27;-&#x27;</span> <span class="comment"># default: &#x27;-&#x27;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>注：</strong>除了此插件外，hexo-abbrlink 插件也可以生成非中文的链接。</p>
+<h5 id="2-12-文章字数统计插件（可选的）"><a href="#2-12-文章字数统计插件（可选的）" class="headerlink" title="2.12 文章字数统计插件（可选的）"></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#2-12-%E6%96%87%E7%AB%A0%E5%AD%97%E6%95%B0%E7%BB%9F%E8%AE%A1%E6%8F%92%E4%BB%B6%EF%BC%88%E5%8F%AF%E9%80%89%E7%9A%84%EF%BC%89" title="2.12 文章字数统计插件（可选的）"></a>2.12 文章字数统计插件（可选的）</h5><p>  如果你想要在文章中显示文章字数、阅读时长信息，可以安装 hexo-wordcount插件。</p>
+<p>  安装命令如下：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i --save hexo-wordcount</span><br></pre></td></tr></table></figure>
+
+<p>  然后只需在本主题下的 _config.yml 文件中，激活以下配置项即可：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wordCount: <span class="built_in">enable</span>: <span class="literal">false</span> <span class="comment"># 将这个值设置为 true 即可. postWordCount: true min2read: true totalCount: true</span></span><br></pre></td></tr></table></figure>
+
+<p>  本主题中还使用到了 hexo-generator-feed 的 Hexo 插件来做 RSS，安装命令如下：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-generator-feed --save</span><br></pre></td></tr></table></figure>
+
+<p>  在 Hexo 根目录下的 _config.yml 文件中，新增以下的配置项：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">feed: <span class="built_in">type</span>: atom path: atom.xml <span class="built_in">limit</span>: 20 hub: content: content_limit: 140 content_limit_delim: <span class="string">&#x27; &#x27;</span> order_by: -<span class="built_in">date</span></span><br></pre></td></tr></table></figure>
+
+<p>  执行 hexo clean &amp;&amp; hexo g 重新生成博客文件，然后在 public 文件夹中即可看到 atom.xml 文件，说明你已经安装成功了。</p>
+<h5 id="2-14-添加-DaoVoice-在线聊天功能（可选的）"><a href="#2-14-添加-DaoVoice-在线聊天功能（可选的）" class="headerlink" title="2.14 添加 DaoVoice 在线聊天功能（可选的）"></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#2-14-%E6%B7%BB%E5%8A%A0-DaoVoice-%E5%9C%A8%E7%BA%BF%E8%81%8A%E5%A4%A9%E5%8A%9F%E8%83%BD%EF%BC%88%E5%8F%AF%E9%80%89%E7%9A%84%EF%BC%89" title="2.14 添加 DaoVoice 在线聊天功能（可选的）"></a>2.14 添加 DaoVoice 在线聊天功能（可选的）</h5><p>  前往 <a target="_blank" rel="noopener" href="https://www.daocloud.io/">DaoVoice</a>官网注册并且获取 app_id，并将 app_id 填入主题的 _config.yml 文件中</p>
+<h5 id="2-15-添加-Tidio-在线聊天功能（可选的）"><a href="#2-15-添加-Tidio-在线聊天功能（可选的）" class="headerlink" title="2.15 添加 Tidio 在线聊天功能（可选的）"></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#2-15-%E6%B7%BB%E5%8A%A0-Tidio-%E5%9C%A8%E7%BA%BF%E8%81%8A%E5%A4%A9%E5%8A%9F%E8%83%BD%EF%BC%88%E5%8F%AF%E9%80%89%E7%9A%84%EF%BC%89" title="2.15 添加 Tidio 在线聊天功能（可选的）"></a>2.15 添加 Tidio 在线聊天功能（可选的）</h5><p>  前往 <a target="_blank" rel="noopener" href="https://www.tidio.com/">Tidio</a>官网注册并且获取 Public Key，并将 Public Key 填入主题的 _config.yml 文件中。</p>
+<h5 id="2-16-修改页脚"><a href="#2-16-修改页脚" class="headerlink" title="2.16 修改页脚"></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#2-16-%E4%BF%AE%E6%94%B9%E9%A1%B5%E8%84%9A" title="2.16 修改页脚"></a>2.16 修改页脚</h5><p>  页脚信息可能需要做定制化修改，而且它不便于做成配置信息，所以可能需要你自己去再修改和加工。修改的地方在主题文件的 &#x2F;layout&#x2F;_partial&#x2F;footer.ejs 文件中，包括站点、使用的主题、访问量等。</p>
+<h5 id="2-17-修改社交链接"><a href="#2-17-修改社交链接" class="headerlink" title="2.17 修改社交链接"></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#2-17-%E4%BF%AE%E6%94%B9%E7%A4%BE%E4%BA%A4%E9%93%BE%E6%8E%A5" title="2.17 修改社交链接"></a>2.17 修改社交链接</h5><p>  在主题的 _config.yml 文件中，默认支持 QQ、GitHub 和邮箱等的配置，你可以在主题文件的 &#x2F;layout&#x2F;_partial&#x2F;social-link.ejs 文件中，新增、修改你需要的社交链接地址，增加链接可参考如下代码：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;% <span class="keyword">if</span> (theme.socialLink.github) &#123; %&gt; &lt;a href=<span class="string">&quot;&lt;%= theme.socialLink.github %&gt;&quot;</span> class=<span class="string">&quot;tooltipped&quot;</span> target=<span class="string">&quot;_blank&quot;</span> data-tooltip=<span class="string">&quot;访问我的GitHub&quot;</span> data-position=<span class="string">&quot;top&quot;</span> data-delay=<span class="string">&quot;50&quot;</span>&gt; &lt;i class=<span class="string">&quot;fab fa-github&quot;</span>&gt;&lt;/i&gt; &lt;/a&gt; &lt;% &#125; %&gt;</span><br></pre></td></tr></table></figure>
+
+<p>  其中，社交图标（如：fa-github）你可以在 Font Awesome 中搜索找到。以下是常用社交图标的标识，供你参考：</p>
+<p>Facebook: fab fa-facebook<br>Twitter: fab fa-twitter<br>Google-plus: fab fa-google-plus<br>Linkedin: fab fa-linkedin<br>Tumblr: fab fa-tumblr<br>Medium: fab fa-medium<br>Slack: fab fa-slack<br>Sina Weibo: fab fa-weibo<br>Wechat: fab fa-weixin<br>QQ: fab fa-qq<br>Zhihu: fab fa-zhihu<br>  <strong>注意:</strong> 本主题中使用的 Font Awesome 版本为 5.11.0。</p>
+<h5 id="2-18-修改打赏的二维码图片"><a href="#2-18-修改打赏的二维码图片" class="headerlink" title="2.18 修改打赏的二维码图片"></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#2-18-%E4%BF%AE%E6%94%B9%E6%89%93%E8%B5%8F%E7%9A%84%E4%BA%8C%E7%BB%B4%E7%A0%81%E5%9B%BE%E7%89%87" title="2.18 修改打赏的二维码图片"></a>2.18 修改打赏的二维码图片</h5><p>  在主题文件的 source&#x2F;medias&#x2F;reward 文件中，你可以替换成你的的微信和支付宝的打赏二维码图片。</p>
+<h5 id="2-19-配置音乐播放器（可选的）"><a href="#2-19-配置音乐播放器（可选的）" class="headerlink" title="2.19 配置音乐播放器（可选的）"></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#2-19-%E9%85%8D%E7%BD%AE%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8%EF%BC%88%E5%8F%AF%E9%80%89%E7%9A%84%EF%BC%89" title="2.19 配置音乐播放器（可选的）"></a>2.19 配置音乐播放器（可选的）</h5><p>  要支持音乐播放，就必须开启音乐的播放配置和音乐数据的文件。</p>
+<p>  首先，在你的博客 source 目录下的 _data 目录（没有的话就新建一个）中新建 musics.json 文件，文件内容如下所示：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&#123; <span class="string">&quot;name&quot;</span>: <span class="string">&quot;五月雨变奏电音&quot;</span>, <span class="string">&quot;artist&quot;</span>: <span class="string">&quot;AnimeVibe&quot;</span>, <span class="string">&quot;url&quot;</span>: <span class="string">&quot;http://xxx.com/music1.mp3&quot;</span>, <span class="string">&quot;cover&quot;</span>: <span class="string">&quot;http://xxx.com/music-cover1.png&quot;</span> &#125;, &#123; <span class="string">&quot;name&quot;</span>: <span class="string">&quot;Take me hand&quot;</span>, <span class="string">&quot;artist&quot;</span>: <span class="string">&quot;DAISHI DANCE,Cecile Corbel&quot;</span>, <span class="string">&quot;url&quot;</span>: <span class="string">&quot;/medias/music/music2.mp3&quot;</span>, <span class="string">&quot;cover&quot;</span>: <span class="string">&quot;/medias/music/cover2.png&quot;</span> &#125;, &#123; <span class="string">&quot;name&quot;</span>: <span class="string">&quot;Shape of You&quot;</span>, <span class="string">&quot;artist&quot;</span>: <span class="string">&quot;J.Fla&quot;</span>, <span class="string">&quot;url&quot;</span>: <span class="string">&quot;http://xxx.com/music3.mp3&quot;</span>, <span class="string">&quot;cover&quot;</span>: <span class="string">&quot;http://xxx.com/music-cover3.png&quot;</span> &#125;]</span><br></pre></td></tr></table></figure>
+
+<p>  <strong>注：</strong>以上 JSON 中的属性：name、artist、url、cover 分别表示音乐的名称、作者、音乐文件地址、音乐封面。</p>
+<p>  然后，在主题的 _config.yml 配置文件中激活配置即可：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 是否在首页显示音乐. music: enable: true showTitle: false title: 听听音乐 fixed: false # 是否开启吸底模式 autoplay: false # 是否自动播放 theme: &#x27;#42b983&#x27; loop: &#x27;all&#x27; # 音频循环播放, 可选值: &#x27;all&#x27;, &#x27;one&#x27;, &#x27;none&#x27; order: &#x27;list&#x27; # 音频循环顺序, 可选值: &#x27;list&#x27;, &#x27;random&#x27; preload: &#x27;auto&#x27; # 预加载，可选值: &#x27;none&#x27;, &#x27;metadata&#x27;, &#x27;auto&#x27; volume: 0.7 # 默认音量，请注意播放器会记忆用户设置，用户手动设置音量后默认音量即失效 listFolded: false # 列表默认折叠 listMaxHeight: # 列表最大高度</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="3-文章-Front-matter-介绍"><a href="#3-文章-Front-matter-介绍" class="headerlink" title="3. 文章 Front-matter 介绍"></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#3-%E6%96%87%E7%AB%A0-Front-matter-%E4%BB%8B%E7%BB%8D" title="3. 文章 Front-matter 介绍"></a>3. 文章 Front-matter 介绍</h4><p>  Front-matter 选项详解<br>  Front-matter 选项中的所有内容均为非必填的。但我仍然建议至少填写 title 和 date 的值。</p>
+<p>  您可以在文章md文件的 front-matter 中指定 reprintPolicy 来给单个文章配置转载规则<br>  以下为文章的 Front-matter 示例。</p>
+<p>  最简示例</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--- title: typora-vue-theme主题介绍 <span class="built_in">date</span>: 2018-09-07 09:25:00 ---</span><br></pre></td></tr></table></figure>
+
+<p>  最全示例</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--- title: typora-vue-theme主题介绍 <span class="built_in">date</span>: 2022-05-02 09:25:00 author: CrazyYu img: /source/images/xxx.jpg top: <span class="literal">true</span> cover: <span class="literal">true</span> coverImg: /images/1.jpg password: 8d969eef6ecad3c29a3a629280e686cf0c3f5d5a86aff3ca12020c923adc6c92 toc: <span class="literal">false</span> mathjax: <span class="literal">false</span> summary: 这是你自定义的文章摘要内容，如果这个属性有值，文章卡片摘要就显示这段文字，否则程序会自动截取文章的部分内容作为摘要 categories: Markdown tags: - Typora - Markdown ---</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-效果截图"><a href="#4-效果截图" class="headerlink" title="4. 效果截图"></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#4-%E6%95%88%E6%9E%9C%E6%88%AA%E5%9B%BE" title="4. 效果截图"></a>4. 效果截图</h4><p>  最新版本进行了优化更新，效果图与最初的效果图有差别，下面的图不是最新版本的。  </p>
+<p><img src= "" data-lazy-src="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/46.jpg" alt="46"></p>
+<p><strong>46</strong></p>
+<p><img src= "" data-lazy-src="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/47.jpg" alt="47"></p>
+<p><strong>47</strong></p>
+<p><img src= "" data-lazy-src="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/48.jpg" alt="48"></p>
+<p><strong>48</strong></p>
+<p><img src= "" data-lazy-src="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/49.jpg" alt="49"></p>
+<p><strong>49</strong></p>
+<p><img src= "" data-lazy-src="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/50.jpg" alt="50"></p>
+<p><strong>50</strong></p>
+<h4 id="5-自定制修改"><a href="#5-自定制修改" class="headerlink" title="5. 自定制修改"></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#5-%E8%87%AA%E5%AE%9A%E5%88%B6%E4%BF%AE%E6%94%B9" title="5. 自定制修改"></a>5. 自定制修改</h4><p>  <strong>我认为个人博客应该都有自己的风格和特色。</strong>如果本主题中的诸多功能和主题色彩你不满意，可以在主题中自定义修改，很多更自由的功能和细节点的修改难以在主题的 _config.yml 中完成，需要修改源代码才来完成。以下列出了可能对你有用的地方：</p>
+<h5 id="5-1-修改主题颜色"><a href="#5-1-修改主题颜色" class="headerlink" title="5.1 修改主题颜色"></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#5-1-%E4%BF%AE%E6%94%B9%E4%B8%BB%E9%A2%98%E9%A2%9C%E8%89%B2" title="5.1 修改主题颜色"></a>5.1 修改主题颜色</h5><p>  在主题文件的 &#x2F;source&#x2F;css&#x2F;matery.css 文件中，搜索 .bg-color 来修改背景颜色：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/* 整体背景颜色，包括导航、移动端的导航、页尾、标签页等的背景颜色. */ .bg-color &#123; background-image: linear-gradient(to right, <span class="comment">#4cbf30 0%, #0f9d58 100%); &#125; /*如果想去掉banner图的颜色渐变效果，请将以下的css属性注释掉或者删除掉即可*/ @-webkit-keyframes rainbow &#123; /* 动态切换背景颜色. */ &#125; @keyframes rainbow &#123; /* 动态切换背景颜色. */ &#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>  你可以直接在 &#x2F;source&#x2F;medias&#x2F;banner 文件夹中更换你喜欢的 banner 图片，主题代码中是每天动态切换一张，只需 7 张即可。如果你会 JavaScript 代码，可以修改成你自己喜欢切换逻辑，如：随机切换等，banner 切换的代码位置在 &#x2F;layout&#x2F;_partial&#x2F;bg-cover-content.ejs 文件的 代码中：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&#x27;.bg-cover&#x27;</span>).css(<span class="string">&#x27;background-image&#x27;</span>, <span class="string">&#x27;url(/medias/banner/&#x27;</span> + new Date().getDay() + <span class="string">&#x27;.jpg)&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<p>  在 &#x2F;source&#x2F;medias&#x2F;featureimages 文件夹中默认有 24 张特色图片，你可以再增加或者减少，并需要在 _config.yml 做同步修改。</p>
+<p>  如果想改为每小时或者每分钟切换banner图的话，需要将getDay()改为getHours()或者getMinutes()即可。</p>
+<h5 id="5-3-修改网站相关信息"><a href="#5-3-修改网站相关信息" class="headerlink" title="5.3 修改网站相关信息"></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#5-3-%E4%BF%AE%E6%94%B9%E7%BD%91%E7%AB%99%E7%9B%B8%E5%85%B3%E4%BF%A1%E6%81%AF" title="5.3 修改网站相关信息"></a>5.3 修改网站相关信息</h5><p>  首先看一个图，如下：  </p>
+<p><img src= "" data-lazy-src="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/51.jpg" alt="51"></p>
+<p><strong>51</strong></p>
+<p>  紧接着放上相关的配置文件信息：</p>
+<p>1.网站信息的修改</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 这是根目录下的配置文件信息 title: CrazyYu&#x27;s Blog #这是网站标题 subtitle: &#x27;Smile Life&#x27; #这是网站副标题subtitler # 下面两个description,keywords，需要填上，如果想让搜索引擎收录，这个做SEO优化必不可忽视的两个属性 description: &#x27;个人博客&#x27; #网站描述 keywords: [HTML, CSS, JavaScript, JQuery, React, Vue.js等] #网站的关键词 author: Crazy Yuchi #作者，文章版权所显示的 language: zh-cn #网站语言，不填写，默认为英文 timezone: &#x27;&#x27; #时区，可以不填写</span></span><br></pre></td></tr></table></figure>
+
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 这是主题配置文件的相关信息 # 配置网站favicon和网站LOGO # 可以用的CDN，也可以使用本地文件 favicon: /favicon.png logo: /medias/logo.png # 网站副标题，打字效果 # 如果有符号 ‘ ，请在 ’ 前面加上 \ subtitle: enable: true loop: true # 是否循环 showCursor: true # 是否显示光标 startDelay: 300 # 开始延迟 typeSpeed: 100 # 打字速度 backSpeed: 50 # 删除速度 sub1: 从来没有真正的绝境, 只有心灵的迷途 sub2: Never really desperate, only the lost of the soul</span></span><br></pre></td></tr></table></figure>
+
+<p>  <strong>注意：</strong></p>
+<p>  网站打字效果副标题默认有两个，即sub1和sub2，如果想写多个，则需要修改两处地方，首先修改配置文件，如上面所示，在sub1和sub2后面继续添加即可，然后在去主题目录下的layout文件夹下的_partial文件夹，修改bg-cover-content.ejs文件，大约在12行左右，如下面所示：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=<span class="string">&quot;description center-align&quot;</span>&gt; &lt;% <span class="keyword">if</span> (theme.subtitle.enable) &#123; %&gt; &lt;span <span class="built_in">id</span>=<span class="string">&quot;subtitle&quot;</span>&gt;&lt;/span&gt; &lt;script src=<span class="string">&quot;https://cdn.jsdelivr.net/npm/typed.js@2.0.11&quot;</span>&gt;&lt;/script&gt; &lt;script&gt; var typed = new Typed(<span class="string">&quot;#subtitle&quot;</span>, &#123; strings: [<span class="string">&#x27;&lt;%= theme.subtitle.sub1 %&gt;&#x27;</span>, <span class="string">&#x27;&lt;%= theme.subtitle.sub2 %&gt;&#x27;</span>, <span class="string">&#x27;&lt;%= theme.subtitle.sub3 %&gt;&#x27;</span>, <span class="string">&#x27;&lt;%= theme.subtitle.sub4 %&gt;&#x27;</span>, <span class="string">&#x27;&lt;%= theme.subtitle.sub5 %&gt;&#x27;</span>, <span class="string">&#x27;&lt;%= theme.subtitle.sub6 %&gt;&#x27;</span>], startDelay: &lt;%= theme.subtitle.startDelay %&gt;, typeSpeed: &lt;%= theme.subtitle.typeSpeed %&gt;, loop: &lt;%= theme.subtitle.loop %&gt;, backSpeed: &lt;%= theme.subtitle.backSpeed %&gt;, showCursor: &lt;%= theme.subtitle.showCursor %&gt; &#125;); &lt;/script&gt; &lt;% &#125; <span class="keyword">else</span> &#123; %&gt; &lt;%= config.description %&gt; &lt;% &#125; %&gt; &lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<p>2.社交链接的修改<br>  默认的配置信息为：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 首页 banner 中的第二行个人信息配置，留空即不启用 socialLink: github: https://github.com/CrazyYuchi email: 931846427@qq.com facebook: # https://www.facebook.com/profile.php?id=100080256978101 twitter: # https://twitter.com/ qq: 931846427 weibo: # https://weibo.com//u/5629150839 zhihu: # https://www.zhihu.com/ rss: true # true、false</span></span><br></pre></td></tr></table></figure>
+
+<p>  如果想添加简书，CSDN，掘金，博客园等等，需要在主题配置文件添加相关配置，可以进行如下配置(例如)：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">socialLink: qq: 931846427 weixin: ***.png github: https://github.com/CrazyYuchi email: mailto:931846427@qq.com facebook: <span class="comment"># https://www.facebook.com/xxx twitter: # https://twitter.com/xxx weibo: # https://weibo.com/xxx zhihu: https://www.zhihu.com/people/xuan-tian-40-64/activities juejin: https://juejin.im/user/5a902053f265da4e7527ae71/activities csdn: https://blog.csdn.net/victoryxa jianshu: https://www.jianshu.com/u/3b3856869772 cnblogs: https://www.cnblogs.com/yafine/ rss: true # true、false</span></span><br></pre></td></tr></table></figure>
+
+<p>  其中的weixin我是用的图片链接，会跳转到一个新的标签页，之后还需要修改ejs文件，文件在主题目录下的layout文件夹下的_partial文件夹，修改social-link.ejs，添加相关的配置，个人添加的配置如下(例如)：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;% <span class="keyword">if</span> (theme.socialLink.jianshu) &#123; %&gt; &lt;a href=<span class="string">&quot;&lt;%= theme.socialLink.jianshu %&gt;&quot;</span> class=<span class="string">&quot;tooltipped&quot;</span> target=<span class="string">&quot;_blank&quot;</span> data-tooltip=<span class="string">&quot;关注我的简书: &lt;%= theme.socialLink.jianshu %&gt;&quot;</span> data-position=<span class="string">&quot;top&quot;</span> data-delay=<span class="string">&quot;50&quot;</span>&gt; &lt;i class=<span class="string">&quot;fab fa-jianshu&quot;</span>&gt;简&lt;/i&gt; &lt;/a&gt; &lt;% &#125; %&gt; &lt;% <span class="keyword">if</span> (theme.socialLink.csdn) &#123; %&gt; &lt;a href=<span class="string">&quot;&lt;%= theme.socialLink.csdn %&gt;&quot;</span> class=<span class="string">&quot;tooltipped&quot;</span> target=<span class="string">&quot;_blank&quot;</span> data-tooltip=<span class="string">&quot;关注我的CSDN: &lt;%= theme.socialLink.csdn %&gt;&quot;</span> data-position=<span class="string">&quot;top&quot;</span> data-delay=<span class="string">&quot;50&quot;</span>&gt; &lt;i class=<span class="string">&quot;fab fa-csdn&quot;</span>&gt;C&lt;/i&gt; &lt;/a&gt; &lt;% &#125; %&gt; &lt;% <span class="keyword">if</span> (theme.socialLink.juejin) &#123; %&gt; &lt;a href=<span class="string">&quot;&lt;%= theme.socialLink.juejin %&gt;&quot;</span> class=<span class="string">&quot;tooltipped&quot;</span> target=<span class="string">&quot;_blank&quot;</span> data-tooltip=<span class="string">&quot;关注我的掘金: &lt;%= theme.socialLink.juejin %&gt;&quot;</span> data-position=<span class="string">&quot;top&quot;</span> data-delay=<span class="string">&quot;50&quot;</span>&gt; &lt;i class=<span class="string">&quot;fab fa-juejin&quot;</span>&gt;掘&lt;/i&gt; &lt;/a&gt; &lt;% &#125; %&gt; &lt;% <span class="keyword">if</span> (theme.socialLink.cnblogs) &#123; %&gt; &lt;a href=<span class="string">&quot;&lt;%= theme.socialLink.cnblogs %&gt;&quot;</span> class=<span class="string">&quot;tooltipped&quot;</span> target=<span class="string">&quot;_blank&quot;</span> data-tooltip=<span class="string">&quot;关注我的博客园: &lt;%= theme.socialLink.cnblogs %&gt;&quot;</span> data-position=<span class="string">&quot;top&quot;</span> data-delay=<span class="string">&quot;50&quot;</span>&gt; &lt;i class=<span class="string">&quot;fab fa-juejin&quot;</span>&gt;博&lt;/i&gt; &lt;/a&gt; &lt;% &#125; %&gt; &lt;% <span class="keyword">if</span> (theme.socialLink.weixin) &#123; %&gt; &lt;a href=<span class="string">&quot;&lt;%= theme.socialLink.weixin %&gt;&quot;</span> class=<span class="string">&quot;tooltipped&quot;</span> target=<span class="string">&quot;_blank&quot;</span> data-tooltip=<span class="string">&quot;微信联系我: &lt;%= theme.socialLink.weixin %&gt;&quot;</span> data-position=<span class="string">&quot;top&quot;</span> data-delay=<span class="string">&quot;50&quot;</span>&gt; &lt;i class=<span class="string">&quot;fab fa-weixin&quot;</span>&gt;&lt;/i&gt; &lt;/a&gt; &lt;% &#125; %&gt;</span><br></pre></td></tr></table></figure>
+
+<h3 id="六、hexo博客美化（DIY）"><a href="#六、hexo博客美化（DIY）" class="headerlink" title="六、hexo博客美化（DIY）"></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#%E5%85%AD%E3%80%81hexo%E5%8D%9A%E5%AE%A2%E7%BE%8E%E5%8C%96%EF%BC%88DIY%EF%BC%89" title="六、hexo博客美化（DIY）"></a>六、hexo博客美化（DIY）</h3><p>QQ 交流群(及文件下载):478404205<br>  主题DIY会涉及到js文件和css文件等的修改，个人建议新增的js文件放在themes&#x2F;matery&#x2F;layout&#x2F;layout.ejs这个文件下，这样会稍微加快博客访问的速度。不想花钱最好的方式是使用cdn.jsdeliver。以后会说到。</p>
+<h4 id="1-动态标题"><a href="#1-动态标题" class="headerlink" title="1. 动态标题"></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#1-%E5%8A%A8%E6%80%81%E6%A0%87%E9%A2%98" title="1. 动态标题"></a>1. 动态标题</h4><p>  先放上效果图再说：  </p>
+<p><img src= "" data-lazy-src="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/52.jpg" alt="52"></p>
+<p><strong>52</strong></p>
+<p><img src= "" data-lazy-src="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/53.jpg" alt="53"></p>
+<p><strong>53</strong></p>
+<p>  实现方法，直接在themes&#x2F;matery&#x2F;layout&#x2F;layout.ejs文件中添加如下代码：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script <span class="built_in">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt; var OriginTitile=document.title,st; document.addEventListener(<span class="string">&quot;visibilitychange&quot;</span>,<span class="function"><span class="title">function</span></span>()&#123; document.hidden?(document.title=<span class="string">&quot;ヽ(●-`Д´-)ノ你要玩捉迷藏嘛&quot;</span>,clearTimeout(st)):(document.title=<span class="string">&quot;(Ő∀Ő3)ノ好哦！&quot;</span>,st=setTimeout(<span class="function"><span class="title">function</span></span>()&#123;document.title=OriginTitile&#125;,3e3)) &#125;) &lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="2-修改导航栏颜色以及透明效果"><a href="#2-修改导航栏颜色以及透明效果" class="headerlink" title="2. 修改导航栏颜色以及透明效果"></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#2-%E4%BF%AE%E6%94%B9%E5%AF%BC%E8%88%AA%E6%A0%8F%E9%A2%9C%E8%89%B2%E4%BB%A5%E5%8F%8A%E9%80%8F%E6%98%8E%E6%95%88%E6%9E%9C" title="2. 修改导航栏颜色以及透明效果"></a>2. 修改导航栏颜色以及透明效果</h4><p>  打开themes&#x2F;matery&#x2F;source&#x2F;css&#x2F;matery.css文件，大约在250行，有一个.bg-color属性，修改其属性值即可，代码如下：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">.bg-color &#123; background-image: linear-gradient(to right, <span class="comment">#4cbf30 0%, #0f9d58 100%); //修改成自己喜欢的颜色值 opacity: 0.8; //透明效果 值范围 0~1，看情况自己修改 &#125;</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="3-添加动态诗词"><a href="#3-添加动态诗词" class="headerlink" title="3. 添加动态诗词"></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#3-%E6%B7%BB%E5%8A%A0%E5%8A%A8%E6%80%81%E8%AF%97%E8%AF%8D" title="3. 添加动态诗词"></a>3. 添加动态诗词</h4><p>  采用的是今日诗词，每次返回一句诗词，根据时间、地点、天气、事件智能推荐。官网有API文档，可以去看一下，有多种安装方式，最简单的方式就是从官网获取代码，在&#x2F;themes&#x2F;matery&#x2F;layout&#x2F;_partial&#x2F;head.ejs添加下面的一行代码：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=<span class="string">&quot;https://sdk.jinrishici.com/v2/browser/jinrishici.js&quot;</span> charset=<span class="string">&quot;utf-8&quot;</span>&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>  然后再将&#x2F;themes&#x2F;matery&#x2F;layout&#x2F;_partial&#x2F;bg-cover-content.ejs中的&lt;%&#x3D; config.description %&gt;修改为把&lt;%&#x3D; config.description %&gt;改为&lt;%- ‘正在加载今日诗词….‘ %&gt;，这个使用前提是将主题配置文件的subtitle的值改为false。</p>
+<h4 id="4-鼠标点击文字特效"><a href="#4-鼠标点击文字特效" class="headerlink" title="4. 鼠标点击文字特效"></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#4-%E9%BC%A0%E6%A0%87%E7%82%B9%E5%87%BB%E6%96%87%E5%AD%97%E7%89%B9%E6%95%88" title="4. 鼠标点击文字特效"></a>4. 鼠标点击文字特效</h4><p>  实现方法，引入js文件，在主题文件下的&#x2F;source&#x2F;js&#x2F;下新建click_show_text.js，其代码如下：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">var a_idx = 0; jQuery(document).ready(<span class="keyword">function</span> ($) &#123; $(<span class="string">&quot;body&quot;</span>).click(<span class="keyword">function</span> (e) &#123; var a = new Array(<span class="string">&quot;富强&quot;</span>, <span class="string">&quot;民主&quot;</span>, <span class="string">&quot;文明&quot;</span>, <span class="string">&quot;和谐&quot;</span>, <span class="string">&quot;自由&quot;</span>, <span class="string">&quot;平等&quot;</span>, <span class="string">&quot;公正&quot;</span>, <span class="string">&quot;法治&quot;</span>, <span class="string">&quot;爱国&quot;</span>, <span class="string">&quot;敬业&quot;</span>, <span class="string">&quot;诚信&quot;</span>, <span class="string">&quot;友善&quot;</span>); var <span class="variable">$i</span> = $(<span class="string">&quot;&lt;span/&gt;&quot;</span>).text(a[a_idx]); a_idx = (a_idx + 1) % a.length; var x = e.pageX, y = e.pageY; <span class="variable">$i</span>.css(&#123; <span class="string">&quot;z-index&quot;</span>: 5, <span class="string">&quot;top&quot;</span>: y - 20, <span class="string">&quot;left&quot;</span>: x, <span class="string">&quot;position&quot;</span>: <span class="string">&quot;absolute&quot;</span>, <span class="string">&quot;font-weight&quot;</span>: <span class="string">&quot;bold&quot;</span>, <span class="string">&quot;color&quot;</span>: <span class="string">&quot;#FF0000&quot;</span> &#125;); $(<span class="string">&quot;body&quot;</span>).append(<span class="variable">$i</span>); <span class="variable">$i</span>.animate(&#123; <span class="string">&quot;top&quot;</span>: y - 180, <span class="string">&quot;opacity&quot;</span>: 0 &#125;, 3000, <span class="function"><span class="title">function</span></span> () &#123; <span class="variable">$i</span>.remove(); &#125;); &#125;); setTimeout(<span class="string">&#x27;delay()&#x27;</span>, 2000); &#125;); <span class="keyword">function</span> <span class="function"><span class="title">delay</span></span>() &#123; $(<span class="string">&quot;.buryit&quot;</span>).removeAttr(<span class="string">&quot;onclick&quot;</span>); &#125;</span><br></pre></td></tr></table></figure>
+
+<h4 id="5-修改原有相册"><a href="#5-修改原有相册" class="headerlink" title="5. 修改原有相册"></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#5-%E4%BF%AE%E6%94%B9%E5%8E%9F%E6%9C%89%E7%9B%B8%E5%86%8C" title="5. 修改原有相册"></a>5. 修改原有相册</h4><p>  参考教程：后面专门出一期</p>
+<h4 id="6-添加天气小插件"><a href="#6-添加天气小插件" class="headerlink" title="6. 添加天气小插件"></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#6-%E6%B7%BB%E5%8A%A0%E5%A4%A9%E6%B0%94%E5%B0%8F%E6%8F%92%E4%BB%B6" title="6. 添加天气小插件"></a>6. 添加天气小插件</h4><p>  首先去<a target="_blank" rel="noopener" href="https://cj.weather.com.cn/plugin/pc">中国天气官网</a>，配置自己的插件，选择自定义插件—&gt;自定义样式——&gt;生成代码，然后会生成一段代码，复制粘贴到 themes&#x2F;matery&#x2F;layout&#x2F;layout.ejs即可。</p>
+<h4 id="7-关于我页面添加个人简历"><a href="#7-关于我页面添加个人简历" class="headerlink" title="7. 关于我页面添加个人简历"></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#7-%E5%85%B3%E4%BA%8E%E6%88%91%E9%A1%B5%E9%9D%A2%E6%B7%BB%E5%8A%A0%E4%B8%AA%E4%BA%BA%E7%AE%80%E5%8E%86" title="7. 关于我页面添加个人简历"></a>7. 关于我页面添加个人简历</h4><p>  打开theme&#x2F;matery&#x2F;layout&#x2F;about.ejs文件，大约在13行。有一个div class&#x3D;”card”标签，找出其对应结尾的标签，大约在61行左右，然后在新增如下代码：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;div class=<span class="string">&quot;card&quot;</span>&gt; &lt;div class=<span class="string">&quot;card-content&quot;</span>&gt; &lt;div class=<span class="string">&quot;card-content article-card-content&quot;</span>&gt; &lt;div class=<span class="string">&quot;title center-align&quot;</span> data-aos=<span class="string">&quot;zoom-in-up&quot;</span>&gt; &lt;i class=<span class="string">&quot;fa fa-address-book&quot;</span>&gt;&lt;/i&gt;&amp;nbsp;&amp;nbsp;&lt;%- __(<span class="string">&#x27;个人简历&#x27;</span>) %&gt; &lt;/div&gt; &lt;div <span class="built_in">id</span>=<span class="string">&quot;articleContent&quot;</span> data-aos=<span class="string">&quot;fade-up&quot;</span>&gt; &lt;%- page.content %&gt; &lt;/div&gt; &lt;/div&gt; &lt;/div&gt; &lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<p>  注意粘贴的位置和空格要正确，这里的位置随你自己设置，你也可以把简历作为第一个card，然后&#x2F;source&#x2F;about&#x2F;index.md下面写上你的简历了（就像写博客一样）。</p>
+<h4 id="8-豆瓣书单电影页面"><a href="#8-豆瓣书单电影页面" class="headerlink" title="8. 豆瓣书单电影页面"></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#8-%E8%B1%86%E7%93%A3%E4%B9%A6%E5%8D%95%E7%94%B5%E5%BD%B1%E9%A1%B5%E9%9D%A2" title="8. 豆瓣书单电影页面"></a>8. 豆瓣书单电影页面</h4><p>1.首先在博客站点目录执行下面的命令安装豆瓣插件：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-douban --save</span><br></pre></td></tr></table></figure>
+
+<p>2.紧接着在博客站点目录的配置文件_config.yml下，添加如下配置：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">douban: user: 252345665 <span class="comment">#这个需要修改为你个人的id builtin: false #如果想生成豆瓣页面，这个需要设置为true book: title: &#x27;This is my book title&#x27; quote: &#x27;This is my book quote&#x27; movie: title: &#x27;This is my movie title&#x27; quote: &#x27;This is my movie quote&#x27; game: title: &#x27;This is my game title&#x27; quote: &#x27;This is my game quote&#x27; timeout: 10000</span></span><br></pre></td></tr></table></figure>
+
+<p>**user:**你的豆瓣ID。打开豆瓣，登入账户，然后在右上角点击 ”个人主页“，这时候地址栏的URL大概是这样：<a target="_blank" rel="noopener" href="https://www.douban.com/people/xxxxxx/">https://www.douban.com/people/xxxxxx/</a> ，其中的”xxxxxx”就是你的个人ID了。<br><strong>builtin：</strong>是否将生成页面的功能嵌入 hexo s 和 hexo g 中，默认是 false ，另一可选项为 true 。<br><strong>title：</strong> 该页面的标题。<br><strong>quote：</strong> 写在页面开头的一段话,支持html语法。<br><strong>timeout：</strong> 爬取数据的超时时间，默认是 10000ms，如果在使用时发现报了超时的错(ETIMEOUT)可以把这个数据设置的大一点。<br>如果只想显示某一个页面(比如movie)，那就把其他的配置项注释掉即可。</p>
+<p>3.然后再主题配置文件_config.yml中添加关于此页面的菜单：(例如)</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">menu: 媒体: url: / icon: fas fa-list children: - name: 电影 url: /movies icon: fas fa-film - name: 书单 url: /books icon: fas fa-book - name: 游戏 url: /games icon: fas fa-gamepad</span><br></pre></td></tr></table></figure>
+
+<p>4.适配Matery主题：在 &#x2F;themes&#x2F;hexo-theme-matery&#x2F;layout 文件夹下面创建一个名为 douban.ejs 的文件，并将下面的内容复制进去：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;%- partial(<span class="string">&#x27;_partial/post-cover&#x27;</span>) %&gt; &lt;style&gt; .hexo-douban-picture img &#123; width: 100%; &#125; &lt;/style&gt; &lt;main class=<span class="string">&quot;content&quot;</span>&gt; &lt;div <span class="built_in">id</span>=<span class="string">&quot;contact&quot;</span> class=<span class="string">&quot;container chip-container&quot;</span>&gt; &lt;div class=<span class="string">&quot;card&quot;</span>&gt; &lt;div class=<span class="string">&quot;card-content&quot;</span> style=<span class="string">&quot;padding: 30px&quot;</span>&gt; &lt;h1 style=<span class="string">&quot;margin: 10px 0 10px 0px;&quot;</span>&gt;&lt;%= page.title %&gt;&lt;/h1&gt; &lt;%- page.content %&gt; &lt;/div&gt; &lt;/div&gt; &lt;div class=<span class="string">&quot;card&quot;</span>&gt; &lt;div class=<span class="string">&quot;card-content&quot;</span> style=<span class="string">&quot;text-align: center&quot;</span>&gt; &lt;h3 style=<span class="string">&quot;margin: 5px 0 5px 5px;&quot;</span>&gt;如果你有好的内容推荐，欢迎在下面留言！&lt;/h3&gt; &lt;/div&gt; &lt;/div&gt; &lt;div class=<span class="string">&quot;card&quot;</span>&gt; &lt;% <span class="keyword">if</span> (theme.gitalk &amp;&amp; theme.gitalk.enable) &#123; %&gt; &lt;%- partial(<span class="string">&#x27;_partial/gitalk&#x27;</span>) %&gt; &lt;% &#125; %&gt; &lt;% <span class="keyword">if</span> (theme.gitment.enable) &#123; %&gt; &lt;%- partial(<span class="string">&#x27;_partial/gitment&#x27;</span>) %&gt; &lt;% &#125; %&gt; &lt;% <span class="keyword">if</span> (theme.disqus.enable) &#123; %&gt; &lt;%- partial(<span class="string">&#x27;_partial/disqus&#x27;</span>) %&gt; &lt;% &#125; %&gt; &lt;% <span class="keyword">if</span> (theme.livere &amp;&amp; theme.livere.enable) &#123; %&gt; &lt;%- partial(<span class="string">&#x27;_partial/livere&#x27;</span>) %&gt; &lt;% &#125; %&gt; &lt;% <span class="keyword">if</span> (theme.valine &amp;&amp; theme.valine.enable) &#123; %&gt; &lt;%- partial(<span class="string">&#x27;_partial/valine&#x27;</span>) %&gt; &lt;% &#125; %&gt; &lt;/div&gt; &lt;/div&gt; &lt;/main&gt;</span><br></pre></td></tr></table></figure>
+
+<p>5.然后在博客站点目录下的node_modules文件夹下找到hexo-douban&#x2F;lib，文件夹下有三个js文件，分别为：books-generator.js 、games-generator.js 、movies-generator.js，用文本编辑器打开这三个文件，并将其文件内容末尾的代码修改为一下内容：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">/* 原文件内容为 layout: [`page`, `post`] ，将其修改为下面的内容*/ layout: [`page`, `douban`]</span><br></pre></td></tr></table></figure>
+
+<p>6.最后就是使用并生成相应的页面，执行命令如下:</p>
+<p>  <strong>需要注意的是</strong>，通常大家都喜欢用 hexo d 来作为 hexo deploy 命令的简化，但是当安装了 hexo douban 之后，就不能用 hexo d 了，因为 hexo douban 跟 hexo deploy 的前缀都是 hexo d ，你以后执行的 hexo d 将不再是 Hexo 页面的生成，而是豆瓣页面的生成。</p>
+<p>  以下是可选的命令参数：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">-h, --<span class="built_in">help</span> <span class="comment"># 帮助页面 -b, --books # 只生成书单页面 -g, --games # 只生成游戏页面 -m, --movies # 只生成电影页面</span></span><br></pre></td></tr></table></figure>
+
+<p>  <strong>当站点配置文件的builtin的值为true时，生成页面的功能会嵌入到hexo g和hexo s中，在进行部署生成操作，会自动生成相应的页面。</strong></p>
+<h4 id="9-外链跳转插件"><a href="#9-外链跳转插件" class="headerlink" title="9. 外链跳转插件"></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#9-%E5%A4%96%E9%93%BE%E8%B7%B3%E8%BD%AC%E6%8F%92%E4%BB%B6" title="9. 外链跳转插件"></a>9. 外链跳转插件</h4><p>  hexo-external-link是一个跳转外链相关插件。自动为所有html文件中外链的a标签生成对应的属性。 比如 设置target&#x3D;’_blank’, rel&#x3D;’external nofollow noopener noreferrer’ 告诉搜索引擎这是外部链接,不要将该链接计入权重。 同时自动生成外链跳转页面,默认在根目录下 go.html;</p>
+<p>  使用 npm 或者 yarn 安装</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">## npm 安装 npm install hexo-external-link --save ## yarn 安装 yarn add hexo-external-link</span></span><br></pre></td></tr></table></figure>
+
+<p>  之后再hexo博客站点根目录下添加如下配置：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo_external_link: <span class="built_in">enable</span>: <span class="literal">true</span> enable_base64_encode: <span class="literal">true</span> url_param_name: <span class="string">&#x27;u&#x27;</span> html_file_name: <span class="string">&#x27;go.html&#x27;</span> target_blank: <span class="literal">true</span> link_rel: <span class="string">&#x27;external nofollow noopener noreferrer&#x27;</span> domain: <span class="string">&#x27;your_domain&#x27;</span> <span class="comment"># 如果开启了防盗链 safety_chain: true</span></span><br></pre></td></tr></table></figure>
+
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">enable</span> - 是否开启hexo_external_link插件 - 默认 <span class="literal">false</span> enable_base64_encode - 是否对跳转url使用<span class="built_in">base64</span>编码 - 默认 fasle url_param_name - url参数名,在跳转到外链传递给html_file_name的参数名 - 默认 ‘u’ html_file_name - 跳转到外链的页面文件路径 - 默认 ‘go.html’ target_blank - 是否为外链的a标签添加target=<span class="string">&#x27;_blank&#x27;</span> - 默认 <span class="literal">true</span> link_rel - 设置外链的a标签的rel属性 - 默认 ‘external nofollow noopener noreferrer’ domain - 如果开启了防盗链,除了 localhost 和 domain 之外调用会跳到主页,同时也是判断链接是否为外链的依据 - 默认 window.location.host safety_chain - go.html 为了防止外链盗用 对域名进行的判断 - 默认 <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="10-添加动态科技线条背景"><a href="#10-添加动态科技线条背景" class="headerlink" title="10. 添加动态科技线条背景"></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#10-%E6%B7%BB%E5%8A%A0%E5%8A%A8%E6%80%81%E7%A7%91%E6%8A%80%E7%BA%BF%E6%9D%A1%E8%83%8C%E6%99%AF" title="10. 添加动态科技线条背景"></a>10. 添加动态科技线条背景</h4><p>  在themes&#x2F;matery&#x2F;layout&#x2F;layout.ejs文件中添加如下代码：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;!--动态线条背景--&gt; &lt;script <span class="built_in">type</span>=<span class="string">&quot;text/javascript&quot;</span> color=<span class="string">&quot;122 103 238&quot;</span> opacity=<span class="string">&#x27;0.7&#x27;</span> zIndex=<span class="string">&quot;-2&quot;</span> count=<span class="string">&quot;200&quot;</span> src=<span class="string">&quot;//cdn.bootcss.com/canvas-nest.js/1.0.0/canvas-nest.min.js&quot;</span>&gt; &lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>  其中：</p>
+<p>  <strong>color：</strong>表示线条颜色，三个数字分别为(R,G,B)，默认：（0,0,0）<br>  <strong>opacity：</strong>表示线条透明度（0~1），默认：0.5<br>  <strong>count：</strong>表示线条的总数量，默认：150<br>  <strong>zIndex：</strong>表示背景的z-index属性，css属性用于控制所在层的位置，默认：-1</p>
+<h4 id="11-添加鼠标点击烟花爆炸效果"><a href="#11-添加鼠标点击烟花爆炸效果" class="headerlink" title="11. 添加鼠标点击烟花爆炸效果"></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#11-%E6%B7%BB%E5%8A%A0%E9%BC%A0%E6%A0%87%E7%82%B9%E5%87%BB%E7%83%9F%E8%8A%B1%E7%88%86%E7%82%B8%E6%95%88%E6%9E%9C" title="11. 添加鼠标点击烟花爆炸效果"></a>11. 添加鼠标点击烟花爆炸效果</h4><p>  首先在themes&#x2F;matery&#x2F;source&#x2F;js目录下新建fireworks.js文件，打开这个网址<a target="_blank" rel="noopener" href="https://cdn.jsdelivr.net/gh/Yafine/cdn@2.5/source/js/fireworks.js">连接</a>，将内容复制粘贴到fireworks.js即可。</p>
+<p>  然后再themes&#x2F;matery&#x2F;layout&#x2F;layout.ejs文件内添加下面的内容：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;canvas class=<span class="string">&quot;fireworks&quot;</span> style=<span class="string">&quot;position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;&quot;</span> &gt;&lt;/canvas&gt; &lt;script <span class="built_in">type</span>=<span class="string">&quot;text/javascript&quot;</span> src=<span class="string">&quot;//cdn.bootcss.com/animejs/2.2.0/anime.min.js&quot;</span>&gt;&lt;/script&gt; &lt;script <span class="built_in">type</span>=<span class="string">&quot;text/javascript&quot;</span> src=<span class="string">&quot;/js/fireworks.js&quot;</span>&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>  然后hexo clean &amp;&amp; hexo g &amp;&amp; hexo s即可，就可以看到效果了。</p>
+<h4 id="12-添加樱花飘落效果"><a href="#12-添加樱花飘落效果" class="headerlink" title="12. 添加樱花飘落效果"></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#12-%E6%B7%BB%E5%8A%A0%E6%A8%B1%E8%8A%B1%E9%A3%98%E8%90%BD%E6%95%88%E6%9E%9C" title="12. 添加樱花飘落效果"></a>12. 添加樱花飘落效果</h4><p>  先看效果：我用的就是樱花</p>
+<p>  在themes&#x2F;matery&#x2F;source&#x2F;js目录下新建sakura.js文件，打开这个网址<a target="_blank" rel="noopener" href="https://cdn.jsdelivr.net/gh/Yafine/cdn@2.5/source/js/sakura.js">连接</a>，将内容复制粘贴到sakura.js即可。</p>
+<p>  然后再themes&#x2F;matery&#x2F;layout&#x2F;layout.ejs文件内添加下面的内容：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script <span class="built_in">type</span>=<span class="string">&quot;text/javascript&quot;</span>&gt; //只在桌面版网页启用特效 var windowWidth = $(window).width(); <span class="keyword">if</span> (windowWidth &gt; 768) &#123; document.write(<span class="string">&#x27;&lt;script type=&quot;text/javascript&quot; src=&quot;/js/sakura.js&quot;&gt;&lt;\/script&gt;&#x27;</span>); &#125; &lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="13-添加鼠标彩虹星星掉落跟随效果"><a href="#13-添加鼠标彩虹星星掉落跟随效果" class="headerlink" title="13. 添加鼠标彩虹星星掉落跟随效果"></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#13-%E6%B7%BB%E5%8A%A0%E9%BC%A0%E6%A0%87%E5%BD%A9%E8%99%B9%E6%98%9F%E6%98%9F%E6%8E%89%E8%90%BD%E8%B7%9F%E9%9A%8F%E6%95%88%E6%9E%9C" title="13. 添加鼠标彩虹星星掉落跟随效果"></a>13. 添加鼠标彩虹星星掉落跟随效果</h4><p>  在themes&#x2F;matery&#x2F;source&#x2F;js目录下新建cursor.js文件，打开这个<a target="_blank" rel="noopener" href="https://cdn.jsdelivr.net/gh/Yafine/cdn@2.5/source/js/cursor.js">网址</a>，将内容复制粘贴到cursor.js即可。</p>
+<p>  然后再themes&#x2F;matery&#x2F;layout&#x2F;layout.ejs文件内添加下面的内容：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=<span class="string">&quot;/js/cursor.js&quot;</span>&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="14-添加雪花飘落效果"><a href="#14-添加雪花飘落效果" class="headerlink" title="14. 添加雪花飘落效果"></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#14-%E6%B7%BB%E5%8A%A0%E9%9B%AA%E8%8A%B1%E9%A3%98%E8%90%BD%E6%95%88%E6%9E%9C" title="14. 添加雪花飘落效果"></a>14. 添加雪花飘落效果</h4><p>  跟樱花类似<br>  在themes&#x2F;matery&#x2F;source&#x2F;js目录下新建snow.js文件，打开这个<a target="_blank" rel="noopener" href="https://cdn.jsdelivr.net/gh/Yafine/cdn@2.5/source/js/snow1.js">网址</a>，将内容复制粘贴到cursor.js即可。</p>
+<p>  然后再themes&#x2F;matery&#x2F;layout&#x2F;layout.ejs文件内添加下面的内容：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;script src=<span class="string">&quot;/js/snow.js&quot;</span>&gt;&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<h4 id="15-添加自定义页面"><a href="#15-添加自定义页面" class="headerlink" title="15. 添加自定义页面"></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#15-%E6%B7%BB%E5%8A%A0%E8%87%AA%E5%AE%9A%E4%B9%89%E9%A1%B5%E9%9D%A2" title="15. 添加自定义页面"></a>15. 添加自定义页面</h4><p>  首先看一下效果  </p>
+<p><img src= "" data-lazy-src="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/54.jpg" alt="54"></p>
+<p><strong>54</strong></p>
+<p>  首先在站点目录下的source文件夹下新建aboutme文件，文件名可自定义，然后编写一个index.html放入aboutme文件夹下，然后在主题配置文件下的导航配置信息添加下面的配置：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">About: url: / icon: fas fa-address-card children: - name: 关于我 url: /about icon: fas fa-user-circle - name: Another <span class="comment">#这是新添加的，在原有配置基础上添加 url: /aboutme icon: fa fa-user-secret</span></span><br></pre></td></tr></table></figure>
+
+<p>  然后在站点配置文件下，找到skip_render，在后面添加属性，如下：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">skip_render: aboutme/** <span class="comment"># 其意思为在对文件进行渲染时跳过aboutme文件下的所有文件</span></span><br></pre></td></tr></table></figure>
+
+<p>  知道方法后，你可以添加你自己想要添加的页面，让你的博客内容更加充实。</p>
+<h4 id="16-添加404页面"><a href="#16-添加404页面" class="headerlink" title="16. 添加404页面"></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#16-%E6%B7%BB%E5%8A%A0404%E9%A1%B5%E9%9D%A2" title="16. 添加404页面"></a>16. 添加404页面</h4><p>  我的404页面是这样的：  </p>
+<p><img src= "" data-lazy-src="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/55.jpg" alt="55"></p>
+<p><strong>55</strong></p>
+<p>  开始说一下配置步骤，首先再站点根目录下的source文件夹下新建404.md文件，里面内容如下：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">--- title: 404 <span class="built_in">date</span>: 2022-5-2 16:41:10 <span class="built_in">type</span>: <span class="string">&quot;404&quot;</span> layout: <span class="string">&quot;404&quot;</span> description: <span class="string">&quot;Oops～，我崩溃了！找不到你想要的页面了&quot;</span> ---</span><br></pre></td></tr></table></figure>
+
+<p>  紧接着再新建主题文件夹的layout目录下新建404.ejs文件，添加内容如下：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;style <span class="built_in">type</span>=<span class="string">&quot;text/css&quot;</span>&gt; /* don<span class="string">&#x27;t remove. */ .about-cover &#123; height: 90.2vh; &#125; &lt;/style&gt; &lt;div class=&quot;bg-cover pd-header about-cover&quot;&gt; &lt;div class=&quot;container&quot;&gt; &lt;div class=&quot;row&quot;&gt; &lt;div class=&quot;col s10 offset-s1 m8 offset-m2 l8 offset-l2&quot;&gt; &lt;div class=&quot;brand&quot;&gt; &lt;div class=&quot;title center-align&quot;&gt; 404 &lt;/div&gt; &lt;div class=&quot;description center-align&quot;&gt; &lt;%= page.description %&gt; &lt;/div&gt; &lt;/div&gt; &lt;/div&gt; &lt;/div&gt; &lt;/div&gt; &lt;/div&gt; &lt;script&gt; // 每天切换 banner 图. Switch banner image every day. $(&#x27;</span>.bg-cover<span class="string">&#x27;).css(&#x27;</span>background-image<span class="string">&#x27;, &#x27;</span>url(https://cdn.jsdelivr.net/gh/Yafine/cdn@2.6/source/medias/banner/<span class="string">&#x27; + new Date().getDay() + &#x27;</span>.jpg)<span class="string">&#x27;); &lt;/script&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>  然后部署，再看看效果即可。</p>
+<h4 id="17-文章生成永久链接"><a href="#17-文章生成永久链接" class="headerlink" title="17. 文章生成永久链接"></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#17-%E6%96%87%E7%AB%A0%E7%94%9F%E6%88%90%E6%B0%B8%E4%B9%85%E9%93%BE%E6%8E%A5" title="17. 文章生成永久链接"></a>17. 文章生成永久链接</h4><p>  主题默认的文章链接配置是</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">premalink: :year/:month/:day/:title</span><br></pre></td></tr></table></figure>
+
+<p>  这种生成的链接地址很长，文章版权的链接地址会出现一大串字符编码，一点也不好看。因此需要修改文章生成链接的格式。</p>
+<p>  首先再根目录下执行下面的命令：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-abbrlink --save</span><br></pre></td></tr></table></figure>
+
+<p>  然后再站点配置文件下添加如下配置：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">abbrlink: alg: crc16 <span class="comment">#算法： crc16(default) and crc32 rep: hex #进制： dec(default) and hex: dec #输出进制：十进制和十六进制，默认为10进制。丨dec为十进制，hex为十六进制</span></span><br></pre></td></tr></table></figure>
+
+<p>  再将站点配置文件的permalink的值修改为：</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">permalink: posts/:abbrlink.html <span class="comment"># 此处可以自己设置，也可以直接使用 :/abbrlink</span></span><br></pre></td></tr></table></figure>
+
+<p>  生成文章的链接格式就会是如下样例（官方样例）:</p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">crc16 &amp; hex https://post.zz173.com/posts/66c8.html crc16 &amp; dec https://post.zz173.com/posts/65535.html crc32 &amp; hex https://post.zz173.com/posts/8ddf18fb.html crc32 &amp; dec https://post.zz173.com/posts/1690090958.html</span><br></pre></td></tr></table></figure>
+
+<p>  生成完后，原md文件的Front-matter 内会增加abbrlink 字段，值为生成的ID 。这个字段确保了在我们修改了Front-matter 内的博客标题title或创建日期date字段之后而不会改变链接地址。</p>
+<h3 id="七、添加评论系统"><a href="#七、添加评论系统" class="headerlink" title="七、添加评论系统"></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#%E4%B8%83%E3%80%81%E6%B7%BB%E5%8A%A0%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F" title="七、添加评论系统"></a>七、添加评论系统</h3><p>  我只说我用的评论系统的配置方法，其他的就不说了。</p>
+<h4 id="添加来必力评论系统"><a href="#添加来必力评论系统" class="headerlink" title="添加来必力评论系统"></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#%E6%B7%BB%E5%8A%A0%E6%9D%A5%E5%BF%85%E5%8A%9B%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F" title="添加来必力评论系统"></a>添加来必力评论系统</h4><p>  首先去来<a target="_blank" rel="noopener" href="https://livere.com/">必力官网</a>，点击导航栏上的安装，会出现如下图的页面：  </p>
+<p><img src= "" data-lazy-src="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/56.jpg" alt="56"></p>
+<p><strong>56</strong></p>
+<p>  City 版：是一款适合所有人使用的免费版本；<br>Premium 版：是一款能够帮助企业实现自动化管理的多功能收费版本。</p>
+<p>  注册完之后，会提示你填写网站的相关信息，如网站链接，网站名称等等，填写完毕之后，会给你一段代码，如下图所示：  </p>
+<p><img src= "" data-lazy-src="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/57.jpg" alt="57"></p>
+<p><strong>57</strong></p>
+<p>bash</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># Livere comment configuration, the default is not activated # Livere 来必力评论模块的配置，默认为不激活 livere: enable: true # true即为开启评论系统 uid: #这里填写你的uid</span></span><br></pre></td></tr></table></figure>
+
+<p>  然后在执行相关的部署命令，然后查看效果即可。  </p>
+<p><img src= "" data-lazy-src="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/58.jpg" alt="58"></p>
+<p><strong>58</strong></p>
+<h3 id="八、成功了"><a href="#八、成功了" class="headerlink" title="八、成功了"></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#%E5%85%AB%E3%80%81%E6%88%90%E5%8A%9F%E4%BA%86" title="八、成功了"></a>八、成功了</h3><p>  我相信经过大家的不懈努力，大家的博客应该搭建的很好了，虽然用了很多时间，但搭建完成后的成就感是真的巴适。<br>  正如我现在写完了这篇博文，断断续续花了我十多天，一点点敲打出来是真的很辛苦，但完成了的感觉像是在起飞，哈哈。<br>  如果这篇教程对你有些许的帮助，也就是我编写的收获，日后我会不定时进行一些更新，需要友链的请留言。</p>
+<p>  最后，写一个教程真的很不容易，希望各位大佬大家能多多支持，不管是送我<strong>喝瓶水</strong>，还是请我<strong>吃颗糖</strong>，都将是我继续做下去的动力。</p>
+<h4 id="-1"><a href="#-1" class="headerlink" title=""></a><a target="_blank" rel="noopener" href="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/#%E7%82%B9%E5%87%BB%E6%9C%80%E5%90%8E%E7%9A%84%E2%80%9C%E8%B5%8F%E2%80%9D%E5%AD%97%EF%BC%8C%E8%B0%A2%E8%B0%A2" title="点击最后的“赏”字，谢谢"></a></h4><p><strong>点击最后的“赏”字，谢谢</strong></p>
+<p><img src= "" data-lazy-src="https://crazyyuchi.github.io/2022/05/02/bo-ke-da-jian-mei-hua-ju-xi-ban-ben/59.jpg" alt="谢谢老板"></p>
+<p><strong>谢谢老板</strong></p>
+</article><div class="post-copyright"><div class="post-copyright__author_group"><div class="post-copyright__author_img"><img class="post-copyright__author_img_front" src="https://img.skyk.us.kg/file/1741221714139_02_3tx.png"></div><div class="post-copyright__author_name">SkyKing</div><div class="post-copyright__author_desc">分享技术随笔</div></div><div class="post-tools" id="post-tools"><div class="post-tools-left"><div id="quit-box" onclick="RemoveRewardMask()"></div><div class="post-reward"><div class="reward-button" title="赞赏作者" onclick="AddRewardMask()"><i class="solitude fas fa-heart"></i>赞赏作者</div><div class="reward-main"><ul class="reward-all"><span class="reward-title">Thanks for your appreciation. / 感谢您的赞赏</span><ul class="reward-group"></ul><a class="reward-main-btn" href="/about/"><div class="reward-text">赞赏名单</div><div class="reward-dec">Because of your support, I realize the value of writing articles. / 由于您的支持，我才能够实现写作的价值。</div></a></ul></div></div><script>function RemoveRewardMask() {
+    let rewardMainElements = document.querySelectorAll(".reward-main");
+    let quitBoxElement = document.querySelector("#quit-box");
+
+    rewardMainElements.forEach(element => {
+        element.style.display = "none";
+    });
+
+    if (quitBoxElement) {
+        quitBoxElement.style.display = "none";
+    }
+}
+
+function AddRewardMask() {
+    let rewardMainElements = document.querySelectorAll(".reward-main");
+    let quitBoxElement = document.querySelector("#quit-box");
+
+    rewardMainElements.forEach(element => {
+        element.style.display = "flex";
+    });
+
+    if (quitBoxElement) {
+        quitBoxElement.style.display = "flex";
+    }
+}</script><div class="reward-link mode"><a class="reward-link-button" href="/atom.xml"><i class="solitude fas fa-seedling"></i>订阅</a></div></div></div><div class="social-share"><a class="social-share-ico icon-qq" target="_blank" rel="noopener" href="https://connect.qq.com/widget/shareqq/index.html?url=https%3A%2F%2Fblog.skyk.us.kg%2Fposts%2F4ea940d2.html&amp;title=%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%2B%E7%BE%8E%E5%8C%96%EF%BC%88%E5%B7%A8%E7%BB%86%E7%89%88%E6%9C%AC%EF%BC%89&amp;desc=undefined&amp;summary=undefined&amp;site=%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%2B%E7%BE%8E%E5%8C%96%EF%BC%88%E5%B7%A8%E7%BB%86%E7%89%88%E6%9C%AC%EF%BC%89&amp;pics=https%3A%2F%2Fapi.r10086.com%2F%E6%A8%B1%E9%81%93%E9%9A%8F%E6%9C%BA%E5%9B%BE%E7%89%87api%E6%8E%A5%E5%8F%A3.php%3F%E8%87%AA%E9%80%82%E5%BA%94%E5%9B%BE%E7%89%87%E7%B3%BB%E5%88%97%3D%E5%8E%9F%E7%A5%9E%26%E5%8F%82%E6%95%B0%3D1.jpg" title="分享到QQ"><i class="solitude fab fa-qq"></i></a><a class="social-share-ico icon-weibo" target="_blank" rel="noopener" href="http://service.weibo.com/share/share.php?url=https%3A%2F%2Fblog.skyk.us.kg%2Fposts%2F4ea940d2.html&amp;title=%E5%8D%9A%E5%AE%A2%E6%90%AD%E5%BB%BA%2B%E7%BE%8E%E5%8C%96%EF%BC%88%E5%B7%A8%E7%BB%86%E7%89%88%E6%9C%AC%EF%BC%89&amp;pic=https%3A%2F%2Fapi.r10086.com%2F%E6%A8%B1%E9%81%93%E9%9A%8F%E6%9C%BA%E5%9B%BE%E7%89%87api%E6%8E%A5%E5%8F%A3.php%3F%E8%87%AA%E9%80%82%E5%BA%94%E5%9B%BE%E7%89%87%E7%B3%BB%E5%88%97%3D%E5%8E%9F%E7%A5%9E%26%E5%8F%82%E6%95%B0%3D1.jpg" title="分享到微博"><i class="solitude fab fa-weibo"></i></a><div class="social-share-ico icon-link" onclick="utils.copy(&quot;https://blog.skyk.us.kg/posts/4ea940d2.html&quot;)" title="复制文章链接"><i class="solitude fas fa-link"></i></div><div class="social-share-ico icon-qrcode" title="使用手机扫码阅读这篇文章"><i class="solitude fas fa-qrcode"></i><div class="share-main"><div class="share-main-all"><div id="qrcode"></div><div class="reward-dec">使用手机扫码阅读这篇文章</div></div></div><script pjax>typeof QRCode === 'function' && new QRCode(document.getElementById("qrcode"), {
+    text: 'https://blog.skyk.us.kg/posts/4ea940d2.html',
+    correctLevel : QRCode.CorrectLevel.L
+});
+window.addEventListener('DOMContentLoaded', () => {
+    new QRCode(document.getElementById("qrcode"), {
+        text: 'https://blog.skyk.us.kg/posts/4ea940d2.html',
+        correctLevel : QRCode.CorrectLevel.L
+    });
+});
+</script></div></div><div class="post-copyright__notice"><span class="post-copyright-info">本文是原创文章，采用<a target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh-hans">CC BY-NC-SA 4.0</a>协议，完整转载请注明来自<a href="/">空天之境</a></span></div></div><div class="post-tools-right"><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/Hexo/"><span class="tags-punctuation"><i class="solitude fas fa-hashtag"></i>Hexo<span class="tagsPageCount">8</span></span></a><a class="post-meta__tags" href="/tags/%E5%8D%9A%E5%AE%A2/"><span class="tags-punctuation"><i class="solitude fas fa-hashtag"></i>博客<span class="tagsPageCount">9</span></span></a></div></div></div><nav class="needEndHide pagination-post" id="pagination"><div class="prev-post pull-left"><a href="/posts/5372cc32.html"><div class="pagination-info"><div class="label">上一篇</div><div class="prev_info">Butterfly 安裝文檔(二) 主題頁面  Butterfly</div></div></a></div><div class="next-post pull-right"><a href="/posts/f0a4488f.html"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">hexo教程</div></div></a></div></nav>
+        <div class="relatedPosts">
+            <div class="headline">
+                <i class="solitude fas fa-star"></i>
+                <span>喜欢这篇的人也看了</span>
+                <div class="relatedPosts-link">
+                    <a onclick="event.preventDefault(); toRandomPost();" href="javascript:void(0);" rel="external nofollow" data-pjax-state="">随便逛逛</a>
+                </div>
+            </div>
+            <div class="relatedPosts-list">
+            <div>
+                <a href="/posts/d2d7725.html" title="Markdown语法自带格式">
+                    <img class="cover" src="https://w0xking.github.io/picx-images-hosting/战双-(17).3k7sunfmnw.jpg" alt="cover">
+                    <div class="content is-center">
+                        <div class="title">Markdown语法自带格式</div>
+                    </div>
+                </a>
+            </div>
+            <div>
+                <a href="/posts/41767f46.html" title="使用Github Action实现全自动部署">
+                    <img class="cover" src="https://w0xking.github.io/picx-images-hosting/战双-(13).5j3zkzl4xf.jpg" alt="cover">
+                    <div class="content is-center">
+                        <div class="title">使用Github Action实现全自动部署</div>
+                    </div>
+                </a>
+            </div>
+            </div>
+        </div><div id="post-comment"><div class="comment-head"><div class="comment-headline"><i class="solitude fas fa-comment"></i><span> 评论</span><span class="count"> (<span class="twikoo-count"><i class="solitude fas fa-spinner fa-spin"></i></span>)</span></div></div><div class="comment-wrap"><div id="twikoo-wrap"></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="card-content"><div class="card-info-avatar is-center"><div class="top-group"><div class="sayhi" id="sayhi" onclick="sco.changeWittyWord()"></div></div></div><div class="avatar"><img alt="头像" src="https://img.skyk.us.kg/file/1741221516032_02_2tx.png"><div class="sticker"><img class="sticker-img" src="https://expression.qjqq.cn/1/65e92ca37b4e6.gif" alt="心情贴纸"></div></div><div class="description">欢迎来到空天之境！</div><div class="bottom-group"><span class="left"><div class="name">SkyKing</div><div class="desc">运气从不眷顾无准备之人！要来点运气吗？</div></span><div class="social-icons is-center"><a class="social-icon" target="_blank" rel="noopener" href="https://github.com/#" title="Github"><i class="solitude  fab fa-github"></i></a><a class="social-icon" target="_blank" rel="noopener" href="https://space.bilibili.com/#" title="Bilibili"><i class="solitude  fab fa-bilibili"></i></a></div></div></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="solitude fas fa-bars"></i><span>文章目录</span></div><div class="toc-content" id="toc-content"><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link"><span class="toc-text"></span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%8D%9A%E5%AE%A2%E7%8E%AF%E5%A2%83%E6%90%AD%E5%BB%BA"><span class="toc-text">一、博客环境搭建</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E4%B8%8B%E8%BD%BDGit%E5%92%8CNode-js"><span class="toc-text">1.下载Git和Node.js</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#1-Node-js%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE"><span class="toc-text">1.Node.js的安装与配置</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-2-Git%E7%9A%84%E5%AE%89%E8%A3%85%E4%B8%8E%E9%85%8D%E7%BD%AE"><span class="toc-text">1.2 Git的安装与配置</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#1-3-%E4%BF%AE%E6%94%B9%E9%85%8D%E7%BD%AE%E6%96%87%E4%BB%B6%E8%A6%81%E7%94%A8%E5%88%B0%E7%9A%84%E8%BD%AF%E4%BB%B6%EF%BC%9A"><span class="toc-text">1.3 修改配置文件要用到的软件：</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%8C%E3%80%81Github%E6%B3%A8%E5%86%8C%E4%BB%A5%E5%8F%8AGithub-Pages%E5%88%9B%E5%BB%BA"><span class="toc-text">二、Github注册以及Github Pages创建</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%89%93%E5%BC%80Github%E5%AE%98%E7%BD%91"><span class="toc-text">打开Github官网</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%89%E3%80%81%E9%85%8D%E7%BD%AEGit%E7%94%A8%E6%88%B7%E5%90%8D%E5%92%8C%E9%82%AE%E7%AE%B1"><span class="toc-text">三、配置Git用户名和邮箱</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%9B%9B%E3%80%81%E6%9C%AC%E5%9C%B0%E5%AE%89%E8%A3%85%E4%BB%A5%E5%8F%8A%E5%8F%91%E5%B8%83"><span class="toc-text">四、本地安装以及发布</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%AE%89%E8%A3%85%E5%88%B0%E6%9C%AC%E5%9C%B0"><span class="toc-text">1.安装到本地</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E6%9C%AC%E5%9C%B0%E5%8D%9A%E5%AE%A2%E5%8F%91%E5%B8%83%E5%88%B0Github-Pages"><span class="toc-text">2. 本地博客发布到Github Pages</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%BA%94%E3%80%81hexo%E5%8D%9A%E5%AE%A2%E4%B8%BB%E9%A2%98%E5%AE%89%E8%A3%85%E4%B8%8E%E4%BF%AE%E6%94%B9"><span class="toc-text">五、hexo博客主题安装与修改</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E4%B8%BB%E9%A2%98%E4%B8%8B%E8%BD%BD%E4%B8%8E%E5%AE%89%E8%A3%85"><span class="toc-text">1. 主题下载与安装</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E4%B8%BB%E9%A2%98%E9%85%8D%E7%BD%AE"><span class="toc-text">2. 主题配置</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#2-1-%E5%88%87%E6%8D%A2%E4%B8%BB%E9%A2%98"><span class="toc-text">2.1 切换主题</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-2-%E6%96%B0%E5%BB%BA%E6%A0%87%E7%AD%BE-tags-%E9%A1%B5%E9%9D%A2"><span class="toc-text">2.2 新建标签 tags 页面</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-3-%E6%96%B0%E5%BB%BA%E5%88%86%E7%B1%BB-categories-%E9%A1%B5%E9%9D%A2"><span class="toc-text">2.3 新建分类 categories 页面</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-4-%E6%96%B0%E5%BB%BA%E5%85%B3%E4%BA%8E%E6%88%91-about-%E9%A1%B5%E9%9D%A2"><span class="toc-text">2.4 新建关于我 about 页面</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-5-%E6%96%B0%E5%BB%BA%E7%95%99%E8%A8%80%E6%9D%BF-contact-%E9%A1%B5%E9%9D%A2-%E5%8F%AF%E9%80%89"><span class="toc-text">2.5 新建留言板 contact 页面 (可选)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-6-%E6%96%B0%E5%BB%BA%E5%8F%8B%E6%83%85%E9%93%BE%E6%8E%A5-friends-%E9%A1%B5%E9%9D%A2-%E5%8F%AF%E9%80%89"><span class="toc-text">2.6 新建友情链接 friends 页面 (可选)</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-7-%E8%8F%9C%E5%8D%95%E5%AF%BC%E8%88%AA%E9%85%8D%E7%BD%AE"><span class="toc-text">2.7 菜单导航配置</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#2-7-1-%E9%85%8D%E7%BD%AE%E5%9F%BA%E6%9C%AC%E8%8F%9C%E5%8D%95%E5%AF%BC%E8%88%AA%E7%9A%84%E5%90%8D%E7%A7%B0%E3%80%81%E8%B7%AF%E5%BE%84url%E5%92%8C%E5%9B%BE%E6%A0%87icon"><span class="toc-text">2.7.1 配置基本菜单导航的名称、路径url和图标icon.</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#2-7-2-%E4%BA%8C%E7%BA%A7%E8%8F%9C%E5%8D%95%E9%85%8D%E7%BD%AE%E6%96%B9%E6%B3%95"><span class="toc-text">2.7.2. 二级菜单配置方法</span></a></li></ol></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-8-%E6%B7%BB%E5%8A%A0emoji%E8%A1%A8%E6%83%85%E6%94%AF%E6%8C%81%EF%BC%88%E5%8F%AF%E9%80%89%E7%9A%84%EF%BC%89"><span class="toc-text">2.8 添加emoji表情支持（可选的）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-9-%E4%BB%A3%E7%A0%81%E9%AB%98%E4%BA%AE"><span class="toc-text">2.9 代码高亮</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-10-%E6%90%9C%E7%B4%A2"><span class="toc-text">2.10 搜索</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-11-%E4%B8%AD%E6%96%87%E9%93%BE%E6%8E%A5%E8%BD%AC%E6%8B%BC%E9%9F%B3%EF%BC%88%E5%8F%AF%E9%80%89%E7%9A%84%EF%BC%89"><span class="toc-text">2.11 中文链接转拼音（可选的）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-12-%E6%96%87%E7%AB%A0%E5%AD%97%E6%95%B0%E7%BB%9F%E8%AE%A1%E6%8F%92%E4%BB%B6%EF%BC%88%E5%8F%AF%E9%80%89%E7%9A%84%EF%BC%89"><span class="toc-text">2.12 文章字数统计插件（可选的）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-14-%E6%B7%BB%E5%8A%A0-DaoVoice-%E5%9C%A8%E7%BA%BF%E8%81%8A%E5%A4%A9%E5%8A%9F%E8%83%BD%EF%BC%88%E5%8F%AF%E9%80%89%E7%9A%84%EF%BC%89"><span class="toc-text">2.14 添加 DaoVoice 在线聊天功能（可选的）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-15-%E6%B7%BB%E5%8A%A0-Tidio-%E5%9C%A8%E7%BA%BF%E8%81%8A%E5%A4%A9%E5%8A%9F%E8%83%BD%EF%BC%88%E5%8F%AF%E9%80%89%E7%9A%84%EF%BC%89"><span class="toc-text">2.15 添加 Tidio 在线聊天功能（可选的）</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-16-%E4%BF%AE%E6%94%B9%E9%A1%B5%E8%84%9A"><span class="toc-text">2.16 修改页脚</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-17-%E4%BF%AE%E6%94%B9%E7%A4%BE%E4%BA%A4%E9%93%BE%E6%8E%A5"><span class="toc-text">2.17 修改社交链接</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-18-%E4%BF%AE%E6%94%B9%E6%89%93%E8%B5%8F%E7%9A%84%E4%BA%8C%E7%BB%B4%E7%A0%81%E5%9B%BE%E7%89%87"><span class="toc-text">2.18 修改打赏的二维码图片</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#2-19-%E9%85%8D%E7%BD%AE%E9%9F%B3%E4%B9%90%E6%92%AD%E6%94%BE%E5%99%A8%EF%BC%88%E5%8F%AF%E9%80%89%E7%9A%84%EF%BC%89"><span class="toc-text">2.19 配置音乐播放器（可选的）</span></a></li></ol></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E6%96%87%E7%AB%A0-Front-matter-%E4%BB%8B%E7%BB%8D"><span class="toc-text">3. 文章 Front-matter 介绍</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E6%95%88%E6%9E%9C%E6%88%AA%E5%9B%BE"><span class="toc-text">4. 效果截图</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E8%87%AA%E5%AE%9A%E5%88%B6%E4%BF%AE%E6%94%B9"><span class="toc-text">5. 自定制修改</span></a><ol class="toc-child"><li class="toc-item toc-level-5"><a class="toc-link" href="#5-1-%E4%BF%AE%E6%94%B9%E4%B8%BB%E9%A2%98%E9%A2%9C%E8%89%B2"><span class="toc-text">5.1 修改主题颜色</span></a></li><li class="toc-item toc-level-5"><a class="toc-link" href="#5-3-%E4%BF%AE%E6%94%B9%E7%BD%91%E7%AB%99%E7%9B%B8%E5%85%B3%E4%BF%A1%E6%81%AF"><span class="toc-text">5.3 修改网站相关信息</span></a></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%AD%E3%80%81hexo%E5%8D%9A%E5%AE%A2%E7%BE%8E%E5%8C%96%EF%BC%88DIY%EF%BC%89"><span class="toc-text">六、hexo博客美化（DIY）</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%8A%A8%E6%80%81%E6%A0%87%E9%A2%98"><span class="toc-text">1. 动态标题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E4%BF%AE%E6%94%B9%E5%AF%BC%E8%88%AA%E6%A0%8F%E9%A2%9C%E8%89%B2%E4%BB%A5%E5%8F%8A%E9%80%8F%E6%98%8E%E6%95%88%E6%9E%9C"><span class="toc-text">2. 修改导航栏颜色以及透明效果</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E6%B7%BB%E5%8A%A0%E5%8A%A8%E6%80%81%E8%AF%97%E8%AF%8D"><span class="toc-text">3. 添加动态诗词</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E9%BC%A0%E6%A0%87%E7%82%B9%E5%87%BB%E6%96%87%E5%AD%97%E7%89%B9%E6%95%88"><span class="toc-text">4. 鼠标点击文字特效</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#5-%E4%BF%AE%E6%94%B9%E5%8E%9F%E6%9C%89%E7%9B%B8%E5%86%8C"><span class="toc-text">5. 修改原有相册</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#6-%E6%B7%BB%E5%8A%A0%E5%A4%A9%E6%B0%94%E5%B0%8F%E6%8F%92%E4%BB%B6"><span class="toc-text">6. 添加天气小插件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#7-%E5%85%B3%E4%BA%8E%E6%88%91%E9%A1%B5%E9%9D%A2%E6%B7%BB%E5%8A%A0%E4%B8%AA%E4%BA%BA%E7%AE%80%E5%8E%86"><span class="toc-text">7. 关于我页面添加个人简历</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#8-%E8%B1%86%E7%93%A3%E4%B9%A6%E5%8D%95%E7%94%B5%E5%BD%B1%E9%A1%B5%E9%9D%A2"><span class="toc-text">8. 豆瓣书单电影页面</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#9-%E5%A4%96%E9%93%BE%E8%B7%B3%E8%BD%AC%E6%8F%92%E4%BB%B6"><span class="toc-text">9. 外链跳转插件</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#10-%E6%B7%BB%E5%8A%A0%E5%8A%A8%E6%80%81%E7%A7%91%E6%8A%80%E7%BA%BF%E6%9D%A1%E8%83%8C%E6%99%AF"><span class="toc-text">10. 添加动态科技线条背景</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#11-%E6%B7%BB%E5%8A%A0%E9%BC%A0%E6%A0%87%E7%82%B9%E5%87%BB%E7%83%9F%E8%8A%B1%E7%88%86%E7%82%B8%E6%95%88%E6%9E%9C"><span class="toc-text">11. 添加鼠标点击烟花爆炸效果</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#12-%E6%B7%BB%E5%8A%A0%E6%A8%B1%E8%8A%B1%E9%A3%98%E8%90%BD%E6%95%88%E6%9E%9C"><span class="toc-text">12. 添加樱花飘落效果</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#13-%E6%B7%BB%E5%8A%A0%E9%BC%A0%E6%A0%87%E5%BD%A9%E8%99%B9%E6%98%9F%E6%98%9F%E6%8E%89%E8%90%BD%E8%B7%9F%E9%9A%8F%E6%95%88%E6%9E%9C"><span class="toc-text">13. 添加鼠标彩虹星星掉落跟随效果</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#14-%E6%B7%BB%E5%8A%A0%E9%9B%AA%E8%8A%B1%E9%A3%98%E8%90%BD%E6%95%88%E6%9E%9C"><span class="toc-text">14. 添加雪花飘落效果</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#15-%E6%B7%BB%E5%8A%A0%E8%87%AA%E5%AE%9A%E4%B9%89%E9%A1%B5%E9%9D%A2"><span class="toc-text">15. 添加自定义页面</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#16-%E6%B7%BB%E5%8A%A0404%E9%A1%B5%E9%9D%A2"><span class="toc-text">16. 添加404页面</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#17-%E6%96%87%E7%AB%A0%E7%94%9F%E6%88%90%E6%B0%B8%E4%B9%85%E9%93%BE%E6%8E%A5"><span class="toc-text">17. 文章生成永久链接</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E6%B7%BB%E5%8A%A0%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F"><span class="toc-text">七、添加评论系统</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#%E6%B7%BB%E5%8A%A0%E6%9D%A5%E5%BF%85%E5%8A%9B%E8%AF%84%E8%AE%BA%E7%B3%BB%E7%BB%9F"><span class="toc-text">添加来必力评论系统</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#%E5%85%AB%E3%80%81%E6%88%90%E5%8A%9F%E4%BA%86"><span class="toc-text">八、成功了</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#-1"><span class="toc-text"></span></a></li></ol></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="solitude fas fa-map"></i><span>最近发布</span></div><div class="aside-list"><a class="aside-list-item" href="/posts/886c.html" title="西北大学现代学院机房升级改造"><div class="thumbnail"><img alt="西北大学现代学院机房升级改造" src="https://w0xking.github.io/picx-images-hosting/战双-(25).4ckocdw8i3.jpg"></div><div class="content"><span class="title" href="/posts/886c.html" title="西北大学现代学院机房升级改造">西北大学现代学院机房升级改造</span><span class="categories" href="/posts/886c.html">工作记录</span></div></a><a class="aside-list-item" href="/posts/f5a4.html" title="八项规定精神学习"><div class="thumbnail"><img alt="八项规定精神学习" src="https://img.skyk.us.kg/file/1747134810369_zybxgd.png"></div><div class="content"><span class="title" href="/posts/f5a4.html" title="八项规定精神学习">八项规定精神学习</span><span class="categories" href="/posts/f5a4.html">党务</span></div></a><a class="aside-list-item" href="/posts/d802.html" title="逆向API实现AI chat自由"><div class="thumbnail"><img alt="逆向API实现AI chat自由" src="https://w0xking.github.io/picx-images-hosting/战双-(23).2a4vobxnfx.jpg"></div><div class="content"><span class="title" href="/posts/d802.html" title="逆向API实现AI chat自由">逆向API实现AI chat自由</span><span class="categories" href="/posts/d802.html">网络安全</span></div></a><a class="aside-list-item" href="/posts/5de8.html" title="IP协议与DNS协议在Web网站中的应用"><div class="thumbnail"><img alt="IP协议与DNS协议在Web网站中的应用" src="https://w0xking.github.io/picx-images-hosting/战双-(22).6m3ovvgyxl.jpg"></div><div class="content"><span class="title" href="/posts/5de8.html" title="IP协议与DNS协议在Web网站中的应用">IP协议与DNS协议在Web网站中的应用</span><span class="categories" href="/posts/5de8.html">网络技术</span></div></a><a class="aside-list-item" href="/posts/a7b4.html" title="文体馆部分操作"><div class="thumbnail"><img alt="文体馆部分操作" src="https://w0xking.github.io/picx-images-hosting/战双-(20).86tfvce6cy.jpg"></div><div class="content"><span class="title" href="/posts/a7b4.html" title="文体馆部分操作">文体馆部分操作</span><span class="categories" href="/posts/a7b4.html">工作记录</span></div></a></div></div></div></div></main><footer id="footer"><div id="st-footer-bar"><div class="footer-logo"><span>空天之境</span></div><div class="footer-bar-description"></div><a class="footer-bar-link" href="/about/"></a></div><div id="footer_deal"><a class="deal_link" target="_blank" rel="noopener" href="https://github.com/w0xking" title="Github"><i class="solitude  fab fa-github"></i></a><a class="deal_link" href="mailto:kking@iubridge.com" title="Mail"><i class="solitude  solitude fas fa-envelope-open"></i></a><div class="nolazyload footer_mini_logo" id="footer_mini_logo" title="返回顶部" onclick="sco.toTop()"><img src="/img/02_2tx.png" alt="返回顶部"></div><a class="deal_link" target="_blank" rel="noopener" href="https://space.bilibili.com/#" title="Bilibili"><i class="solitude  fab fa-bilibili"></i></a><a class="deal_link" target="_blank" rel="noopener" href="https://v.douyin.com/#/" title="Douyin"><i class="solitude  fab fa-tiktok"></i></a></div><div id="st-footer"><div class="footer-group"><h3 class="footer-title">导航</h3><div class="footer-links"><a class="footer-item" href="/archives/" title="Archives">Archives</a><a class="footer-item" href="/categories/" title="Categories">Categories</a><a class="footer-item" href="/tags/" title="Tags">Tags</a></div></div><div class="footer-group"><h3 class="footer-title">排列</h3><div class="footer-links"><a class="footer-item" href="/cookies/" title="Cookies">Cookies</a><a class="footer-item" href="/privacy/" title="Privacy">Privacy</a><a class="footer-item" href="/copyright/" title="Copyright">Copyright</a></div></div><div class="footer-group"><div class="footer-title-group"><h3 class="footer-title">友链</h3><button class="random-friends-btn" onclick="randomLinksList()" title="友链"><i class="solitude fas fa-arrows-rotate"></i></button></div><div class="footer-links" id="friend-links-in-footer"></div></div></div><div id="footer-bar"><div class="footer-bar-links"><div class="footer-bar-left"><div class="copyright">© 2021 - 2025 By&nbsp;<a class="footer-bar-link" href="/"><img class="author-avatar" src="/img/favicon.ico">SkyKing</a></div><div class="beian-group"><a class="footer-bar-link" target="_blank" rel="noopener" href="https://beian.mps.gov.cn/#/query/webSearch" title="陕公网安备X号"><img class="beian-icon" src="https://beian.mps.gov.cn/img/logo01.dd7ff50e.png" alt="陕公网安备X号"><span class="beian-name">陕公网安备X号</span></a><a class="footer-bar-link" target="_blank" rel="noopener" href="https://beian.miit.gov.cn/" title="陕ICP备19020595号"><span class="beian-name">陕ICP备19020595号</span></a></div></div><div class="footer-bar-right"><a class="footer-bar-link" href="/atom.xml" alt="RSS">RSS</a><a class="footer-bar-link" target="_blank" rel="noopener" href="https://github.com/everfu/hexo-theme-solitude/blob/main/LICENSE" alt="License"><i class="solitude fas fa-copyright"></i><i class="solitude fab fa-creative-commons-by"></i><i class="solitude fab fa-creative-commons-nc"></i><i class="solitude fab fa-creative-commons-nd"></i></a></div></div></div><div class="comment-barrage needEndHide"></div></footer></div><!-- right_menu--><div id="rightMenu"><div class="rightMenu-group rightMenu-small"><div class="rightMenu-item" id="menu-backward"><i class="solitude fas fa-arrow-left"></i></div><div class="rightMenu-item" id="menu-forward"><i class="solitude fas fa-arrow-right"></i></div><div class="rightMenu-item" id="menu-refresh"><i class="solitude fas fa-arrows-rotate"></i></div><div class="rightMenu-item" id="menu-top"><i class="solitude fas fa-arrow-up"></i></div></div><div class="rightMenu-group rightMenu-line rightMenuPlugin"><div class="rightMenu-item" id="menu-copytext"><i class="solitude fas fa-clone"></i><span>复制选中文本</span></div><div class="rightMenu-item" id="menu-pastetext"><i class="solitude fas fa-clipboard"></i><span>粘贴文本</span></div><div class="rightMenu-item" id="menu-commenttext"><i class="solitude fas fa-comment-medical"></i><span>引用到评论</span></div><div class="rightMenu-item" id="menu-newwindow"><i class="solitude far fa-window-maximize"></i><span>新窗口打开</span></div><div class="rightMenu-item" id="menu-copylink"><i class="solitude fas fa-link"></i><span>复制链接地址</span></div><div class="rightMenu-item" id="menu-copyimg"><i class="solitude fas fa-clone"></i><span>复制此图片</span></div><div class="rightMenu-item" id="menu-downloadimg"><i class="solitude fas fa-cloud-arrow-down"></i><span>下载此图片</span></div><div class="rightMenu-item" id="menu-search"><i class="solitude fas fa-magnifying-glass"></i><span>站内搜索</span></div><div class="rightMenu-item" id="menu-music-toggle"><i class="solitude fas fa-play"></i><span>播放音乐</span></div><div class="rightMenu-item" id="menu-music-back"><i class="solitude fas fa-backward"></i><span>切换到上一首</span></div><div class="rightMenu-item" id="menu-music-forward"><i class="solitude fas fa-forward"></i><span>切换到下一首</span></div><div class="rightMenu-item" id="menu-music-copyMusicName"><i class="solitude fas fa-clone"></i><span>复制歌名</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><div class="rightMenu-item" id="menu-randomPost" onclick="toRandomPost()||rm.hideRightMenu()"><i class="solitude fas fa-tower-broadcast"></i><span>随机文章</span></div><div class="rightMenu-item" onclick="pjax.loadUrl('/categories/')||rm.hideRightMenu()"><i class="solitude fas fa-clone"></i><span>全部分类</span></div><div class="rightMenu-item" onclick="pjax.loadUrl('/tags/')||rm.hideRightMenu()"><i class="solitude fas fa-tags"></i><span>全部标签</span></div></div><div class="rightMenu-group rightMenu-line rightMenuOther"><div class="rightMenu-item" id="menu-commentBarrage" onclick="sco.switchCommentBarrage()"><i class="solitude fas fa-comment"></i><span class="menu-commentBarrage-text">关闭热评</span></div><div class="rightMenu-item" id="menu-darkmode" onclick="sco.switchDarkMode()"><i class="solitude fas fa-circle-half-stroke"></i><span class="menu-darkmode-text">深色模式</span></div><div class="rightMenu-item" id="menu-translate"><i class="solitude fas fa-language"></i><span>轉為繁體</span></div></div></div><div id="rightmenu-mask"></div><!-- inject body--><div><script src="/js/utils.js?v=3.0.19"></script><script src="/js/main.js?v=3.0.19"></script><script src="/js/third_party/waterfall.min.js?v=3.0.19"></script><script src="https://fastly.jsdelivr.net/npm/pjax@0.2.8/pjax.min.js"></script><script src="https://fastly.jsdelivr.net/npm/qrcodejs@1.0.0/qrcode.min.js"></script><script src="/js/third_party/universe.min.js?v=3.0.19"></script><script>dark()
+</script><script src="https://fastly.jsdelivr.net/npm/vanilla-lazyload@19.1.3/dist/lazyload.iife.min.js"></script><script src="https://fastly.jsdelivr.net/npm/node-snackbar@0.1.16/dist/snackbar.min.js"></script><script src="https://fastly.jsdelivr.net/npm/medium-zoom@1.1.0/dist/medium-zoom.min.js"></script><script src="https://fastly.jsdelivr.net/npm/swiper@11.0.5/swiper-bundle.min.js"></script><script src="/js/post_ai.js?v=3.0.19"></script><script>var meting_api = 'https://meting.qjqq.cn/?server=:server&type=:type&id=:id&auth=:auth&r=:r';</script><script src="https://fastly.jsdelivr.net/npm/aplayer@1.10.1/dist/APlayer.min.js"></script><script src="https://fastly.jsdelivr.net/npm/meting@2.0.1/dist/Meting.min.js"></script><script>const coverColorConfig = {
+  api: 'https://api.qjqq.cn/api/Imgcolor?img=',
+  time: 43200000
+}</script><script src="/js/covercolor/api.js?v=3.0.19"></script><script>window.paceOptions = {
+  restartOnPushState: false
+}
+
+utils.addGlobalFn('pjaxSend', () => {
+  Pace.restart()
+}, 'pace_restart')
+</script><script src="https://fastly.jsdelivr.net/npm/pace-js@1.2.4/pace.min.js"></script><script src="/js/right_menu.js?v=3.0.19"></script><script src="https://open.lightxi.com/unpkg/chinese-lunar@0.1.4/lib/chinese-lunar.js"></script><script defer pjax src="/js/custom.js"></script><script src="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.js"></script><script async data-pjax src="/js/message_us.js"></script><div class="js-pjax"><script>(() => {
+    const getCount = () => {
+        const ele = document.querySelectorAll('.twikoo-count')
+        if (!ele) return
+        twikoo.getCommentsCount({
+            envId: 'https://twikoo.skyk.us.kg/',
+            region: '',
+            urls: [window.location.pathname],
+            includeReply: false
+        }).then(res => {
+            ele.forEach(item => item.textContent = res[0].count)
+        }).catch(err => {
+            console.error(err)
+        })
+    }
+    const init = () => {
+        twikoo.init(Object.assign({
+            el: '#twikoo-wrap',
+            envId: 'https://twikoo.skyk.us.kg/',
+            region: '',
+            path: window.location.pathname,
+            onCommentLoaded: () => {
+                GLOBAL_CONFIG.lightbox && utils.lightbox(document.querySelectorAll('#twikoo .tk-content img:not(.tk-owo-emotion)'))
+            }
+        }, null))
+
+         && getCount()
+        sco.owoBig({
+            body: '.OwO-body',
+            item: '.OwO-items li'
+        })
+
+        true && barrageTwikoo()
+    }
+
+    const loadTwikoo = () => {
+        if (typeof twikoo === 'object') setTimeout(init,0)
+        else utils.getScript('https://fastly.jsdelivr.net/npm/twikoo@1.6.41/dist/twikoo.all.min.js').then(init)
+    }
+
+    if ('Twikoo' === 'Twikoo' || false) {
+        if (false) utils.loadComment(document.getElementById('twikoo-wrap'), loadTwikoo)
+        else loadTwikoo()
+    } else {
+        window.loadTwoComment = loadTwikoo
+    }
+})()
+</script><script>async function barrageTwikoo() {
+    await fetch("https://twikoo.skyk.us.kg/", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            event: "COMMENT_GET",
+            accessToken: "",
+            url: window.location.pathname
+        })
+    }).then(async res => {
+        if (!res.ok) throw new Error("HTTP error! status: " + res.status)
+        const data = await res.json();
+        const init = () => {
+            initializeCommentBarrage((data.data).map(item => Object.assign({
+                content: item.comment,
+                nick: item.nick,
+                mailMd5: item.mailMd5,
+                id: item.id
+            })))
+        }
+        if (typeof initializeCommentBarrage === "undefined") await utils.getScript('/js/third_party/barrage.min.js?v=3.0.19').then(init)
+        else init()
+    }).catch(error => console.error("An error occurred while fetching comments: ", error))
+}</script></div></div><script>const links = [{"name":"0xking","link":"https://w0xking.github.io/"},{"name":"isYangs","link":"https://isyangs.cn"},{"name":"张洪Heo","link":"https://blog.zhheo.com/"},{"name":"唐志远","link":"https://fe32.top/"},{"name":"安知鱼","link":"https://blog.anheyu.com/"},{"name":"Fomalhaut🥝","link":"https://www.fomal.cc/"},{"name":"刘旭辉","link":"https://akilar.top/"},{"name":"御网尚书的小宇宙","link":"https://www.siteweb.cn/"},{"name":"SaDuck","link":"https://www.saduck.top"},{"name":"颍川","link":"https://www.yingchuan.us.kg/"}]
+const randomText = '点击前往按钮进入随机一个友链，不保证跳转网站的安全性和可用性。本次随机到的是本站友链：⌈ ${name} ⌋'
+function travelling() {
+    const link = links[utils.randomNum(links.length)];
+    Snackbar.show({
+        text: randomText.replace(/\$\{name}/,link.name),
+        duration: 8000,
+        pos: 'top-center',
+        actionText: '前往',
+        onActionClick: function(element) {
+            element.style.opacity = 0;
+            window.open(link.link, '_blank');
+        }
+    });
+}
+</script><script>function randomLinksList() {
+    const linkcard = document.getElementById('friend-links-in-footer');
+    if (linkcard == null) return;
+
+    let data = '';
+    let linksCopy = [...links];
+    let count = Math.min(3, linksCopy.length);
+
+    for (let i = 0; i < count; i++) {
+        let index = utils.randomNum(linksCopy.length);
+        const {link, name} = linksCopy[index];
+        data += `<a class="footer-item" href="${link}" target="_blank" rel="noopener noreferrer nofollow">${name}</a>`;
+        linksCopy.splice(index, 1);
+    }
+
+    linkcard.innerHTML = data + '<a class="footer-item" href="/links/">更多</a>';
+}</script><!-- pjax--><script>const pjax = new Pjax({
+    elements: 'a:not([target="_blank"])',
+    selectors: ["title","#body-wrap","#site-config","meta[name=\"description\"]",".js-pjax","meta[property^=\"og:\"]","#config-diff",".rs_show",".rs_hide"],
+    cacheBust: false,
+    analytics: false,
+    scrollRestoration: false
+})
+
+document.querySelectorAll('script[data-pjax]').forEach(item => {
+    const newScript = document.createElement('script')
+    const content = item.text || item.textContent || item.innerHTML || ""
+    Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+    newScript.appendChild(document.createTextNode(content))
+    item.parentNode.replaceChild(newScript, item)
+})
+
+document.addEventListener('pjax:complete', () => {
+    window.refreshFn()
+
+    document.querySelectorAll('script[data-pjax]').forEach(item => {
+        const newScript = document.createElement('script')
+        const content = item.text || item.textContent || item.innerHTML || ""
+        Array.from(item.attributes).forEach(attr => newScript.setAttribute(attr.name, attr.value))
+        newScript.appendChild(document.createTextNode(content))
+        item.parentNode.replaceChild(newScript, item)
+    })
+
+    GLOBAL_CONFIG.islazyload && window.lazyLoadInstance.update()
+
+})
+
+document.addEventListener('pjax:error', (e) => {
+    if (e.request.status === 404) {
+        pjax.loadUrl('/404.html')
+    }
+})</script><!-- google adsense--><!-- search--><div id="local-search"><div class="search-dialog"><nav class="search-nav"><span class="search-dialog-title">搜索</span><button class="search-close-button"><i class="solitude fas fa-xmark"></i></button></nav><div class="search-wrap"><div class="search-box"><input class="search-box-input" id="search-input" type="text" autocomplete="off" spellcheck="false" autocorrect="off" autocapitalize="off" placeholder="输入关键词快速查找"></div><div id="search-results"><div id="search-hits"><a class="tag-list" href="javascript:void(0);" onclick="pjax.loadUrl('/tags/%E7%83%AD%E9%97%A8/')">热门</a><a class="tag-list" href="javascript:void(0);" onclick="pjax.loadUrl('/tags/%E6%8E%A8%E8%8D%90/')">推荐</a></div></div><div id="search-pagination"></div><div id="search-tips"></div></div></div><div id="search-mask"></div></div><script src="/js/search/local.js?v=3.0.19"></script><!-- music--><div class="needEndHide" id="nav-music"><div id="nav-music-hoverTips" onclick="sco.musicToggle()">音乐已暂停</div><meting-js id="8407304077" server="netease" type="playlist" mutex="true" preload="none" theme="var(--efu-main)" data-lrctype="0" order="random" volume="0.8"></meting-js></div></body></html>
+        <script>
+            const posts = ["posts/886c.html","posts/f5a4.html","posts/d802.html","posts/5de8.html","posts/a7b4.html","posts/8fa9.html","posts/4340.html","posts/d2d7725.html","posts/8f9926b7.html","posts/41767f46.html","posts/af9e54a7.html","posts/c636442c.html","posts/b01882d5.html","posts/da81a947.html","posts/494f7a99.html","posts/8e6daf7b.html","posts/e7654e82.html","posts/b85a533c.html","posts/e9f0bb2c.html","posts/548d9c19.html","posts/dc8d366.html","posts/cb557a52.html","posts/417e2c66.html","posts/dabe8c2.html","posts/5372cc32.html","posts/4ea940d2.html","posts/f0a4488f.html"];
+            function toRandomPost() {
+                const randomPost = posts[Math.floor(Math.random() * posts.length)];
+                pjax.loadUrl(GLOBAL_CONFIG.root + randomPost);
+            }
+        </script>
